@@ -9,70 +9,55 @@ import {
   PositionsResponse,
   ReportsResponse,
 } from '@/lib/schemas';
-import {
-  getMockOverview,
-  getMockPerformance,
-  getMockAllocation,
-  getMockActivity,
-  getMockCash,
-  getMockPlanning,
-  getMockPositions,
-  getMockReports,
-} from './mock-api-data'
+import { fetchData, apiClient } from './api-client';
 
-// Mock fetch function that returns household-specific data
-async function fetchMockData<T>(
+// Enhanced fetch function that uses the new API client with database and fallback support
+async function fetchDataWithFallback<T>(
   householdId: string,
   dataType: string,
   range?: string
 ): Promise<T> {
-  // Simulate network delay
-  await new Promise(resolve => setTimeout(resolve, 100 + Math.random() * 200));
+  // Add a small delay to simulate network activity (can be removed in production)
+  await new Promise(resolve => setTimeout(resolve, 50 + Math.random() * 100));
   
-  switch (dataType) {
-    case 'overview':
-      return getMockOverview(householdId) as T;
-    case 'performance':
-      return getMockPerformance(householdId, range || '6M') as T;
-    case 'allocation':
-      return getMockAllocation(householdId) as T;
-    case 'activity':
-      return getMockActivity(householdId) as T;
-    case 'cash':
-      return getMockCash(householdId, range || '6M') as T;
-    case 'planning':
-      return getMockPlanning(householdId) as T;
-    case 'positions':
-      return getMockPositions(householdId) as T;
-    case 'reports':
-      return getMockReports(householdId) as T;
-    default:
-      throw new Error(`Unknown data type: ${dataType}`);
-  }
+  return fetchData<T>(householdId, dataType, range);
 }
 
 // Query keys factory
 export const queryKeys = {
+  households: () => ['households'],
   household: (id: string) => ['household', id],
   overview: (id: string) => ['household', id, 'overview'],
   performance: (id: string, range: string) => ['household', id, 'performance', range],
   allocation: (id: string) => ['household', id, 'allocation'],
   activity: (id: string, limit?: number, offset?: number) => 
     ['household', id, 'activity', { limit, offset }],
-  cash: (id: string) => ['household', id, 'cash'],
+  cash: (id: string, range: string) => ['household', id, 'cash', range],
   planning: (id: string) => ['household', id, 'planning'],
   positions: (id: string) => ['household', id, 'positions'],
   reports: (id: string) => ['household', id, 'reports'],
 };
 
 // Hooks
+export function useHouseholds(options?: UseQueryOptions<any>) {
+  return useQuery({
+    queryKey: queryKeys.households(),
+    queryFn: async () => {
+      const response = await apiClient.getHouseholds();
+      return response.data;
+    },
+    staleTime: 2 * 60 * 1000, // 2 minutes
+    ...options,
+  });
+}
+
 export function useOverview(
   householdId: string,
   options?: UseQueryOptions<OverviewResponse>
 ) {
   return useQuery({
     queryKey: queryKeys.overview(householdId),
-    queryFn: () => fetchMockData<OverviewResponse>(householdId, 'overview'),
+    queryFn: () => fetchDataWithFallback<OverviewResponse>(householdId, 'overview'),
     staleTime: 5 * 60 * 1000, // 5 minutes
     ...options,
   });
@@ -85,7 +70,7 @@ export function usePerformance(
 ) {
   return useQuery({
     queryKey: queryKeys.performance(householdId, range),
-    queryFn: () => fetchMockData<PerformanceResponse>(householdId, 'performance', range),
+    queryFn: () => fetchDataWithFallback<PerformanceResponse>(householdId, 'performance', range),
     staleTime: 10 * 60 * 1000, // 10 minutes
     ...options,
   });
@@ -97,7 +82,7 @@ export function useAllocation(
 ) {
   return useQuery({
     queryKey: queryKeys.allocation(householdId),
-    queryFn: () => fetchMockData<AllocationResponse>(householdId, 'allocation'),
+    queryFn: () => fetchDataWithFallback<AllocationResponse>(householdId, 'allocation'),
     staleTime: 15 * 60 * 1000, // 15 minutes
     ...options,
   });
@@ -111,7 +96,7 @@ export function useActivity(
 ) {
   return useQuery({
     queryKey: queryKeys.activity(householdId, limit, offset),
-    queryFn: () => fetchMockData<ActivityResponse>(householdId, 'activity'),
+    queryFn: () => fetchDataWithFallback<ActivityResponse>(householdId, 'activity'),
     staleTime: 2 * 60 * 1000, // 2 minutes
     ...options,
   });
@@ -123,8 +108,8 @@ export function useCash(
   options?: UseQueryOptions<CashResponse>
 ) {
   return useQuery({
-    queryKey: [...queryKeys.cash(householdId), 'range', range],
-    queryFn: () => fetchMockData<CashResponse>(householdId, 'cash', range),
+    queryKey: queryKeys.cash(householdId, range),
+    queryFn: () => fetchDataWithFallback<CashResponse>(householdId, 'cash', range),
     staleTime: 10 * 60 * 1000, // 10 minutes
     ...options,
   });
@@ -136,7 +121,7 @@ export function usePlanning(
 ) {
   return useQuery({
     queryKey: queryKeys.planning(householdId),
-    queryFn: () => fetchMockData<PlanningResponse>(householdId, 'planning'),
+    queryFn: () => fetchDataWithFallback<PlanningResponse>(householdId, 'planning'),
     staleTime: 30 * 60 * 1000, // 30 minutes
     ...options,
   });
@@ -148,7 +133,7 @@ export function usePositions(
 ) {
   return useQuery({
     queryKey: queryKeys.positions(householdId),
-    queryFn: () => fetchMockData<PositionsResponse>(householdId, 'positions'),
+    queryFn: () => fetchDataWithFallback<PositionsResponse>(householdId, 'positions'),
     staleTime: 5 * 60 * 1000, // 5 minutes
     ...options,
   });
@@ -160,7 +145,7 @@ export function useReports(
 ) {
   return useQuery({
     queryKey: queryKeys.reports(householdId),
-    queryFn: () => fetchMockData<ReportsResponse>(householdId, 'reports'),
+    queryFn: () => fetchDataWithFallback<ReportsResponse>(householdId, 'reports'),
     staleTime: 60 * 60 * 1000, // 1 hour
     ...options,
   });

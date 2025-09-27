@@ -8,6 +8,7 @@ import logging
 from typing import Dict, Callable, Optional, List, Any
 from uuid import uuid4
 from datetime import datetime, timedelta
+import concurrent.futures
 
 from common.schemas import A2AMessage, A2AResponse, AgentType, MessageStatus
 from common.config import get_settings
@@ -17,6 +18,7 @@ try:
     from azure.servicebus import ServiceBusClient, ServiceBusMessage
     from azure.servicebus.aio import ServiceBusClient as AsyncServiceBusClient
     from azure.servicebus.aio import ServiceBusReceiver, ServiceBusSender
+    from azure.core.credentials import AccessToken
     from common.auth import get_credential
     AZURE_AVAILABLE = True
 except ImportError:
@@ -25,6 +27,24 @@ except ImportError:
     logger.warning("Azure Service Bus not available, using mock broker for local development")
 
 logger = logging.getLogger(__name__)
+
+
+class AsyncCredentialWrapper:
+    """Wrapper to make synchronous credentials work with async Service Bus clients."""
+    
+    def __init__(self, credential):
+        self._credential = credential
+    
+    async def get_token(self, *scopes, **kwargs) -> AccessToken:
+        """Get token asynchronously using thread pool."""
+        loop = asyncio.get_event_loop()
+        with concurrent.futures.ThreadPoolExecutor() as executor:
+            token = await loop.run_in_executor(
+                executor, 
+                self._credential.get_token, 
+                *scopes
+            )
+        return token
 
 
 class MockA2ABroker:
@@ -36,7 +56,7 @@ class MockA2ABroker:
     
     async def publish(self, message: A2AMessage) -> bool:
         """Mock publish - just log the message."""
-        logger.info(f"Mock publish from {self.agent_name}: {message.message_type}")
+        logger.info(f"Mock publish from {self.agent_name}: {message.intent}")
         return True
     
     async def start_listening(self):
@@ -85,30 +105,28 @@ class A2ABroker:
     async def _get_client(self) -> AsyncServiceBusClient:
         """Get or create Azure Service Bus client."""
         if self._client is None:
-            # Try connection string first, then fall back to credential
-            if hasattr(self.settings, 'service_bus_connection_string') and self.settings.service_bus_connection_string:
-                self._client = AsyncServiceBusClient.from_connection_string(
-                    self.settings.service_bus_connection_string
+            # Use credential-based authentication (AAD) as SAS is disabled
+            credential = get_credential()
+            
+            # Wrap the credential to make it async-compatible
+            async_credential = AsyncCredentialWrapper(credential)
+            
+            # Use just the namespace without https:// prefix for FQDN
+            fully_qualified_namespace = self.settings.service_bus_namespace
+            if fully_qualified_namespace.startswith("https://"):
+                fully_qualified_namespace = fully_qualified_namespace.replace("https://", "")
+            
+            logger.info(f"Connecting to Service Bus using AAD credentials: {fully_qualified_namespace}")
+            
+            try:
+                self._client = AsyncServiceBusClient(
+                    fully_qualified_namespace=fully_qualified_namespace,
+                    credential=async_credential
                 )
-            else:
-                # Use credential-based authentication
-                credential = get_credential()
-                
-                # Use just the namespace without https:// prefix for FQDN
-                fully_qualified_namespace = self.settings.service_bus_namespace
-                if fully_qualified_namespace.startswith("https://"):
-                    fully_qualified_namespace = fully_qualified_namespace.replace("https://", "")
-                
-                # Try using a token-based approach that's more compatible
-                try:
-                    self._client = AsyncServiceBusClient(
-                        fully_qualified_namespace=fully_qualified_namespace,
-                        credential=credential
-                    )
-                except Exception as e:
-                    logger.error(f"Failed to create async client with credential: {e}")
-                    # Fall back to synchronous credential and convert
-                    raise
+                logger.info("✓ Service Bus client created successfully with AAD authentication")
+            except Exception as e:
+                logger.error(f"Failed to create Service Bus client with AAD: {e}")
+                raise
         return self._client
     
     async def _get_sender(self) -> ServiceBusSender:
@@ -151,10 +169,20 @@ class A2ABroker:
     async def publish(self, message: A2AMessage) -> bool:
         """Publish message to Service Bus topic."""
         try:
+            logger.info(f"🚀 ATTEMPTING TO PUBLISH MESSAGE:")
+            logger.info(f"   Message ID: {message.message_id}")
+            logger.info(f"   From Agent: {message.from_agent}")
+            logger.info(f"   To Agents: {message.to_agents}")
+            logger.info(f"   Intent: {message.intent}")
+            logger.info(f"   Payload: {message.payload}")
+            
             sender = await self._get_sender()
+            logger.info(f"✅ Got Service Bus sender successfully")
             
             # Serialize message
             message_body = message.model_dump_json()
+            logger.info(f"📦 Serialized message body: {message_body[:200]}...")
+            
             service_bus_message = ServiceBusMessage(
                 body=message_body,
                 message_id=message.message_id,
@@ -166,15 +194,18 @@ class A2ABroker:
             service_bus_message.application_properties = {
                 "intent": message.intent.value,
                 "from_agent": message.from_agent.value,
-                "to_agents": [agent.value for agent in message.to_agents]
+                "to_agents": ",".join([agent.value for agent in message.to_agents])  # Convert list to comma-separated string
             }
+            logger.info(f"🏷️  Application properties: {service_bus_message.application_properties}")
             
             await sender.send_messages(service_bus_message)
-            logger.info(f"Published message {message.message_id} for intent {message.intent}")
+            logger.info(f"✅ SUCCESSFULLY PUBLISHED message {message.message_id} for intent {message.intent}")
             return True
             
         except Exception as e:
-            logger.error(f"Failed to publish message {message.message_id}: {e}")
+            logger.error(f"❌ FAILED TO PUBLISH message {message.message_id}: {e}")
+            import traceback
+            logger.error(f"❌ FULL TRACEBACK: {traceback.format_exc()}")
             return False
     
     async def publish_response(self, response: A2AResponse) -> bool:
@@ -216,15 +247,27 @@ class A2ABroker:
         """Process incoming message and return response if applicable."""
         try:
             # Parse message
+            logger.info(f"🔍 PARSING MESSAGE BODY: {message_body[:500]}...")
             message_data = json.loads(message_body)
+            logger.info(f"🔍 MESSAGE DATA KEYS: {list(message_data.keys())}")
+            logger.info(f"🔍 MESSAGE DATA: {message_data}")
             
             # Handle both regular messages and responses
             if message_data.get("message_type") == "response":
+                logger.info(f"📨 Processing as A2AResponse...")
                 # This is a response - handle differently
                 response = A2AResponse(**message_data)
                 await self._handle_response(response)
                 return None
             else:
+                logger.info(f"📨 Processing as A2AMessage...")
+                # Check if this looks like a response by checking for response-specific fields
+                if "result" in message_data and "from_agent" in message_data and "to_agent" in message_data:
+                    logger.info(f"🔄 Detected response message format, processing as A2AResponse...")
+                    response = A2AResponse(**message_data)
+                    await self._handle_response(response)
+                    return None
+                
                 # Regular A2A message
                 message = A2AMessage(**message_data)
                 
@@ -287,31 +330,52 @@ class A2ABroker:
     
     async def start_listening(self):
         """Start listening for messages (blocking)."""
-        logger.info(f"Starting message listener for agent: {self.agent_name}")
+        logger.info(f"🎧 STARTING MESSAGE LISTENER for agent: {self.agent_name}")
+        logger.info(f"🎯 Agent type: {self.agent_type}")
+        subscription_name = f"{self.settings.service_bus_subscription_prefix}{self.agent_name}"
+        logger.info(f"📝 Subscription name: {subscription_name}")
         
         try:
+            logger.info(f"🔗 Getting Service Bus receiver...")
             receiver = await self._get_receiver()
+            logger.info(f"✅ Got Service Bus receiver successfully")
             
             async with receiver:
+                logger.info(f"🔄 Starting message loop - waiting for messages...")
                 async for message in receiver:
+                    logger.info(f"📨 RECEIVED MESSAGE!")
+                    logger.info(f"   Message ID: {message.message_id}")
+                    logger.info(f"   Correlation ID: {message.correlation_id}")
+                    logger.info(f"   Body: {str(message)[:200]}...")
+                    logger.info(f"   Properties: {message.application_properties}")
+                    
                     try:
                         # Process message
+                        logger.info(f"⚙️  Processing message...")
                         response = await self._process_message(str(message))
+                        logger.info(f"✅ Message processed, response: {response is not None}")
                         
                         # Send response if generated
                         if response:
+                            logger.info(f"📤 Sending response...")
                             await self.publish_response(response)
                         
                         # Complete message processing
+                        logger.info(f"✅ Completing message processing...")
                         await receiver.complete_message(message)
+                        logger.info(f"✅ Message completed successfully")
                         
                     except Exception as e:
-                        logger.error(f"Error processing message: {e}")
+                        logger.error(f"❌ Error processing message: {e}")
+                        import traceback
+                        logger.error(f"❌ Full traceback: {traceback.format_exc()}")
                         # Abandon message for retry
                         await receiver.abandon_message(message)
                         
         except Exception as e:
-            logger.error(f"Message listener failed: {e}")
+            logger.error(f"❌ MESSAGE LISTENER FAILED: {e}")
+            import traceback
+            logger.error(f"❌ Full traceback: {traceback.format_exc()}")
             raise
     
     async def close(self):
@@ -373,14 +437,24 @@ def create_broker(agent_name: str):
     """Factory function to create appropriate broker based on environment."""
     settings = get_settings()
     
+    logger.info(f"🏭 BROKER FACTORY - Creating broker for agent: {agent_name}")
+    logger.info(f"📋 AZURE_AVAILABLE: {AZURE_AVAILABLE}")
+    logger.info(f"📋 service_bus_namespace: {bool(settings.service_bus_namespace)}")
+    logger.info(f"📋 service_bus_connection_string: {bool(settings.service_bus_connection_string)}")
+    
     # Try real Azure Service Bus first if available
     if AZURE_AVAILABLE and (settings.service_bus_namespace or settings.service_bus_connection_string):
         try:
-            logger.info(f"Creating Azure Service Bus broker for agent: {agent_name}")
-            return A2ABroker(agent_name)
+            logger.info(f"🔧 Creating Azure Service Bus broker for agent: {agent_name}")
+            broker = A2ABroker(agent_name)
+            logger.info(f"✅ Azure Service Bus broker created successfully")
+            return broker
         except Exception as e:
-            logger.warning(f"Failed to create Azure broker, using mock: {e}")
+            logger.error(f"❌ Failed to create Azure broker: {e}")
+            import traceback
+            logger.error(f"❌ Full traceback: {traceback.format_exc()}")
+            logger.warning(f"🔄 Falling back to mock broker")
             return MockA2ABroker(agent_name)
     else:
-        logger.info(f"Using Mock A2A Broker - Azure Service Bus not configured (agent: {agent_name})")
+        logger.warning(f"⚠️  Using Mock A2A Broker - Azure Service Bus not configured (agent: {agent_name})")
         return MockA2ABroker(agent_name)

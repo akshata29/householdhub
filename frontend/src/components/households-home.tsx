@@ -26,8 +26,11 @@ import {
   BarChart3,
   Wallet
 } from "lucide-react";
-import { mockHouseholds, getHouseholdStats, type Household } from "@/lib/mock-households";
+import { type Household } from "@/lib/mock-households";
 import { CopilotPanel } from "@/components/copilot/copilot-panel";
+import { DataSourcePanel } from "@/components/data-source-indicator";
+import { useHouseholds } from "@/lib/queries";
+import { Loader2 } from "lucide-react";
 
 type SortField = 'name' | 'totalAssets' | 'ytdPerformance' | 'lastActivity' | 'nextReview';
 type SortDirection = 'asc' | 'desc';
@@ -64,16 +67,73 @@ export function HouseholdsHomePage() {
   const [sortDirection, setSortDirection] = React.useState<SortDirection>('desc');
   const [viewMode, setViewMode] = React.useState<ViewMode>('cards');
 
-  const stats = React.useMemo(() => getHouseholdStats(), []);
+  // Fetch households data from API
+  const { data: householdsData, isLoading, error } = useHouseholds();
+  
+  // Debug logging
+  React.useEffect(() => {
+    if (householdsData) {
+      console.log('Households data received:', householdsData);
+      console.log('Households array:', householdsData.households);
+      console.log('Number of households:', householdsData.households?.length || 0);
+      console.log('Households type:', typeof householdsData.households);
+      console.log('Is households array:', Array.isArray(householdsData.households));
+    }
+    if (error) {
+      console.error('Households query error:', error);
+    }
+    if (isLoading) {
+      console.log('Households loading...');
+    }
+  }, [householdsData, error, isLoading]);
+  
+  const households = householdsData?.households || [];
+  const stats = householdsData?.summaryStats || {
+    totalHouseholds: 0,
+    totalAssets: 0,
+    totalCash: 0,
+    averagePerformance: 0
+  };
+  
+  // Debug the households array specifically
+  React.useEffect(() => {
+    console.log('Households from data:', households);
+    console.log('Households length:', households.length);
+    console.log('First household:', households[0]);
+  }, [households]);
   
   const uniqueAdvisors = React.useMemo(() => {
-    const advisorSet = new Set(mockHouseholds.map(h => h.advisorName));
+    const advisorSet = new Set(households.map((h: Household) => h.advisorName));
     const advisors = Array.from(advisorSet);
     return advisors.sort();
-  }, []);
+  }, [households]);
 
   const filteredAndSortedHouseholds = React.useMemo(() => {
-    let filtered = mockHouseholds.filter(household => {
+    console.log('=== FILTERING MEMO RUNNING ===');
+    console.log('Filtering households:', { 
+      totalHouseholds: households.length, 
+      searchTerm, 
+      statusFilter, 
+      advisorFilter,
+      isLoading,
+      error: error ? error.message : null
+    });
+    
+    // Don't process if still loading
+    if (isLoading || !households || households.length === 0) {
+      console.log('Returning empty - still loading or no data');
+      return [];
+    }
+    
+    // Temporarily bypass filtering to test if data loads
+    console.log('Bypassing filters, showing all households');
+    const result = households.slice().sort((a: Household, b: Household) => {
+      return Number(b.totalAssets) - Number(a.totalAssets);
+    });
+    console.log('Returning households:', result.length);
+    return result;
+    
+    let filtered = households.filter((household: Household) => {
       const matchesSearch = 
         household.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         household.primaryContact.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -82,10 +142,22 @@ export function HouseholdsHomePage() {
       const matchesStatus = statusFilter === 'all' || household.status === statusFilter;
       const matchesAdvisor = advisorFilter === 'all' || household.advisorName === advisorFilter;
       
-      return matchesSearch && matchesStatus && matchesAdvisor;
+      const result = matchesSearch && matchesStatus && matchesAdvisor;
+      if (!result && households.length > 0) {
+        console.log('Household filtered out:', household.name, {
+          matchesSearch,
+          matchesStatus, 
+          matchesAdvisor,
+          status: household.status,
+          advisor: household.advisorName
+        });
+      }
+      return result;
     });
+    
+    console.log('Filtered results:', filtered.length);
 
-    return filtered.sort((a, b) => {
+    return filtered.sort((a: Household, b: Household) => {
       // Handle different data types
       if (sortField === 'totalAssets' || sortField === 'ytdPerformance') {
         const aValue = Number(a[sortField]);
@@ -116,7 +188,7 @@ export function HouseholdsHomePage() {
         }
       }
     });
-  }, [searchTerm, statusFilter, advisorFilter, sortField, sortDirection]);
+  }, [households, searchTerm, statusFilter, advisorFilter, sortField, sortDirection, isLoading, error]);
 
   const handleSort = (field: SortField) => {
     if (sortField === field) {
@@ -227,15 +299,54 @@ export function HouseholdsHomePage() {
     );
   };
 
+  // Handle loading state
+  if (isLoading) {
+    return (
+      <div className="households-home">
+        <div className="flex items-center justify-center min-h-screen">
+          <div className="flex items-center gap-2">
+            <Loader2 className="h-6 w-6 animate-spin" />
+            <span>Loading households...</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Handle error state
+  if (error) {
+    return (
+      <div className="households-home">
+        <div className="flex items-center justify-center min-h-screen">
+          <div className="text-center">
+            <AlertCircle className="h-12 w-12 text-red-500 mx-auto mb-4" />
+            <h2 className="text-xl font-semibold mb-2">Failed to load households</h2>
+            <p className="text-gray-600 mb-4">
+              {error instanceof Error ? error.message : 'Unknown error occurred'}
+            </p>
+            <Button onClick={() => window.location.reload()}>
+              Try Again
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="households-home">
       {/* Header */}
       <div className="home-header">
         <div className="header-content">
-          <h1 className="home-title">WealthOps</h1>
-          <p className="home-subtitle">
-            Comprehensive wealth management dashboard for {stats.totalHouseholds} households
-          </p>
+          <div className="header-main">
+            <h1 className="home-title">WealthOps</h1>
+            <p className="home-subtitle">
+              Comprehensive wealth management dashboard for {stats.totalHouseholds} households
+            </p>
+          </div>
+          <div className="header-actions">
+            <DataSourcePanel />
+          </div>
         </div>
         
         {/* Stats Overview */}
@@ -318,7 +429,7 @@ export function HouseholdsHomePage() {
               >
                 <option value="all">All Advisors</option>
                 {uniqueAdvisors.map(advisor => (
-                  <option key={advisor} value={advisor}>{advisor}</option>
+                  <option key={advisor as string} value={advisor as string}>{advisor as string}</option>
                 ))}
               </select>
             </div>
@@ -364,7 +475,7 @@ export function HouseholdsHomePage() {
         </div>
 
         <div className="households-grid">
-          {filteredAndSortedHouseholds.map((household) => (
+          {filteredAndSortedHouseholds.map((household: Household) => (
             <HouseholdCard key={household.id} household={household} />
           ))}
         </div>

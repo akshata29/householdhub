@@ -20,6 +20,7 @@ class AgentType(str, Enum):
 
 class IntentType(str, Enum):
     TOP_CASH = "TopCash"
+    CASH_BALANCE = "CashBalance"  # New intent for specific cash balance queries
     CRM_POI = "CRMPOI"
     CUSTODIAL_18 = "Custodial18"
     RECON = "Recon"

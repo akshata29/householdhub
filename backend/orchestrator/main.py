@@ -19,7 +19,8 @@ import semantic_kernel as sk
 from semantic_kernel.connectors.ai.open_ai import AzureChatCompletion
 from semantic_kernel.kernel import Kernel
 from semantic_kernel.functions import kernel_function
-from semantic_kernel.prompt_template import PromptTemplateConfig
+from semantic_kernel.prompt_template import PromptTemplateConfig, InputVariable
+from semantic_kernel.functions import KernelArguments
 
 from common.schemas import (
     A2AMessage, A2AResponse, QueryRequest, QueryResponse, 
@@ -40,8 +41,12 @@ class IntentRouter:
         self.kernel = kernel
         self.intent_patterns = {
             IntentType.TOP_CASH: [
-                "top cash", "highest cash", "cash balance", "most cash",
-                "cash positions", "liquid funds", "available cash"
+                "top cash", "highest cash", "most cash", "largest cash balance",
+                "cash positions", "liquid funds", "wealthiest by cash"
+            ],
+            IntentType.CASH_BALANCE: [  # New specific intent for individual cash balance queries
+                "cash balance", "available cash", "cash for", "cash position for",
+                "how much cash", "cash holdings", "liquid assets"
             ],
             IntentType.CRM_POI: [
                 "crm notes", "points of interest", "client notes", "advisor notes",
@@ -99,6 +104,7 @@ class IntentRouter:
         """Get list of agents that should handle this intent."""
         routing_map = {
             IntentType.TOP_CASH: [AgentType.NL2SQL],
+            IntentType.CASH_BALANCE: [AgentType.NL2SQL],  # New routing for cash balance queries
             IntentType.CRM_POI: [AgentType.VECTOR],
             IntentType.CUSTODIAL_18: [AgentType.NL2SQL, AgentType.VECTOR],
             IntentType.RECON: [AgentType.NL2SQL, AgentType.API],
@@ -118,19 +124,61 @@ class ResponseComposer:
     def __init__(self, kernel: Kernel):
         self.kernel = kernel
         
-        # Define prompt templates for different response types
+        # Single intelligent template that can handle any financial query
+        self.template = """You are a financial advisor AI assistant. Answer the user's question based on the provided data.
+
+User Question: {{$query}}
+
+SQL Query Results: {{$sql_results}}
+
+SQL Query Used: {{$sql_query}}
+
+CRITICAL INSTRUCTIONS:
+1. You MUST use ONLY the exact data provided above in "SQL Query Results". 
+2. Do NOT create, invent, or hallucinate any fake data, names, or numbers.
+3. Use the exact household names, account names, and amounts from the SQL results.
+4. Answer the user's specific question directly using the real data provided.
+5. If SQL results show household names like "Singh Global Family Office" with amounts like "37000000.00", use those exact names and amounts.
+6. Do NOT use generic names like "Household A" or fake amounts.
+7. Format your response professionally and include proper citations.
+
+Answer the question now using the exact data provided above."""
+        
+        # Keep templates for backward compatibility but use single template
         self.templates = {
             'top_cash': """
-            Based on the SQL query results, provide a clear summary of the top cash balances:
+            You MUST use the exact data provided in the SQL Results below. Do NOT make up or generate fake data.
+            
+            IMPORTANT: Use ONLY the household names and amounts from the SQL Results provided below.
+            
+            SQL Results Data: {{$sql_results}}
+            SQL Query Used: {{$sql_query}}
+            
+            Based on the SQL query results above, provide a clear summary of the top cash balances using the EXACT household names and amounts from the data:
+            
+            Format the response as:
+            1. Brief introduction explaining what the query found
+            2. List the top 5 households with their EXACT names and cash balance amounts from the SQL results
+            3. Any notable insights based on the ACTUAL data provided
+            
+            CRITICAL: You must use the exact household names (like "Singh Global Family Office") and exact amounts (like "$37,000,000.00") from the SQL Results. Do not create fake household names like "Household A" or fake amounts.
+            
+            Always include citation: "Source: SQL query on Households and Accounts tables"
+            """,
+            
+            'cash_balance': """
+            Based on the SQL query results, provide a specific cash balance response:
             
             SQL Results: {{$sql_results}}
             SQL Query: {{$sql_query}}
+            Original Query: {{$original_query}}
             
             Format the response as:
-            1. Brief introduction
-            2. Top 3-5 households with cash balances
-            3. Any notable insights
+            1. Direct answer to the cash balance question
+            2. Specific amount(s) with household/account names
+            3. Context about the query (what was searched)
             
+            Make the response conversational and helpful. If a specific household was mentioned in the query, focus on that household's results.
             Always include citation: "Source: SQL query on Households and Accounts tables"
             """,
             
@@ -201,17 +249,35 @@ class ResponseComposer:
         try:
             start_time = time.time()
             
-            # Select appropriate template
-            template_key = self._get_template_key(intent)
-            template_text = self.templates.get(template_key, self.templates['general'])
+            logger.info(f"🤖 Response Composition Starting")
+            logger.info(f"📝 Original Query: '{query}'")
+            logger.info(f"🎯 Intent: {intent}")
+            logger.info(f"🔧 Agent Results Summary:")
+            for agent_type, results in agent_results.items():
+                logger.info(f"   - {agent_type}: success={results.get('success')}, data_rows={len(results.get('data', []))}")
+            
+            # Use single intelligent template for all queries
+            template_text = self.template
+            logger.info(f"📋 Using universal intelligent template")
             
             # Prepare context variables
             context = self._prepare_context(query, agent_results)
+            logger.info(f"📊 LLM Context Variables:")
+            for key, value in context.items():
+                logger.info(f"   - {key}: {str(value)[:200]}{'...' if len(str(value)) > 200 else ''}")
             
-            # Create semantic function
+            # Create semantic function with explicit variable definitions
+            input_variables = [
+                InputVariable(name="query", description="User's question"),
+                InputVariable(name="sql_results", description="SQL query results data"),
+                InputVariable(name="sql_query", description="SQL query used"),
+                InputVariable(name="search_results", description="CRM search results", is_required=False),
+                InputVariable(name="api_results", description="External API results", is_required=False)
+            ]
+            
             prompt_config = PromptTemplateConfig(
                 template=template_text,
-                input_variables=list(context.keys())
+                input_variables=input_variables
             )
             
             compose_function = self.kernel.add_function(
@@ -220,9 +286,36 @@ class ResponseComposer:
                 prompt_template_config=prompt_config
             )
             
-            # Execute function with context
-            result = await self.kernel.invoke(compose_function, **context)
+            # Execute function with context using proper KernelArguments
+            logger.info(f"🚀 Sending to LLM for response generation...")
+            logger.info(f"📋 Context keys being passed to kernel: {list(context.keys())}")
+            logger.info(f"🔍 Template content: {template_text[:200]}...")
+            
+            # Debug: Print each context variable
+            for key, value in context.items():
+                logger.info(f"   🔑 {key}: {str(value)[:100]}...")
+            
+            # Use KernelArguments as per Semantic Kernel documentation
+            kernel_args = KernelArguments(**context)
+            logger.info(f"✅ Created KernelArguments with keys: {list(kernel_args.keys()) if hasattr(kernel_args, 'keys') else 'N/A'}")
+            
+            try:
+                result = await self.kernel.invoke(compose_function, kernel_args)
+            except Exception as kernel_error:
+                logger.error(f"❌ Kernel invocation failed: {kernel_error}")
+                # Fallback to individual parameter passing
+                logger.info(f"🔄 Trying fallback method...")
+                kernel_args = KernelArguments(
+                    query=context.get('query', ''),
+                    sql_results=context.get('sql_results', ''),
+                    sql_query=context.get('sql_query', ''),
+                    search_results=context.get('search_results', ''),
+                    api_results=context.get('api_results', '')
+                )
+                result = await self.kernel.invoke(compose_function, kernel_args)
+            
             answer = str(result)
+            logger.info(f"✅ LLM Response Generated (length: {len(answer)} chars)")
             
             # Extract citations
             citations = self._extract_citations(agent_results)
@@ -254,6 +347,7 @@ class ResponseComposer:
         """Map intent to template key."""
         mapping = {
             IntentType.TOP_CASH: 'top_cash',
+            IntentType.CASH_BALANCE: 'cash_balance',  # New mapping for cash balance
             IntentType.CRM_POI: 'crm_poi',
             IntentType.RECON: 'allocation_mismatch',
             IntentType.EXEC_SUMMARY: 'executive_summary'
@@ -262,25 +356,59 @@ class ResponseComposer:
     
     def _prepare_context(self, query: str, agent_results: Dict[AgentType, Dict[str, Any]]) -> Dict[str, str]:
         """Prepare context variables for prompt template."""
-        context = {'query': query}
+        context = {'query': query, 'original_query': query}
+        
+        logger.info(f"🔧 Preparing LLM Context from Agent Results:")
         
         for agent, results in agent_results.items():
+            logger.info(f"   Processing {agent} results...")
+            
             if agent == AgentType.NL2SQL:
-                context['sql_results'] = json.dumps(results.get('results', []), indent=2)
-                context['sql_query'] = results.get('sql_query', '')
+                sql_results = results.get('results', [])
+                sql_query = results.get('sql_query', '')
+                intent = results.get('intent', '')
+                
+                logger.info(f"     📊 SQL Results: {len(sql_results)} rows")
+                logger.info(f"     🔍 SQL Query: {sql_query}")
+                logger.info(f"     🎯 Intent: {intent}")
+                
+                if len(sql_results) == 0:
+                    logger.warning(f"     ⚠️  ISSUE FOUND: SQL query returned 0 rows!")
+                    logger.warning(f"     🔍 This is likely why the response says 'no results'")
+                
+                context['sql_results'] = json.dumps(sql_results, indent=2)
+                context['sql_query'] = sql_query
+                context['intent'] = intent
+                
+                # Additional debugging for SQL results
+                logger.info(f"     🔍 DETAILED SQL RESULTS DEBUG:")
+                logger.info(f"     📄 SQL Results JSON: {context['sql_results'][:500]}...")
+                if sql_results:
+                    logger.info(f"     📊 First result sample: {sql_results[0]}")
+                    logger.info(f"     📊 All results count: {len(sql_results)}")
+                else:
+                    logger.error(f"     ❌ SQL RESULTS ARE EMPTY OR NONE!")
                 
             elif agent == AgentType.VECTOR:
-                context['search_results'] = json.dumps(results.get('results', []), indent=2)
-                context['crm_results'] = json.dumps(results.get('points_of_interest', []), indent=2)
-                context['points_of_interest'] = json.dumps(results.get('points_of_interest', []), indent=2)
+                search_results = results.get('results', [])
+                poi = results.get('points_of_interest', [])
+                
+                logger.info(f"     🔍 Search Results: {len(search_results)} items")
+                logger.info(f"     📍 Points of Interest: {len(poi)} items")
+                
+                context['search_results'] = json.dumps(search_results, indent=2)
+                context['crm_results'] = json.dumps(poi, indent=2)
+                context['points_of_interest'] = json.dumps(poi, indent=2)
                 
             elif agent == AgentType.API:
+                logger.info(f"     🌐 API Results: {len(str(results))} chars")
                 context['api_results'] = json.dumps(results, indent=2)
                 context['performance_data'] = json.dumps(results, indent=2)
         
         # Combine all results for general template
         context['results'] = json.dumps(agent_results, indent=2)
         
+        logger.info(f"✅ Context preparation complete - {len(context)} variables prepared")
         return context
     
     def _extract_citations(self, agent_results: Dict[AgentType, Dict[str, Any]]) -> List[Citation]:
@@ -456,43 +584,148 @@ class OrchestratorAgent:
     ) -> Dict[str, Any]:
         """Send query to specific agent and wait for response."""
         
-        # Prepare context
-        context = {
-            'household_id': request.household_id,
-            'account_id': request.account_id,
-            'auth': request.user_context
-        }
-        
-        # Prepare payload based on intent and agent
-        payload = {
-            'query': request.query,
-            'limit': 10  # Default limit
-        }
-        
-        if intent == IntentType.RMD:
-            payload['days'] = 90
-        elif intent == IntentType.CRM_POI:
-            payload['top_k'] = 5
-        
-        # Send A2A message
-        message = A2AMessage(
-            from_agent=AgentType.ORCHESTRATOR,
-            to_agents=[agent],
-            intent=intent,
-            payload=payload,
-            context=A2AContext(**context),
-            correlation_id=correlation_id
-        )
-        
-        await self.broker.publish(message)
-        
-        # Wait for response (simplified - in real implementation, use response tracking)
-        await asyncio.sleep(2)  # Simulate processing time
-        
-        # Return mock result for now
+        if agent == AgentType.NL2SQL:
+            return await self._query_nl2sql_agent(intent, request, correlation_id)
+        elif agent == AgentType.VECTOR:
+            return await self._query_vector_agent(intent, request, correlation_id)
+        elif agent == AgentType.API:
+            return await self._query_api_agent(intent, request, correlation_id)
+        else:
+            logger.warning(f"Unknown agent type: {agent}")
+            return {
+                'status': 'error',
+                'message': f'Unknown agent type: {agent}',
+                'processing_time_ms': 0
+            }
+    
+    async def _query_nl2sql_agent(self, intent: IntentType, request: QueryRequest, correlation_id: str) -> Dict[str, Any]:
+        """Query NL2SQL agent via A2A messaging."""
+        try:
+            # Prepare context
+            context = A2AContext(
+                household_id=request.household_id,
+                account_id=request.account_id,
+                auth=request.user_context
+            )
+            
+            # Prepare payload based on intent
+            payload = {
+                'query': request.query,
+                'limit': 10
+            }
+            
+            if intent == IntentType.RMD:
+                payload['days'] = 90
+            elif intent == IntentType.CASH_BALANCE:
+                payload['specific_query'] = True
+            
+            # Send A2A message
+            message = A2AMessage(
+                from_agent=AgentType.ORCHESTRATOR,
+                to_agents=[AgentType.NL2SQL],
+                intent=intent,
+                payload=payload,
+                context=context,
+                correlation_id=correlation_id
+            )
+            
+            # For now, call the agent's handler method directly (bypass broker)
+            # In production, you'd use proper A2A messaging with response tracking
+            from a2a.broker import send_query_to_agent
+            
+            # Map intent to handler method name  
+            handler_mapping = {
+                IntentType.TOP_CASH: 'handle_top_cash',
+                IntentType.CASH_BALANCE: 'handle_cash_balance',
+                IntentType.RECON: 'handle_recon',
+                IntentType.MISSING_BEN: 'handle_missing_beneficiaries',
+                IntentType.RMD: 'handle_rmd',
+                IntentType.IRA_REMINDER: 'handle_ira_reminder'
+            }
+            
+            handler_name = handler_mapping.get(intent, 'handle_cash_balance')
+            
+            # Use the A2A broker to send the message
+            logger.info(f"🚀 ORCHESTRATOR: About to send message to NL2SQL agent")
+            logger.info(f"   Target Agent: {AgentType.NL2SQL}")
+            logger.info(f"   Intent: {intent.value}")
+            logger.info(f"   Payload: {payload}")
+            
+            correlation_id = await send_query_to_agent(
+                self.broker,
+                AgentType.NL2SQL,
+                intent.value,  # Convert enum to string
+                payload,
+                context.model_dump() if context else None
+            )
+            
+            logger.info(f"✅ ORCHESTRATOR: Message sent successfully!")
+            logger.info(f"   Correlation ID: {correlation_id}")
+            
+            # TODO: For now, make a direct HTTP call to NL2SQL agent since A2A response waiting is not implemented
+            # This is a temporary solution until proper A2A response correlation is implemented
+            try:
+                import httpx
+                async with httpx.AsyncClient() as client:
+                    logger.info(f"🔗 Making direct HTTP call to NL2SQL agent...")
+                    response = await client.post(
+                        f"http://localhost:9001/query",
+                        json={
+                            "query": request.query,
+                            "context": context.model_dump() if context else {}
+                        },
+                        timeout=30.0
+                    )
+                    
+                    if response.status_code == 200:
+                        nl2sql_result = response.json()
+                        logger.info(f"✅ NL2SQL HTTP SUCCESS!")
+                        logger.info(f"   Response keys: {list(nl2sql_result.keys())}")
+                        logger.info(f"   Results count: {len(nl2sql_result.get('results', []))}")
+                        logger.info(f"   SQL Query: {nl2sql_result.get('sql_query', 'N/A')[:100]}...")
+                        logger.info(f"   Full response: {nl2sql_result}")
+                        return nl2sql_result
+                    else:
+                        logger.error(f"❌ NL2SQL HTTP call failed: {response.status_code} - {response.text}")
+                        
+            except Exception as http_error:
+                logger.error(f"❌ HTTP call to NL2SQL failed: {http_error}")
+            
+            # Fallback: return placeholder if HTTP call fails
+            return {
+                'status': 'success',
+                'message': f'Query sent to NL2SQL agent with correlation ID: {correlation_id}',
+                'processing_time_ms': 100,
+                'results': [],  # Empty results instead of payload
+                'sql_query': '',
+                'row_count': 0
+            }
+            
+        except Exception as e:
+            logger.error(f"NL2SQL agent query failed: {e}")
+            return {
+                'status': 'error',
+                'message': f'NL2SQL agent error: {str(e)}',
+                'processing_time_ms': 0
+            }
+    
+    async def _query_vector_agent(self, intent: IntentType, request: QueryRequest, correlation_id: str) -> Dict[str, Any]:
+        """Query Vector agent for CRM/search data."""
+        # Placeholder for vector agent query
         return {
             'status': 'success',
-            'message': f'Mock response from {agent.value}',
+            'message': 'Vector agent response (placeholder)',
+            'results': [],
+            'processing_time_ms': 1500
+        }
+    
+    async def _query_api_agent(self, intent: IntentType, request: QueryRequest, correlation_id: str) -> Dict[str, Any]:
+        """Query API agent for external data."""
+        # Placeholder for API agent query  
+        return {
+            'status': 'success',
+            'message': 'API agent response (placeholder)',
+            'data': {},
             'processing_time_ms': 2000
         }
     
@@ -579,6 +812,40 @@ app.add_middleware(
 async def health_check():
     """Health check endpoint."""
     return {"status": "healthy", "agent": "orchestrator"}
+
+@app.post("/debug/context")
+async def debug_context(request: QueryRequest):
+    """Debug endpoint to see what context is prepared for LLM."""
+    if not agent:
+        raise HTTPException(status_code=503, detail="Agent not initialized")
+    
+    try:
+        # Detect intent
+        intent = await agent.router.detect_intent(request.query)
+        
+        # Get required agents for this intent
+        required_agents = agent.router.get_agent_routing(intent)
+        from uuid import uuid4
+        correlation_id = str(uuid4())
+        
+        # Query agents
+        agent_results = {}
+        for target_agent in required_agents:
+            result = await agent._query_agent(target_agent, intent, request, correlation_id)
+            agent_results[target_agent] = result
+        
+        # Prepare context (without LLM call)
+        context = agent.composer._prepare_context(request.query, agent_results)
+        
+        return {
+            "intent": intent,
+            "required_agents": [str(a) for a in required_agents],
+            "agent_results": agent_results,
+            "llm_context": context
+        }
+    except Exception as e:
+        logger.error(f"Debug context failed: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @app.post("/copilot/query")

@@ -7,6 +7,7 @@ import { CashTab } from "@/features/cash/cash-tab";
 import { PlanningTab } from "@/features/planning/planning-tab";
 import { ReportsTab } from "@/features/reports/reports-tab";
 import { CopilotPanel } from "@/components/copilot/copilot-panel";
+import { DataSourceBadge } from "@/components/data-source-indicator";
 import { getHouseholdById } from "@/lib/mock-households";
 
 interface DashboardProps {
@@ -66,6 +67,9 @@ export function Dashboard({ householdId }: DashboardProps) {
                 <h1 className="household-title">{householdName}</h1>
                 <p className="page-subtitle">Last updated: {new Date().toLocaleString()}</p>
               </div>
+            </div>
+            <div className="household-header-right">
+              <DataSourceBadge />
             </div>
           </div>
         </div>

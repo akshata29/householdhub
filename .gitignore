@@ -117,5 +117,6 @@ dmypy.json
 
 backend/static*
 node_modules*
-frontend/.next*
+.next*
 frontend/node_modules
+frontend/package-lock.json
