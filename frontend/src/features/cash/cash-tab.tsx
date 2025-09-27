@@ -4,6 +4,7 @@ import * as React from "react";
 import { useCash } from "@/lib/queries";
 import { TimeSeriesCard } from "@/components/ui/time-series-card";
 import { AccountsList } from "@/components/ui/accounts-list";
+import { KPICard } from "@/components/ui/kpi-card";
 import { 
   Wallet,
   TrendingUp,
@@ -52,7 +53,7 @@ export function CashTab({ householdId }: CashTabProps) {
 
   if (cashLoading) {
     return (
-      <div className="dashboard-content">
+      <div className="cash-container">
         <div className="loading-state">Loading cash management data...</div>
       </div>
     );
@@ -60,7 +61,7 @@ export function CashTab({ householdId }: CashTabProps) {
 
   if (cashError) {
     return (
-      <div className="dashboard-content">
+      <div className="cash-container">
         <div className="error-state">
           <h3>Failed to Load Cash Data</h3>
           <p>{cashError.message}</p>
@@ -71,7 +72,7 @@ export function CashTab({ householdId }: CashTabProps) {
 
   if (!cashData) {
     return (
-      <div className="dashboard-content">
+      <div className="cash-container">
         <div className="empty-state">
           <h3>No Cash Data Available</h3>
           <p>Cash management data could not be loaded.</p>
@@ -88,11 +89,11 @@ export function CashTab({ householdId }: CashTabProps) {
   })) || [];
 
   return (
-    <div className="dashboard-content">
+    <div className="cash-container">
       {/* Header */}
-      <div className="page-header">
-        <h1 className="page-title">Cash Management</h1>
-        <p className="page-subtitle">Liquidity overview and cash account management</p>
+      <div className="cash-header">
+        <h1 className="cash-title">Cash Management</h1>
+        <p className="cash-subtitle">Liquidity overview and cash account management</p>
       </div>
 
       {/* Alerts */}
@@ -100,62 +101,38 @@ export function CashTab({ householdId }: CashTabProps) {
 
       {/* KPI Cards */}
       <div className="kpi-grid">
-        <div className="kpi-card">
-          <div className="kpi-content">
-            <div className="kpi-icon">
-              <DollarSign className="icon" />
-            </div>
-            <div className="kpi-details">
-              <div className="kpi-label">Total Cash Balance</div>
-              <div className="kpi-value">
-                {formatCurrency(cashData.totalBalance)}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="kpi-card">
-          <div className="kpi-content">
-            <div className="kpi-icon">
-              <Percent className="icon" />
-            </div>
-            <div className="kpi-details">
-              <div className="kpi-label">Average Yield</div>
-              <div className="kpi-value">
-                {formatPercentage(cashData.avgYield)}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="kpi-card">
-          <div className="kpi-content">
-            <div className="kpi-icon">
-              <Wallet className="icon" />
-            </div>
-            <div className="kpi-details">
-              <div className="kpi-label">Cash Accounts</div>
-              <div className="kpi-value">
-                {cashData.accounts?.length || 0}
-              </div>
-            </div>
-          </div>
-        </div>
+        <KPICard
+          label="Total Cash Balance"
+          value={cashData.totalBalance}
+          format="currency"
+          icon={DollarSign}
+        />
+        <KPICard
+          label="Average Yield"
+          value={cashData.avgYield}
+          format="percentage"
+          icon={Percent}
+        />
+        <KPICard
+          label="Cash Accounts"
+          value={cashData.accounts?.length || 0}
+          format="number"
+          icon={Wallet}
+        />
       </div>
 
       {/* Charts and Accounts Row */}
-      <div className="cash-content-row">
+      <div className="chart-row">
         {/* Cash Balance Trend */}
         <div className="card">
           <div className="card-header">
             <h3 className="card-title">Cash Balance Trend</h3>
-            <div style={{ display: 'flex', gap: '8px' }}>
+            <div className="performance-range-buttons">
               {["3M", "6M", "1Y"].map((range) => (
                 <button
                   key={range}
                   className={`btn ${trendRange === range ? 'btn-primary' : 'btn-secondary'}`}
                   onClick={() => setTrendRange(range)}
-                  style={{ fontSize: '12px', padding: '4px 12px' }}
                 >
                   {range}
                 </button>

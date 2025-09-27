@@ -668,12 +668,17 @@ class OrchestratorAgent:
                 import httpx
                 async with httpx.AsyncClient() as client:
                     logger.info(f"🔗 Making direct HTTP call to NL2SQL agent...")
+                    # Prepare the request in the format expected by NL2SQLRequest
+                    nl2sql_request = {
+                        "query": request.query,
+                        "household_id": context.household_id if context else None,
+                        "account_id": context.account_id if context else None,
+                        "schema_hint": None  # Not used currently
+                    }
+                    
                     response = await client.post(
                         f"http://localhost:9001/query",
-                        json={
-                            "query": request.query,
-                            "context": context.model_dump() if context else {}
-                        },
+                        json=nl2sql_request,
                         timeout=30.0
                     )
                     

@@ -4,11 +4,15 @@ import * as React from "react";
 import { usePositions, usePerformance, useAllocation } from "@/lib/queries";
 import { TimeSeriesCard } from "@/components/ui/time-series-card";
 import { DonutCard } from "@/components/ui/donut-card";
+import { KPICard } from "@/components/ui/kpi-card";
 import { 
   ArrowUpDown,
   TrendingUp,
   TrendingDown,
   Eye,
+  DollarSign,
+  Target,
+  Briefcase,
 } from "lucide-react";
 import { formatCurrency, formatPercentage } from "@/lib/utils";
 import { Position } from "@/lib/schemas";
@@ -177,66 +181,58 @@ export function PortfolioTab({ householdId }: PortfolioTabProps) {
   } = useAllocation(householdId);
 
   return (
-    <div className="dashboard-content">
+    <div className="portfolio-container">
       {/* Header */}
-      <div className="page-header">
-        <h1 className="page-title">Portfolio Analysis</h1>
-        <p className="page-subtitle">Holdings, performance, and allocation breakdown</p>
+      <div className="portfolio-header">
+        <h1 className="portfolio-title">Portfolio Analysis</h1>
+        <p className="portfolio-subtitle">Holdings, performance, and allocation breakdown</p>
       </div>
 
       {/* KPI Cards */}
       {positions?.summary && (
         <div className="kpi-grid">
-          <div className="kpi-card">
-            <div className="kpi-content">
-              <div className="kpi-label">Total Market Value</div>
-              <div className="kpi-value">
-                {formatCurrency(positions.summary.totalMarketValue)}
-              </div>
-            </div>
-          </div>
-          
-          <div className="kpi-card">
-            <div className="kpi-content">
-              <div className="kpi-label">Total Gain/Loss</div>
-              <div className={`kpi-value ${positions.summary.totalGainLoss >= 0 ? 'positive' : 'negative'}`}>
-                {formatCurrency(positions.summary.totalGainLoss)}
-              </div>
-              <div className={`kpi-change ${positions.summary.totalGainLoss >= 0 ? 'positive' : 'negative'}`}>
-                {formatPercentage(positions.summary.totalGainLossPercent, { showSign: true })}
-              </div>
-            </div>
-          </div>
-
-          <div className="kpi-card">
-            <div className="kpi-content">
-              <div className="kpi-label">Positions</div>
-              <div className="kpi-value">
-                {positions.summary.positionsCount}
-              </div>
-              {allocation?.policyDrift && (
-                <div className="kpi-change">
-                  {formatPercentage(Math.abs(allocation.policyDrift))} from policy
-                </div>
-              )}
-            </div>
-          </div>
+          <KPICard
+            label="Total Market Value"
+            value={positions.summary.totalMarketValue}
+            format="currency"
+            icon={DollarSign}
+          />
+          <KPICard
+            label="Total Gain/Loss"
+            value={positions.summary.totalGainLoss}
+            format="currency"
+            delta={{
+              value: positions.summary.totalGainLossPercent,
+              type: "percentage"
+            }}
+            icon={TrendingUp}
+          />
+          <KPICard
+            label="Positions"
+            value={positions.summary.positionsCount}
+            format="number"
+            delta={allocation?.policyDrift ? {
+              value: allocation.policyDrift,
+              label: "from policy",
+              type: "percentage"
+            } : undefined}
+            icon={Briefcase}
+          />
         </div>
       )}
 
       {/* Charts Row */}
-      <div className="charts-row">
+      <div className="chart-row">
         {/* Performance Chart */}
         <div className="card">
           <div className="card-header">
             <h3 className="card-title">Portfolio Performance</h3>
-            <div style={{ display: 'flex', gap: '8px' }}>
+            <div className="performance-range-buttons">
               {["3M", "6M", "1Y"].map((range) => (
                 <button
                   key={range}
                   className={`btn ${performanceRange === range ? 'btn-primary' : 'btn-secondary'}`}
                   onClick={() => setPerformanceRange(range)}
-                  style={{ fontSize: '12px', padding: '4px 12px' }}
                 >
                   {range}
                 </button>

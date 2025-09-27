@@ -207,10 +207,55 @@ class NL2SQLAgent:
             # Step 1: Build comprehensive schema context with actual column names
             schema_context = self._build_schema_context(schema_info)
             
-            # Step 2: Create a strict prompt that enforces simple SQL with JOINs
+            # Step 2: Create a context-aware prompt
+            household_context = ""
+            if context and context.get('household_id') and context['household_id'] != 'general':
+                household_id = context['household_id']
+                household_context = f"""
+
+IMPORTANT CONTEXT - HOUSEHOLD FILTER REQUIRED:
+This query is for a SPECIFIC household only (identifier: "{household_id}").
+
+HOUSEHOLD FILTERING RULES:
+- If the household identifier is numeric (like "1", "2"), filter by: WHERE h.[HouseholdID] = {household_id}
+- If the household identifier contains text/dashes (like "wilson-retirement", "multigenerational-wealth"), 
+  you need to find the matching household by name pattern.
+  
+IMPORTANT: The identifier "{household_id}" is likely a URL slug that may not match the actual household name.
+
+SPECIAL MAPPING RULES for common slugs:
+- "multigenerational-wealth" maps to household name containing "Anderson" or "Legacy" 
+- "wilson-retirement" maps to household name containing "Wilson"
+- "johnson-family" maps to household name containing "Johnson"
+
+BEST APPROACH: Use HouseholdCode field for exact matching:
+   WHERE h.[HouseholdCode] = '{household_id}'
+
+If no results, try fallback patterns:
+   WHERE LOWER(h.[HouseholdCode]) = LOWER('{household_id}')
+   OR LOWER(h.[Name]) LIKE '%anderson%' (for multigenerational-wealth)
+   OR LOWER(h.[Name]) LIKE '%wilson%' (for wilson-retirement)
+   OR LOWER(h.[Name]) LIKE '%johnson%' (for johnson-family)
+
+For "{household_id}": Start with WHERE h.[HouseholdCode] = '{household_id}'
+
+EXAMPLES:
+- For "wilson-retirement": WHERE LOWER(h.[Name]) LIKE '%wilson%' OR LOWER(h.[Name]) LIKE '%retirement%'
+- For "multigenerational-wealth": WHERE LOWER(h.[Name]) LIKE '%multigenerational%' OR LOWER(h.[Name]) LIKE '%wealth%'
+- For numeric "1": WHERE h.[HouseholdID] = 1
+
+If no matches are found, the query should still filter properly but may return 0 results, which is correct.
+DO NOT return data for all households - MUST include the household filter even if it returns no results.
+"""
+            else:
+                household_context = """
+
+CONTEXT: This is a GLOBAL query across ALL households. Include data from all households unless specifically asked to filter or rank by household."""
+
             prompt = f"""You are an expert SQL Server analyst. Generate a SIMPLE SQL query that returns meaningful data with proper JOINs.
 
 USER QUESTION: {query}
+{household_context}
 
 {schema_context}
 
@@ -222,7 +267,8 @@ CRITICAL REQUIREMENTS:
 5. Use the foreign key relationships shown above to create proper JOINs
 6. SIMPLE SELECT ONLY - NO CTEs, NO WITH clauses, NO subqueries
 7. Use basic date filtering with DATEADD() and GETDATE() functions directly in WHERE clause
-8. Return ONLY the SQL query without explanations or comments
+8. HOUSEHOLD FILTERING: {f'MUST include household filter as described above for "{context.get("household_id")}"' if context and context.get('household_id') and context['household_id'] != 'general' else 'Include all households unless specifically requested to filter'}
+9. Return ONLY the SQL query without explanations or comments
 
 Generate simple SQL query:"""
 

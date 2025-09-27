@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { usePlanning } from "@/lib/queries";
+import { KPICard } from "@/components/ui/kpi-card";
 import { 
   Calendar,
   Users,
@@ -212,7 +213,7 @@ export function PlanningTab({ householdId }: PlanningTabProps) {
 
   if (planningLoading) {
     return (
-      <div className="dashboard-content">
+      <div className="planning-container">
         <div className="loading-state">Loading planning data...</div>
       </div>
     );
@@ -220,7 +221,7 @@ export function PlanningTab({ householdId }: PlanningTabProps) {
 
   if (planningError) {
     return (
-      <div className="dashboard-content">
+      <div className="planning-container">
         <div className="error-state">
           <h3>Failed to Load Planning Data</h3>
           <p>{planningError.message}</p>
@@ -231,7 +232,7 @@ export function PlanningTab({ householdId }: PlanningTabProps) {
 
   if (!planningData) {
     return (
-      <div className="dashboard-content">
+      <div className="planning-container">
         <div className="empty-state">
           <h3>No Planning Data Available</h3>
           <p>Financial planning data could not be loaded.</p>
@@ -247,56 +248,33 @@ export function PlanningTab({ householdId }: PlanningTabProps) {
   const incompleteBeneficiaries = planningData.beneficiaries?.filter(ben => ben.status !== 'complete').length || 0;
 
   return (
-    <div className="dashboard-content">
+    <div className="planning-container">
       {/* Header */}
-      <div className="page-header">
-        <h1 className="page-title">Financial Planning</h1>
-        <p className="page-subtitle">Estate planning, RMDs, and beneficiary management</p>
+      <div className="planning-header">
+        <h1 className="planning-title">Financial Planning</h1>
+        <p className="planning-subtitle">Estate planning, RMDs, and beneficiary management</p>
       </div>
 
       {/* Summary KPIs */}
       <div className="kpi-grid">
-        <div className="kpi-card">
-          <div className="kpi-content">
-            <div className="kpi-icon">
-              <DollarSign className="icon" />
-            </div>
-            <div className="kpi-details">
-              <div className="kpi-label">Total RMDs Required</div>
-              <div className="kpi-value">
-                {formatCurrency(totalRMDAmount)}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="kpi-card">
-          <div className="kpi-content">
-            <div className="kpi-icon">
-              <ClipboardList className="icon" />
-            </div>
-            <div className="kpi-details">
-              <div className="kpi-label">Pending RMDs</div>
-              <div className="kpi-value">
-                {pendingRMDs} of {totalRMDs}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="kpi-card">
-          <div className="kpi-content">
-            <div className="kpi-icon">
-              <Users className="icon" />
-            </div>
-            <div className="kpi-details">
-              <div className="kpi-label">Beneficiaries Needing Review</div>
-              <div className="kpi-value">
-                {incompleteBeneficiaries}
-              </div>
-            </div>
-          </div>
-        </div>
+        <KPICard
+          label="Total RMDs Required"
+          value={totalRMDAmount}
+          format="currency"
+          icon={DollarSign}
+        />
+        <KPICard
+          label="Pending RMDs"
+          value={`${pendingRMDs} of ${totalRMDs}`}
+          format="text"
+          icon={ClipboardList}
+        />
+        <KPICard
+          label="Beneficiaries Needing Review"
+          value={incompleteBeneficiaries}
+          format="number"
+          icon={Users}
+        />
       </div>
 
       {/* Next Interaction */}

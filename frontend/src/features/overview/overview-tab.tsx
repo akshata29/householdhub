@@ -60,12 +60,12 @@ export function OverviewTab({ householdId }: OverviewTabProps) {
   // If overview fails to load, show error state
   if (overviewError) {
     return (
-      <div className="container-wealth py-6">
+      <div className="container-wealth overview-container">
         <ErrorState
           title="Failed to Load Overview"
           message="Unable to load household overview data. Please try again."
           onRetry={() => refetchOverview()}
-          className="max-w-md mx-auto mt-12"
+          className="error-container"
         />
       </div>
     );
@@ -74,11 +74,11 @@ export function OverviewTab({ householdId }: OverviewTabProps) {
   return (
     <div>
       {/* Header Section */}
-      <div style={{ marginBottom: '32px' }}>
-        <h2 className="card-title" style={{ marginBottom: '4px' }}>
+      <div className="overview-header">
+        <h2 className="overview-title">
           {overview?.household.name || "Loading..."}
         </h2>
-        <p className="card-description">
+        <p className="overview-subtitle">
           {overview?.household.primaryAdvisor}
           {overview?.household.riskProfile && (
             <>
@@ -90,7 +90,7 @@ export function OverviewTab({ householdId }: OverviewTabProps) {
       </div>
 
       {/* KPI Cards Row */}
-      <div className="kpi-grid" style={{ gridTemplateColumns: 'repeat(4, 1fr)', marginBottom: '32px' }}>
+      <div className="kpi-grid overview-kpi-grid">
         {overviewLoading ? (
           <>
             <div className="kpi-card">
@@ -152,13 +152,12 @@ export function OverviewTab({ householdId }: OverviewTabProps) {
         <div className="card">
           <div className="card-header">
             <h3 className="card-title">Portfolio Performance</h3>
-            <div style={{ display: 'flex', gap: '8px' }}>
+            <div className="performance-range-buttons">
               {["3M", "6M", "1Y"].map((range) => (
                 <button
                   key={range}
                   className={`btn ${performanceRange === range ? 'btn-primary' : 'btn-secondary'}`}
                   onClick={() => setPerformanceRange(range)}
-                  style={{ fontSize: '12px', padding: '4px 12px' }}
                 >
                   {range}
                 </button>
@@ -257,7 +256,7 @@ export function OverviewTab({ householdId }: OverviewTabProps) {
       </div>
 
       {/* Executive Summary */}
-      <div className="card" style={{ marginTop: '24px' }}>
+      <div className="card executive-summary-card">
         <div className="card-header">
           <h3 className="card-title">Executive Summary</h3>
           <p className="card-description">Key insights and recommendations</p>
@@ -265,25 +264,11 @@ export function OverviewTab({ householdId }: OverviewTabProps) {
         {overviewLoading ? (
           <div className="loading-state">Loading summary...</div>
         ) : overview?.executiveSummary ? (
-          <ul style={{ listStyle: 'none', padding: '0 24px' }}>
+          <ul className="executive-summary-list">
             {overview.executiveSummary.map((bullet, index) => (
-              <li key={index} style={{ 
-                display: 'flex', 
-                alignItems: 'flex-start', 
-                gap: '12px',
-                marginBottom: '12px',
-                fontSize: '14px',
-                lineHeight: '1.5'
-              }}>
-                <div style={{
-                  width: '6px',
-                  height: '6px',
-                  borderRadius: '50%',
-                  backgroundColor: '#0f766e',
-                  marginTop: '6px',
-                  flexShrink: 0
-                }} />
-                <span style={{ color: '#64748b' }}>{bullet}</span>
+              <li key={index} className="executive-summary-item">
+                <div className="executive-summary-bullet" />
+                <span className="executive-summary-text">{bullet}</span>
               </li>
             ))}
           </ul>

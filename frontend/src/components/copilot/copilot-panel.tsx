@@ -208,48 +208,73 @@ function SQLQueryDisplay({
   );
 }
 
-const quickActions = [
+// Quick actions function that provides context-aware queries
+const getQuickActions = (householdId?: string) => [
   { 
     id: 'top-cash', 
     icon: DollarSign, 
-    label: 'Top Cash Balances', 
-    query: 'What are the top cash balances by household?',
-    description: 'View highest cash positions'
+    label: 'Cash Analysis', 
+    query: householdId 
+      ? 'What is the cash position for this household?'
+      : 'What are the top cash balances by household?',
+    description: householdId 
+      ? 'View this household\'s cash positions'
+      : 'View highest cash positions across all households'
   },
   { 
     id: 'crm-insights', 
     icon: FileText, 
     label: 'Recent CRM Notes', 
-    query: 'What are the recent points of interest from CRM notes?',
-    description: 'Get insights from interactions'
+    query: householdId
+      ? 'What are the recent CRM notes and interactions for this household?'
+      : 'What are the recent points of interest from CRM notes?',
+    description: householdId
+      ? 'Get insights from this household\'s interactions'
+      : 'Get insights from all interactions'
   },
   { 
     id: 'allocation-drift', 
     icon: BarChart3, 
     label: 'Allocation Analysis', 
-    query: 'Show me any allocation mismatches that need rebalancing',
-    description: 'Check portfolio drift'
+    query: householdId
+      ? 'Show me the allocation breakdown and any rebalancing needs for this household'
+      : 'Show me any allocation mismatches that need rebalancing',
+    description: householdId
+      ? 'Check this household\'s portfolio drift'
+      : 'Check portfolio drift across households'
   },
   { 
     id: 'rmd-status', 
     icon: Calendar, 
     label: 'RMD Status', 
-    query: 'What are the upcoming RMD deadlines and current status?',
-    description: 'Review distributions'
+    query: householdId
+      ? 'What are the RMD requirements and status for this household?'
+      : 'What are the upcoming RMD deadlines and current status?',
+    description: householdId
+      ? 'Review this household\'s distributions'
+      : 'Review all RMD distributions'
   },
   { 
     id: 'performance-summary', 
     icon: TrendingUp, 
     label: 'Performance', 
-    query: 'Give me a performance summary for this quarter',
-    description: 'Analyze returns'
+    query: householdId
+      ? 'Give me a performance summary for this household for this quarter'
+      : 'Give me a performance summary for this quarter',
+    description: householdId
+      ? 'Analyze this household\'s returns'
+      : 'Analyze returns across households'
   },
   { 
     id: 'executive-summary', 
     icon: ClipboardList, 
     label: 'Executive Summary', 
-    query: 'Provide an executive summary of the household',
-    description: 'Comprehensive overview'
+    query: householdId
+      ? 'Provide an executive summary for this household'
+      : 'Provide an executive summary of all households',
+    description: householdId
+      ? 'Comprehensive overview of this household'
+      : 'Comprehensive overview of all households'
   }
 ];
 
@@ -261,8 +286,8 @@ export function CopilotPanel({ householdId }: CopilotPanelProps) {
       id: '1',
       type: 'assistant',
       content: householdId 
-        ? `Hello! I can help you analyze portfolios, cash positions, and CRM insights for this household. What would you like to explore?`
-        : `Hello! I can help with wealth management questions, portfolio analysis, and household insights. What would you like to know?`,
+        ? `Hello! I can help you analyze this specific household's portfolios, cash positions, performance, and CRM insights. All my responses will be focused on this household's data only. What would you like to explore?`
+        : `Hello! I can help with wealth management questions across all households - portfolio analysis, cash positions, performance comparisons, and insights. What would you like to know?`,
       timestamp: new Date()
     }
   ]);
@@ -446,6 +471,8 @@ export function CopilotPanel({ householdId }: CopilotPanelProps) {
       setIsLoading(false);
     }
   };
+
+  const quickActions = getQuickActions(householdId);
 
   const handleQuickAction = (action: typeof quickActions[0]) => {
     sendQuery(action.query);

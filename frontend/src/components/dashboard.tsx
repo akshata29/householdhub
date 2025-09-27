@@ -8,6 +8,7 @@ import { PlanningTab } from "@/features/planning/planning-tab";
 import { ReportsTab } from "@/features/reports/reports-tab";
 import { CopilotPanel } from "@/components/copilot/copilot-panel";
 import { DataSourceBadge } from "@/components/data-source-indicator";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { getHouseholdById } from "@/lib/mock-households";
 
 interface DashboardProps {
@@ -69,6 +70,7 @@ export function Dashboard({ householdId }: DashboardProps) {
               </div>
             </div>
             <div className="household-header-right">
+              <ThemeToggle />
               <DataSourceBadge />
             </div>
           </div>

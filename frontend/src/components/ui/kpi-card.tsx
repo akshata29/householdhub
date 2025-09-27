@@ -71,19 +71,23 @@ export function KPICard({
 
   return (
     <div className={`kpi-card ${className || ''}`}>
-      <div className="kpi-label">{label}</div>
-      <div className="kpi-value font-tabular">
-        {formatValue(value)}
-      </div>
-      {delta && (
-        <div className={`kpi-delta ${getDeltaClass()}`}>
-          {formatDelta(delta.value, delta.type)}
-          {delta.label && ` ${delta.label}`}
+      {Icon && (
+        <div className="kpi-icon">
+          <Icon className="icon" />
         </div>
       )}
-      {Icon && (
-        <Icon style={{ width: '24px', height: '24px', color: '#0f766e' }} />
-      )}
+      <div className="kpi-content">
+        <div className="kpi-label">{label}</div>
+        <div className="kpi-value font-tabular">
+          {formatValue(value)}
+        </div>
+        {delta && (
+          <div className={`kpi-delta ${getDeltaClass()}`}>
+            {formatDelta(delta.value, delta.type)}
+            {delta.label && ` ${delta.label}`}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

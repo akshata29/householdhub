@@ -73,9 +73,9 @@ export function DataSourceIndicator({
 
   if (isLoading || !status) {
     return (
-      <div className={`flex items-center gap-2 ${className}`}>
-        <div className="w-2 h-2 bg-gray-400 rounded-full animate-pulse"></div>
-        <span className="text-xs text-gray-500">Checking data source...</span>
+      <div className={`data-source-indicator-loading ${className}`}>
+        <div className="data-source-loading-dot"></div>
+        <span className="data-source-loading-text">Checking...</span>
       </div>
     );
   }
@@ -132,35 +132,31 @@ export function DataSourceIndicator({
   return (
     <div className={`data-source-indicator ${className}`}>
       <div 
-        className={`flex items-center gap-2 px-3 py-1.5 rounded-full border cursor-pointer transition-all duration-200 hover:shadow-sm ${
-          showDetails ? 'hover:bg-gray-50' : ''
-        }`}
+        className="data-source-indicator-container"
         onClick={handleClick}
         title={statusInfo.description}
       >
-        <div className={`flex items-center justify-center w-5 h-5 rounded-full ${statusInfo.color}`}>
-          <Icon className="w-3 h-3" />
+        <div className={`data-source-icon-container ${statusInfo.color}`}>
+          <Icon className="data-source-icon" />
         </div>
         
-        <span className="text-sm font-medium text-gray-700">
+        <span className="data-source-label">
           {statusInfo.label}
         </span>
 
         {status.useDataService && status.health && (
-          <div className="flex items-center gap-1">
+          <div>
             {status.health.healthy ? (
-              <CheckCircle2 className="w-3 h-3 text-green-500" />
+              <CheckCircle2 className="data-source-health-icon text-green-500" />
             ) : (
-              <WifiOff className="w-3 h-3 text-red-500" />
+              <WifiOff className="data-source-health-icon text-red-500" />
             )}
           </div>
         )}
 
         {showDetails && (
           <svg 
-            className={`w-4 h-4 text-gray-400 transform transition-transform duration-200 ${
-              isExpanded ? 'rotate-180' : ''
-            }`}
+            className={`data-source-dropdown-icon ${isExpanded ? 'expanded' : ''}`}
             fill="none" 
             stroke="currentColor" 
             viewBox="0 0 24 24"
@@ -278,9 +274,9 @@ export function DataSourcePanel({ className = '' }: { className?: string }) {
 
   if (isLoading || !status) {
     return (
-      <div className={`inline-flex items-center gap-2 px-3 py-1.5 text-xs bg-gray-100 text-gray-500 rounded-md border ${className}`}>
-        <div className="w-2 h-2 bg-gray-400 rounded-full animate-pulse" />
-        <span>Checking...</span>
+      <div className={`data-source-panel-loading ${className}`}>
+        <div className="data-source-loading-dot" />
+        <span className="data-source-loading-text">Checking...</span>
       </div>
     );
   }
@@ -343,61 +339,59 @@ export function DataSourcePanel({ className = '' }: { className?: string }) {
   return (
     <div className={`data-source-panel ${className}`}>
       <div 
-        className={`inline-flex items-center gap-2 px-3 py-1.5 text-xs border rounded-md cursor-pointer transition-all duration-200 hover:shadow-sm ${statusInfo.bgColor} ${statusInfo.textColor} ${statusInfo.borderColor}`}
+        className={`data-source-panel-container ${statusInfo.bgColor} ${statusInfo.textColor} ${statusInfo.borderColor}`}
         onClick={handleClick}
         title={statusInfo.description}
       >
-        <div className="flex items-center gap-1.5">
+        <div className="data-source-panel-icon-group">
           {statusInfo.dot}
-          <Icon className="w-3 h-3" />
+          <Icon className="data-source-panel-icon" />
         </div>
         
-        <span className="font-medium">{statusInfo.label}</span>
+        <span className="data-source-panel-label">{statusInfo.label}</span>
 
         {status.health && (
-          <CheckCircle2 className="w-3 h-3 text-green-500" />
+          <CheckCircle2 className="data-source-panel-health-icon text-green-500" />
         )}
 
-        <ChevronDown className={`w-3 h-3 text-gray-400 transform transition-transform duration-200 ${
-          isExpanded ? 'rotate-180' : ''
-        }`} />
+        <ChevronDown className={`data-source-panel-dropdown ${isExpanded ? 'expanded' : ''}`} />
       </div>
 
       {isExpanded && (
-        <div className="mt-2 p-3 bg-white rounded-lg border shadow-sm text-xs">
-          <div className="space-y-2">
-            <div className="flex justify-between">
-              <span className="text-gray-600">Mode:</span>
-              <span className="font-medium">{status.mode}</span>
+        <div className="data-source-panel-expanded">
+          <div className="data-source-panel-details">
+            <div className="data-source-detail-row">
+              <span className="data-source-detail-label">Mode:</span>
+              <span className="data-source-detail-value">{status.mode}</span>
             </div>
             
             {status.useDataService && (
               <>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Service URL:</span>
-                  <span className="font-mono text-xs">{status.dataServiceUrl}</span>
+                <div className="data-source-detail-row">
+                  <span className="data-source-detail-label">Service URL:</span>
+                  <span className="data-source-detail-url">{status.dataServiceUrl}</span>
                 </div>
                 
                 {status.health && (
                   <>
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">Health:</span>
-                      <span className={`font-medium ${
+                    <div className="data-source-detail-row">
+                      <span className="data-source-detail-label">Health:</span>
+                      <span className={`data-source-detail-value ${
                         status.health.healthy ? 'text-green-600' : 'text-red-600'
                       }`}>
                         {status.health.healthy ? 'Healthy' : 'Unhealthy'}
                       </span>
                     </div>
                     
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">Status:</span>
-                      <span className="font-medium">{status.health.status}</span>
+                    <div className="data-source-detail-row">
+                      <span className="data-source-detail-label">Status:</span>
+                      <span className="data-source-detail-value">{status.health.status}</span>
                     </div>
 
                     {status.health.fallback && (
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">Data Source:</span>
-                        <span className="font-medium text-yellow-600">Fallback</span>
+                      <div className="data-source-detail-row">
+                        <span className="data-source-detail-label">Data Source:</span>
+                        <span className="data-source-detail-value text-yellow-600">Fallback</span>
                       </div>
                     )}
                   </>
@@ -405,10 +399,8 @@ export function DataSourcePanel({ className = '' }: { className?: string }) {
               </>
             )}
 
-            <div className="pt-2 border-t border-gray-200">
-              <p className="text-xs text-gray-500">
-                {statusInfo.description}
-              </p>
+            <div className="data-source-detail-description">
+              <p>{statusInfo.description}</p>
             </div>
           </div>
         </div>

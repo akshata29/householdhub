@@ -4,6 +4,7 @@ import * as React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { KPICard } from "@/components/ui/kpi-card";
 import { 
   FileText, 
   Download, 
@@ -323,15 +324,13 @@ export function ReportsTab({ householdId }: ReportsTabProps) {
   });
 
   return (
-    <div className="reports-tab">
+    <div className="reports-container">
       {/* Reports Header */}
       <div className="reports-header">
-        <div className="header-content">
-          <h1 className="page-title">Reports & Analytics</h1>
-          <p className="page-description">
-            Access comprehensive reports and analytics for your portfolio performance, tax planning, and financial insights.
-          </p>
-        </div>
+        <h1 className="reports-title">Reports & Analytics</h1>
+        <p className="reports-subtitle">
+          Access comprehensive reports and analytics for your portfolio performance, tax planning, and financial insights.
+        </p>
         <div className="header-actions">
           <Button className="primary-btn">
             <FileText className="btn-icon" />
@@ -341,43 +340,31 @@ export function ReportsTab({ householdId }: ReportsTabProps) {
       </div>
 
       {/* Quick Stats */}
-      <div className="reports-stats">
-        <div className="stat-card">
-          <div className="stat-icon">
-            <FileText className="icon" />
-          </div>
-          <div className="stat-content">
-            <div className="stat-value">12</div>
-            <div className="stat-label">Total Reports</div>
-          </div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-icon">
-            <Download className="icon" />
-          </div>
-          <div className="stat-content">
-            <div className="stat-value">8</div>
-            <div className="stat-label">Ready to Download</div>
-          </div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-icon">
-            <Clock className="icon" />
-          </div>
-          <div className="stat-content">
-            <div className="stat-value">2</div>
-            <div className="stat-label">In Progress</div>
-          </div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-icon">
-            <Calendar className="icon" />
-          </div>
-          <div className="stat-content">
-            <div className="stat-value">6</div>
-            <div className="stat-label">This Month</div>
-          </div>
-        </div>
+      <div className="kpi-grid">
+        <KPICard
+          label="Total Reports"
+          value={12}
+          format="number"
+          icon={FileText}
+        />
+        <KPICard
+          label="Ready to Download"
+          value={8}
+          format="number"
+          icon={Download}
+        />
+        <KPICard
+          label="In Progress"
+          value={2}
+          format="number"
+          icon={Clock}
+        />
+        <KPICard
+          label="This Month"
+          value={6}
+          format="number"
+          icon={Calendar}
+        />
       </div>
 
       {/* Filters and Search */}

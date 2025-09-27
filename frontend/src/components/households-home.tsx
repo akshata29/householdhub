@@ -31,6 +31,7 @@ import { CopilotPanel } from "@/components/copilot/copilot-panel";
 import { DataSourcePanel } from "@/components/data-source-indicator";
 import { useHouseholds } from "@/lib/queries";
 import { Loader2 } from "lucide-react";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 type SortField = 'name' | 'totalAssets' | 'ytdPerformance' | 'lastActivity' | 'nextReview';
 type SortDirection = 'asc' | 'desc';
@@ -45,17 +46,17 @@ const HouseholdTypeIcons = {
 };
 
 const StatusColors = {
-  'Active': 'bg-green-100 text-green-800 border-green-200',
-  'Onboarding': 'bg-blue-100 text-blue-800 border-blue-200',
-  'Review Required': 'bg-yellow-100 text-yellow-800 border-yellow-200',
-  'Inactive': 'bg-gray-100 text-gray-800 border-gray-200'
+  'Active': 'status-active',
+  'Onboarding': 'status-onboarding',
+  'Review Required': 'status-review-required',
+  'Inactive': 'status-inactive'
 };
 
 const RiskColors = {
-  'Ultra-Conservative': 'bg-purple-50 text-purple-700',
-  'Conservative': 'bg-blue-50 text-blue-700',
-  'Moderate': 'bg-green-50 text-green-700',
-  'Aggressive': 'bg-orange-50 text-orange-700'
+  'Ultra-Conservative': 'risk-ultra-conservative',
+  'Conservative': 'risk-conservative',
+  'Moderate': 'risk-moderate',
+  'Aggressive': 'risk-aggressive'
 };
 
 export function HouseholdsHomePage() {
@@ -125,14 +126,7 @@ export function HouseholdsHomePage() {
       return [];
     }
     
-    // Temporarily bypass filtering to test if data loads
-    console.log('Bypassing filters, showing all households');
-    const result = households.slice().sort((a: Household, b: Household) => {
-      return Number(b.totalAssets) - Number(a.totalAssets);
-    });
-    console.log('Returning households:', result.length);
-    return result;
-    
+    // Apply filters
     let filtered = households.filter((household: Household) => {
       const matchesSearch = 
         household.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -345,6 +339,7 @@ export function HouseholdsHomePage() {
             </p>
           </div>
           <div className="header-actions">
+            <ThemeToggle />
             <DataSourcePanel />
           </div>
         </div>
