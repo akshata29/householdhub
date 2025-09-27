@@ -1,0 +1,142 @@
+version: '3.8'
+
+services:
+  # SQL Server for local development
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: wealthops-sql
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=WealthOps123!
+      - MSSQL_PID=Developer
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+    networks:
+      - wealthops-network
+
+  # Redis for caching (optional)
+  redis:
+    image: redis:7-alpine
+    container_name: wealthops-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - wealthops-network
+
+  # Orchestrator service
+  orchestrator:
+    build:
+      context: ./backend
+      dockerfile: orchestrator/Dockerfile
+    container_name: wealthops-orchestrator
+    ports:
+      - "8000:8000"
+    environment:
+      - ENVIRONMENT=development
+      - DEBUG=true
+      - AZURE_SQL_CONNECTION_STRING=Server=sqlserver,1433;Database=WealthOpsDB;User ID=sa;Password=WealthOps123!;TrustServerCertificate=true
+      - AI_SEARCH_ENDPOINT=https://aisrch-wealthops-dev.search.windows.net
+      - AZURE_OPENAI_ENDPOINT=https://ai-wealthops-dev.openai.azure.com
+      - SERVICE_BUS_NAMESPACE=sb-wealthops-dev.servicebus.windows.net
+      - STORAGE_ACCOUNT_NAME=stwealthopsdev
+      - KEY_VAULT_URI=https://kv-wealthops-dev.vault.azure.net
+      - AGENT_NAME=orchestrator
+      - CORS_ORIGINS=["http://localhost:3000"]
+    depends_on:
+      - sqlserver
+      - redis
+    networks:
+      - wealthops-network
+    restart: unless-stopped
+
+  # NL2SQL Agent service
+  nl2sql-agent:
+    build:
+      context: ./backend
+      dockerfile: nl2sql_agent/Dockerfile
+    container_name: wealthops-nl2sql
+    ports:
+      - "8001:8000"
+    environment:
+      - ENVIRONMENT=development
+      - DEBUG=true
+      - AZURE_SQL_CONNECTION_STRING=Server=sqlserver,1433;Database=WealthOpsDB;User ID=sa;Password=WealthOps123!;TrustServerCertificate=true
+      - SERVICE_BUS_NAMESPACE=sb-wealthops-dev.servicebus.windows.net
+      - AGENT_NAME=nl2sql-agent
+    depends_on:
+      - sqlserver
+    networks:
+      - wealthops-network
+    restart: unless-stopped
+
+  # Vector Agent service
+  vector-agent:
+    build:
+      context: ./backend
+      dockerfile: vector_agent/Dockerfile
+    container_name: wealthops-vector
+    ports:
+      - "8002:8000"
+    environment:
+      - ENVIRONMENT=development
+      - DEBUG=true
+      - AI_SEARCH_ENDPOINT=https://aisrch-wealthops-dev.search.windows.net
+      - AZURE_OPENAI_ENDPOINT=https://ai-wealthops-dev.openai.azure.com
+      - SERVICE_BUS_NAMESPACE=sb-wealthops-dev.servicebus.windows.net
+      - AGENT_NAME=vector-agent
+    networks:
+      - wealthops-network
+    restart: unless-stopped
+
+  # API Agent service
+  api-agent:
+    build:
+      context: ./backend
+      dockerfile: api_agent/Dockerfile
+    container_name: wealthops-api
+    ports:
+      - "8003:8000"
+    environment:
+      - ENVIRONMENT=development
+      - DEBUG=true
+      - SERVICE_BUS_NAMESPACE=sb-wealthops-dev.servicebus.windows.net
+      - AGENT_NAME=api-agent
+    networks:
+      - wealthops-network
+    restart: unless-stopped
+
+  # MCP MSSQL Server (sidecar for NL2SQL)
+  mcp-mssql:
+    image: node:18-alpine
+    container_name: wealthops-mcp-mssql
+    working_dir: /app
+    volumes:
+      - ./mcp-mssql:/app
+    environment:
+      - SQL_CONNECTION_STRING=Server=sqlserver,1433;Database=WealthOpsDB;User ID=sa;Password=WealthOps123!;TrustServerCertificate=true
+    ports:
+      - "3001:3000"
+    depends_on:
+      - sqlserver
+    networks:
+      - wealthops-network
+    restart: unless-stopped
+    command: >
+      sh -c "
+        if [ ! -f package.json ]; then
+          npm init -y &&
+          npm install @microsoft/mssql-mcp-server &&
+          echo 'const { createServer } = require(\"@microsoft/mssql-mcp-server\"); createServer();' > index.js
+        fi &&
+        npm start
+      "
+
+networks:
+  wealthops-network:
+    driver: bridge
+
+volumes:
+  sqlserver_data:
+    driver: local

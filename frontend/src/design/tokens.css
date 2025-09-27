@@ -1,0 +1,103 @@
+:root {
+  color-scheme: light;
+  --bg: 216 33% 97%;
+  --fg: 222 47% 12%;
+  --card: 0 0% 100%;
+  --card-foreground: var(--fg);
+  --muted: 214 15% 92%;
+  --muted-foreground: 218 11% 38%;
+  --primary: 222 83% 55%;
+  --primary-foreground: 210 40% 98%;
+  --accent: 199 94% 48%;
+  --accent-foreground: 210 40% 98%;
+  --success: 152 63% 46%;
+  --warning: 34 94% 50%;
+  --danger: 0 84% 58%;
+  --success-foreground: 155 86% 14%;
+  --warning-foreground: 30 95% 12%;
+  --danger-foreground: 355 100% 96%;
+  --chart-1: 222 83% 54%;
+  --chart-2: 199 86% 48%;
+  --chart-3: 151 63% 46%;
+  --chart-4: 29 92% 56%;
+  --chart-5: 271 91% 65%;
+  --chart-6: 333 79% 60%;
+  --ring: 222 83% 54%;
+  --border: 214 32% 91%;
+  --input: 214 32% 91%;
+  --radius-xs: 0.5rem;
+  --radius-sm: 0.625rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --container-max: 1400px;
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.08);
+  --shadow-md: 0 12px 24px rgba(15, 23, 42, 0.08);
+  --shadow-lg: 0 24px 48px rgba(15, 23, 42, 0.12);
+}
+
+[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: 215 28% 12%;
+  --fg: 210 40% 96%;
+  --card: 222 40% 15%;
+  --card-foreground: var(--fg);
+  --muted: 215 23% 20%;
+  --muted-foreground: 213 15% 70%;
+  --primary: 217 91% 60%;
+  --primary-foreground: 222 47% 12%;
+  --accent: 199 95% 63%;
+  --accent-foreground: 210 40% 12%;
+  --success: 152 71% 52%;
+  --warning: 36 92% 62%;
+  --danger: 356 82% 67%;
+  --success-foreground: 149 80% 11%;
+  --warning-foreground: 31 86% 10%;
+  --danger-foreground: 356 100% 12%;
+  --chart-1: 217 92% 60%;
+  --chart-2: 199 94% 63%;
+  --chart-3: 152 71% 52%;
+  --chart-4: 36 92% 62%;
+  --chart-5: 266 83% 70%;
+  --chart-6: 320 85% 70%;
+  --ring: 217 91% 60%;
+  --border: 215 23% 26%;
+  --input: 215 23% 26%;
+  --shadow-sm: 0 1px 2px rgba(2, 6, 23, 0.45);
+  --shadow-md: 0 16px 40px rgba(2, 6, 23, 0.35);
+  --shadow-lg: 0 32px 60px rgba(2, 6, 23, 0.45);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root[data-theme='system'] {
+    color-scheme: dark;
+    --bg: 215 28% 12%;
+    --fg: 210 40% 96%;
+    --card: 222 40% 15%;
+    --card-foreground: var(--fg);
+    --muted: 215 23% 20%;
+    --muted-foreground: 213 15% 70%;
+    --primary: 217 91% 60%;
+    --primary-foreground: 222 47% 12%;
+    --accent: 199 95% 63%;
+    --accent-foreground: 210 40% 12%;
+    --success: 152 71% 52%;
+    --warning: 36 92% 62%;
+    --danger: 356 82% 67%;
+    --success-foreground: 149 80% 11%;
+    --warning-foreground: 31 86% 10%;
+    --danger-foreground: 356 100% 12%;
+    --chart-1: 217 92% 60%;
+    --chart-2: 199 94% 63%;
+    --chart-3: 152 71% 52%;
+    --chart-4: 36 92% 62%;
+    --chart-5: 266 83% 70%;
+    --chart-6: 320 85% 70%;
+    --ring: 217 91% 60%;
+    --border: 215 23% 26%;
+    --input: 215 23% 26%;
+    --shadow-sm: 0 1px 2px rgba(2, 6, 23, 0.45);
+    --shadow-md: 0 16px 40px rgba(2, 6, 23, 0.35);
+    --shadow-lg: 0 32px 60px rgba(2, 6, 23, 0.45);
+  }
+}

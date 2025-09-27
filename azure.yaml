@@ -1,0 +1,24 @@
+name: wealthops-mvp
+metadata:
+  template: wealthops-mvp@0.0.1-beta
+services:
+  orchestrator:
+    project: ./backend/orchestrator
+    language: py
+    host: containerapp
+  nl2sql-agent:
+    project: ./backend/nl2sql_agent  
+    language: py
+    host: containerapp
+  vector-agent:
+    project: ./backend/vector_agent
+    language: py
+    host: containerapp
+  api-agent:
+    project: ./backend/api_agent
+    language: py
+    host: containerapp
+  frontend:
+    project: ./frontend
+    language: js
+    host: staticwebapp

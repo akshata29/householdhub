@@ -1,0 +1,5 @@
+# Orchestrator-specific requirements
+-r ../requirements.txt
+
+# Additional dependencies for orchestrator
+semantic-kernel==0.9.6b1
