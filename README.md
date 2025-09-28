@@ -1,4 +1,4 @@
-# HouseholdHub - Intelligent Wealth Management Platform
+# WealthOps - Intelligent Wealth Management Platform
 
 <div align="center">
 
@@ -15,7 +15,7 @@
 
 ## 🌟 Business Overview
 
-HouseholdHub transforms wealth management through intelligent AI-driven insights and comprehensive financial data orchestration. Designed for financial advisors, wealth managers, and family offices, the platform delivers real-time portfolio analytics, automated compliance monitoring, and personalized client intelligence.
+WealthOps transforms wealth management through intelligent AI-driven insights and comprehensive financial data orchestration. Designed for financial advisors, wealth managers, and family offices, the platform delivers real-time portfolio analytics, automated compliance monitoring, and personalized client intelligence.
 
 ### Key Business Value Propositions
 
@@ -77,18 +77,6 @@ HouseholdHub transforms wealth management through intelligent AI-driven insights
 - **Data Layer**: Azure SQL warehouse with comprehensive financial data schema
 - **Messaging**: Agent-to-Agent (A2A) protocol using Azure Service Bus with idempotent processing
 
-### Supported Business Scenarios
-The platform handles 9 comprehensive wealth management scenarios:
-1. **Cash Position Analysis**: "What is the total cash position for household HH001?"
-2. **Household Rankings**: "Show me the top 3 households by assets under management"
-3. **RMD Compliance**: "Which clients have required minimum distributions due this year?"
-4. **CRM Intelligence**: "What are the recent CRM notes for John Doe?"
-5. **Performance Analytics**: "How did the Conservative Growth portfolio perform last quarter?"
-6. **Asset Allocation**: "Show allocation breakdown for account ACC001"
-7. **Position Analysis**: "What Pershing positions are held by household HH001?"
-8. **Liquidity Monitoring**: "Which households have cash positions above $100k?"
-9. **Executive Reporting**: "Generate an executive summary for household HH001"
-
 ## 🚀 Getting Started
 
 ### Prerequisites
@@ -107,7 +95,7 @@ Ensure you have the following tools and services ready before beginning:
 ```powershell
 # Clone the repository
 git clone <repository-url>
-cd householdhub
+cd wealthops
 ```
 
 #### 2. Backend Environment Setup
@@ -121,7 +109,6 @@ venv\Scripts\activate
 
 # Install Python dependencies
 pip install -r requirements.txt
-pip install -r requirements-test.txt
 ```
 
 #### 3. Frontend Environment Setup
@@ -145,89 +132,23 @@ cp .env.example .env
 
 #### 5. Local Development Launch
 ```powershell
-# Start all services using Docker Compose
-docker-compose up -d
+# Start all backend services using Docker Compose
+cd backend/start-all.ps1
 
 # Load synthetic financial data
-python scripts/load_synthetic_data.py
-python scripts/ingest_crm_notes.py
+database/00_create_and_insert.sql
+database/01_add_remaining_household_data.sql
 ```
 
 #### 6. Verify Installation
 - **Frontend**: Navigate to `http://localhost:3000`
-- **Backend API**: Access `http://localhost:8000/docs` for FastAPI documentation
+- **Backend API**: Access `http://localhost:9000/docs` for FastAPI documentation
 - **Health Checks**: All services should report healthy status
-
-## 🧪 Testing & Quality Assurance
-
-### Comprehensive Test Suite
-The platform includes a robust testing framework ensuring reliability and maintainability:
-
-#### Backend Testing
-```powershell
-# Execute complete test suite with coverage reporting
-pytest tests/ --cov=backend --cov-report=html
-
-# Individual agent testing
-pytest tests/test_orchestrator.py -v        # Multi-agent orchestration
-pytest tests/test_nl2sql_agent.py -v       # Natural language SQL generation
-pytest tests/test_vector_agent.py -v       # CRM search and RAG
-pytest tests/test_api_agent.py -v          # External API integration
-
-# End-to-end integration testing
-pytest tests/test_e2e_integration.py -v    # Full business scenario validation
-```
-
-#### Frontend Quality Assurance
-```powershell
-cd frontend
-
-# Development server with hot reloading
-npm run dev
-
-# Production build validation
-npm run build
-
-# TypeScript type checking
-npm run type-check
-```
-
-#### Test Coverage Results
-- ✅ **Orchestrator Agent**: Intent routing, response composition, streaming
-- ✅ **NL2SQL Agent**: Pattern matching, SQL generation, security validation  
-- ✅ **Vector Agent**: CRM search, entity extraction, relevance filtering
-- ✅ **API Agent**: External service integration, synthetic data generation
-- ✅ **End-to-End Flows**: All 9 business scenarios with multi-agent orchestration
-- ✅ **Frontend Components**: TypeScript compilation, React component validation
-
-## 🌩️ Azure Deployment
-
-### Infrastructure as Code Deployment
-```powershell
-# Deploy complete Azure infrastructure
-az deployment sub create \
-  --location "East US 2" \
-  --template-file infra/main.bicep \
-  --parameters @infra/main.parameters.json
-
-# Verify deployment status
-az deployment sub show --name main --query "properties.provisioningState"
-```
-
-### Production Environment Setup
-The Bicep templates provision:
-- **Container Apps Environment** with auto-scaling and private networking
-- **Azure SQL Database** with comprehensive financial data schema
-- **Azure AI Search** with vector embeddings for CRM intelligence  
-- **Azure OpenAI** for natural language processing and generation
-- **Service Bus** for reliable agent-to-agent messaging
-- **Key Vault** for secure credential and certificate management
-- **Managed Identity** for secure service-to-service authentication
 
 ## 📁 Project Structure
 
 ```
-householdhub/
+wealthops/
 ├── 📁 infra/                    # Azure Bicep infrastructure as code
 │   ├── main.bicep              # Main infrastructure template
 │   ├── containerapp.bicep      # Container Apps configuration
@@ -271,119 +192,10 @@ householdhub/
 ### 📊 Advanced Data Integration
 - **Azure SQL Warehouse**: Comprehensive financial data schema supporting complex household hierarchies
 - **Vector Search Engine**: Azure AI Search with hybrid retrieval for CRM notes and documents
-- **External API Gateway**: Seamless integration with custodial platforms (Pershing) and performance systems
 - **Synthetic Data Generation**: Realistic financial data sets for development and testing
-
-### 🔐 Enterprise Security & Compliance
-- **Azure AD Integration**: MSAL-based authentication with role-based access control
-- **Private Networking**: Azure Private Endpoints ensuring secure service-to-service communication
-- **Managed Identity**: Keyless authentication eliminating credential management overhead
-- **Audit Trails**: Comprehensive logging and monitoring for regulatory compliance
-
-### 🚀 Production-Ready Architecture
-- **Microservices Design**: Independently deployable services with clear domain boundaries
-- **Container Orchestration**: Azure Container Apps with auto-scaling and load balancing
-- **Infrastructure as Code**: Complete Bicep templates for repeatable, version-controlled deployments
-- **Comprehensive Testing**: Unit, integration, and end-to-end test coverage exceeding 85%
-
-## 🎯 Business Impact & ROI
-
-### Operational Efficiency
-- **90% Reduction** in manual data aggregation time across multiple systems
-- **Sub-3-Second Response Times** for complex multi-source financial queries
-- **24/7 Availability** with intelligent caching and auto-scaling capabilities
-- **Standardized Reporting** eliminating inconsistent manual processes
 
 ### Enhanced Client Service
 - **Proactive Insights**: AI-driven identification of portfolio optimization opportunities
 - **Instant Analytics**: Real-time portfolio performance and risk assessment
 - **Comprehensive Views**: Unified household perspective across all accounts and relationships
 - **Compliance Automation**: Automated RMD monitoring and regulatory requirement tracking
-
-### Competitive Advantages
-- **Modern Technology Stack**: Cloud-native architecture supporting rapid feature development
-- **Scalable Foundation**: Designed to handle growth from boutique firms to enterprise wealth managers
-- **API-First Design**: Enables integration with existing and future fintech solutions
-- **AI-Powered Innovation**: Positions firm as technology leader in wealth management space
-
----
-
-## 🏆 Project Status
-
-**Status**: ✅ **Production Ready**
-
-**Current Release**: v1.0.0 - MVP Complete with full feature set
-
-**Next Roadmap Items**:
-- Enhanced portfolio optimization recommendations
-- Advanced risk analytics and stress testing
-- Mobile application development
-- Additional custodial platform integrations
-- Expanded compliance monitoring capabilities
-
----
-
-## 📚 Additional Resources
-
-- **[Technical Architecture Guide](docs/PROJECT_SUMMARY.md)**: Detailed technical implementation overview
-- **[Data Architecture Documentation](docs/DATA_ARCHITECTURE.md)**: Database schema and data flow patterns
-- **[MCP Integration Guide](docs/MCP_INTEGRATION.md)**: Model Context Protocol implementation details
-- **[Individual Services Guide](docs/individual-services.md)**: Service-by-service configuration reference
-
----
-
-<div align="center">
-
-**Built with ❤️ for the future of wealth management**
-
-*Leveraging Azure AI Services, Semantic Kernel, and modern web technologies*
-
-</div>
-5. Executive summary of household report
-6. Missing beneficiary info
-7. Upcoming RMD deadlines
-8. No IRA contributions YTD → draft reminder
-9. +12% QoQ → performance summary
-
-## Quick Start
-
-### Local Development
-```bash
-# Start infrastructure
-docker compose up -d
-
-# Start backend services
-cd backend && python -m pip install -r requirements.txt
-uvicorn orchestrator.main:app --reload --port 8000
-
-# Start frontend
-cd frontend && npm install && npm run dev
-```
-
-### Azure Deployment
-```bash
-# Deploy infrastructure
-azd up
-
-# Run data ingestion
-python scripts/load_synthetic_data.py
-python scripts/ingest_crm_notes.py
-```
-
-## Project Structure
-
-```
-wealthops-mvp/
-├── infra/                  # Bicep templates + azd
-├── backend/
-│   ├── orchestrator/       # SK-based router + Copilot API
-│   ├── nl2sql_agent/      # MCP client + SQL runner
-│   ├── vector_agent/      # AI Search ingestion + query
-│   ├── api_agent/         # Mock Plan Performance & Pershing
-│   ├── a2a/               # Service Bus A2A broker
-│   └── common/            # Shared schemas, clients, config
-├── frontend/              # Next.js dashboard + copilot UI
-├── tests/                 # pytest + Playwright + Postman
-├── scripts/              # Data loading, deployment helpers
-└── docs/                 # ADRs, API docs, runbooks
-```

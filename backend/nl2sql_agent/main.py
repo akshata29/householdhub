@@ -30,7 +30,7 @@ logger = logging.getLogger(__name__)
 
 
 class NL2SQLAgent:
-    """NL2SQL Agent using MCP Server architecture with LLM-driven intent recognition"""
+    """NL2SQL Agent using MCP Server architecture with pure LLM-driven query understanding"""
     
     def __init__(self, connection_string: str):
         self.mcp_server = MCPSQLServer(connection_string)
@@ -52,31 +52,7 @@ class NL2SQLAgent:
             except Exception as e:
                 logger.warning(f"⚠️ Could not initialize Azure OpenAI client: {e}")
         
-        # Keep basic patterns as fallback
-        self.intent_patterns = {
-            "cash_balance": [
-                "cash balance", "cash position", "available cash", "liquid funds",
-                "cash holdings", "money available", "cash on hand"
-            ],
-            "top_cash": [
-                "top cash", "highest cash", "most cash", "largest cash balance",
-                "biggest cash position", "wealthiest by cash"
-            ],
-            "allocation_drift": [
-                "allocation", "drift", "mismatch", "target allocation", "asset allocation",
-                "portfolio allocation", "rebalancing", "out of target"
-            ],
-            "beneficiary_missing": [
-                "missing beneficiary", "no beneficiary", "beneficiary missing",
-                "estate planning", "beneficiary information"
-            ],
-            "performance": [
-                "performance", "returns", "gain", "loss", "qtd", "ytd", "growth"
-            ],
-            "household_summary": [
-                "household", "family", "summary", "overview", "total assets"
-            ]
-        }
+        # No need for predefined patterns - let the LLM understand any query!
     
     async def verify_database_data(self) -> Dict[str, Any]:
         """Verify what data exists in the database for debugging"""
@@ -120,9 +96,7 @@ class NL2SQLAgent:
         except Exception as e:
             logger.error(f"Error getting schema info: {e}")
             return {}
-    
-
-    
+       
     async def translate_nl_to_sql(self, query: str, context: Dict[str, Any] = None) -> Dict[str, Any]:
         """Translate natural language to SQL using MCP Server and intent detection."""
         try:
@@ -133,10 +107,6 @@ class NL2SQLAgent:
             # Get schema information
             schema_info = await self.get_schema_info()
             logger.info(f"📊 Schema Info Retrieved: {len(schema_info)} tables/objects")
-            
-            # Verify database data (for debugging)
-            db_verification = await self.verify_database_data()
-            logger.info(f"🔍 Database Verification Complete")
             
             # Generate SQL using LLM 
             sql_query = await self._use_llm_to_generate_sql(query, schema_info, context)
@@ -193,9 +163,7 @@ class NL2SQLAgent:
                 "success": False,
                 "error": str(e)
             }
-    
-
-    
+       
     async def _use_llm_to_generate_sql(self, query: str, schema_info: Dict[str, Any], context: Dict[str, Any] = None) -> str:
         """Intelligently generate SQL using LLM with dynamic schema discovery and data analysis"""
         
@@ -252,10 +220,28 @@ DO NOT return data for all households - MUST include the household filter even i
 
 CONTEXT: This is a GLOBAL query across ALL households. Include data from all households unless specifically asked to filter or rank by household."""
 
+            # Build additional context information
+            additional_context = ""
+            if context:
+                context_items = []
+                if context.get('limit'):
+                    context_items.append(f"- Limit results to {context['limit']} rows")
+                if context.get('days'):
+                    context_items.append(f"- Consider timeframe of {context['days']} days")
+                if context.get('account_id'):
+                    context_items.append(f"- Focus on account ID: {context['account_id']}")
+                
+                if context_items:
+                    additional_context = f"""
+
+ADDITIONAL CONTEXT FROM USER REQUEST:
+{chr(10).join(context_items)}
+"""
+
             prompt = f"""You are an expert SQL Server analyst. Generate a SIMPLE SQL query that returns meaningful data with proper JOINs.
 
 USER QUESTION: {query}
-{household_context}
+{household_context}{additional_context}
 
 {schema_context}
 
@@ -268,7 +254,8 @@ CRITICAL REQUIREMENTS:
 6. SIMPLE SELECT ONLY - NO CTEs, NO WITH clauses, NO subqueries
 7. Use basic date filtering with DATEADD() and GETDATE() functions directly in WHERE clause
 8. HOUSEHOLD FILTERING: {f'MUST include household filter as described above for "{context.get("household_id")}"' if context and context.get('household_id') and context['household_id'] != 'general' else 'Include all households unless specifically requested to filter'}
-9. Return ONLY the SQL query without explanations or comments
+9. If limit is specified in context, use TOP clause appropriately
+10. Return ONLY the SQL query without explanations or comments
 
 Generate simple SQL query:"""
 
@@ -377,9 +364,7 @@ CRITICAL INSTRUCTIONS:
         logger.info(f"� EXACT SCHEMA BEING SENT TO LLM:\n{schema_context}")
         
         return schema_context
-    
-
-    
+       
     async def _simple_fallback(self, schema_info: Dict[str, Any]) -> str:
         """Simple fallback - just return data from first available table"""
         try:
@@ -391,22 +376,7 @@ CRITICAL INSTRUCTIONS:
         except Exception as e:
             logger.error(f"❌ Simple fallback failed: {e}")
             return "SELECT 1"
-    
-
-    
-    def _extract_entity_filters(self, query: str, context: Dict[str, Any] = None) -> Dict[str, str]:
-        """Extract specific entity names from the query for filtering."""
-        filters = {}
-        
-        # Extract household names
-        if context and context.get("household_id"):
-            filters["household_id"] = context["household_id"]
-        
-        if context and context.get("account_id"):
-            filters["account_id"] = context["account_id"]
-            
-        return filters
-    
+           
     def _validate_sql_query(self, sql: str, context: Dict[str, Any] = None) -> str:
         """Validate and secure SQL query."""
         sql_upper = sql.upper().strip()
@@ -433,46 +403,8 @@ CRITICAL INSTRUCTIONS:
         
         return sql
     
-    async def execute_sql(self, sql: str) -> List[Dict[str, Any]]:
-        """Execute SQL query safely."""
-        try:
-            conn = await self.get_connection()
-            cursor = conn.cursor()
-            
-            start_time = time.time()
-            cursor.execute(sql)
-            results = cursor.fetchall()
-            execution_time = int((time.time() - start_time) * 1000)
-            
-            # Convert results to list of dictionaries
-            columns = [desc[0] for desc in cursor.description]
-            rows = []
-            for row in results:
-                row_dict = {}
-                for i, value in enumerate(row):
-                    # Handle different data types
-                    if hasattr(value, 'isoformat'):  # datetime objects
-                        row_dict[columns[i]] = value.isoformat()
-                    else:
-                        row_dict[columns[i]] = value
-                rows.append(row_dict)
-            
-            conn.close()
-            
-            return {
-                'results': rows,
-                'row_count': len(rows),
-                'execution_time_ms': execution_time,
-                'columns': columns
-            }
-            
-        except Exception as e:
-            logger.error(f"SQL execution failed: {e}")
-            raise
-
-
 class NL2SQLAgentService:
-    """NL2SQL Agent Service using MCP Server."""
+    """Simplified NL2SQL Agent Service - handles any natural language query dynamically."""
     
     def __init__(self):
         logger.info("🔧 Initializing NL2SQL Agent Service...")
@@ -487,193 +419,95 @@ class NL2SQLAgentService:
         self.broker = create_broker("nl2sql-agent")
         logger.info(f"✅ Message broker created: {type(self.broker).__name__}")
         
-        # Register message handlers
-        logger.info("🔧 Registering message handlers...")
-        self.broker.register_handler("TopCash", self.handle_top_cash)
-        self.broker.register_handler("Recon", self.handle_recon)
-        self.broker.register_handler("MissingBen", self.handle_missing_beneficiaries)
-        self.broker.register_handler("RMD", self.handle_rmd)
-        self.broker.register_handler("IRAReminder", self.handle_ira_reminder)
-        self.broker.register_handler("CashBalance", self.handle_cash_balance)
+        # Register single generic handler for any NL query
+        logger.info("🔧 Registering generic query handler...")
+        self.broker.register_handler("NLQuery", self.handle_natural_language_query)
     
-    async def handle_cash_balance(self, message: A2AMessage) -> Dict[str, Any]:
-        """Handle specific cash balance queries."""
+    async def handle_natural_language_query(self, message: A2AMessage) -> Dict[str, Any]:
+        """Handle any natural language query - let the LLM understand and generate appropriate SQL."""
         try:
-            query = message.payload.get('query', 'cash balance')
+            # Get the original user query - no modifications needed!
+            query = message.payload.get('query', '')
+            if not query:
+                return {
+                    'success': False,
+                    'error': 'No query provided'
+                }
+            
+            # Extract context from message
             context = message.context.model_dump() if message.context else {}
             
+            # Add any additional parameters from payload to context
+            for key in ['limit', 'days', 'account_id', 'schema_hint']:
+                if key in message.payload:
+                    context[key] = message.payload[key]
+            
+            logger.info(f"🔍 Processing natural language query: '{query}'")
+            logger.info(f"📋 Context: {context}")
+            
+            # Let the LLM do its magic!
             result = await self.nl2sql_agent.translate_nl_to_sql(query, context)
             
+            # Dynamically determine tables used from the actual SQL generated
+            tables_used = self._extract_tables_from_sql(result.get('sql_query', ''))
+            
             return {
-                'intent': result.get('intent', 'cash_balance'),
                 'sql_query': result.get('sql_query', ''),
                 'results': result.get('results', []),
-                'tables_used': ['Households', 'Accounts'],
+                'tables_used': tables_used,
                 'row_count': result.get('row_count', 0),
                 'execution_time_ms': result.get('execution_time_ms', 0),
                 'success': result.get('success', False),
                 'error': result.get('error'),
-                'message': result.get('message', '')
+                'message': result.get('message', ''),
+                'query_type': 'dynamic'  # Indicate this was dynamically processed
             }
             
         except Exception as e:
-            logger.error(f"Cash balance query failed: {e}")
+            logger.error(f"Natural language query processing failed: {e}")
             return {
                 'success': False,
                 'error': str(e)
             }
     
-    async def handle_top_cash(self, message: A2AMessage) -> Dict[str, Any]:
-        """Handle top cash balance queries."""
-        try:
-            limit = message.payload.get('limit', 10)
-            query = f"top {limit} households by cash balance"
-            context = message.context.model_dump() if message.context else {}
-            
-            result = await self.nl2sql_agent.translate_nl_to_sql(query, context)
-            
-            return {
-                'intent': result.get('intent', 'top_cash'),
-                'sql_query': result.get('sql_query', ''),
-                'results': result.get('results', []),
-                'tables_used': ['Households', 'Accounts'],
-                'row_count': result.get('row_count', 0),
-                'execution_time_ms': result.get('execution_time_ms', 0),
-                'success': result.get('success', False),
-                'error': result.get('error'),
-                'message': result.get('message', '')
-            }
-            
-        except Exception as e:
-            logger.error(f"Top cash query failed: {e}")
-            return {
-                'success': False,
-                'error': str(e)
-            }
-    
-    async def handle_recon(self, message: A2AMessage) -> Dict[str, Any]:
-        """Handle allocation reconciliation queries."""
-        try:
-            query = "allocation mismatch analysis"
-            context = message.context.model_dump() if message.context else {}
-            
-            result = await self.nl2sql_agent.translate_nl_to_sql(query, context)
-            
-            return {
-                'intent': result.get('intent', 'allocation_drift'),
-                'sql_query': result.get('sql_query', ''),
-                'results': result.get('results', []),
-                'tables_used': ['Households', 'AllocTargets', 'Positions', 'Accounts'],
-                'row_count': result.get('row_count', 0),
-                'execution_time_ms': result.get('execution_time_ms', 0),
-                'success': result.get('success', False),
-                'error': result.get('error'),
-                'message': result.get('message', '')
-            }
-            
-        except Exception as e:
-            logger.error(f"Recon query failed: {e}")
-            return {
-                'success': False,
-                'error': str(e)
-            }
-    
-    async def handle_missing_beneficiaries(self, message: A2AMessage) -> Dict[str, Any]:
-        """Handle missing beneficiary queries."""
-        try:
-            query = "missing beneficiary information"
-            context = message.context.model_dump() if message.context else {}
-            
-            result = await self.nl2sql_agent.translate_nl_to_sql(query, context)
-            
-            return {
-                'intent': result.get('intent', 'beneficiary_missing'),
-                'sql_query': result.get('sql_query', ''),
-                'results': result.get('results', []),
-                'tables_used': ['Households', 'Accounts', 'Beneficiaries'],
-                'row_count': result.get('row_count', 0),
-                'execution_time_ms': result.get('execution_time_ms', 0),
-                'success': result.get('success', False),
-                'error': result.get('error'),
-                'message': result.get('message', '')
-            }
-            
-        except Exception as e:
-            logger.error(f"Missing beneficiaries query failed: {e}")
-            return {
-                'success': False,
-                'error': str(e)
-            }
-    
-    async def handle_rmd(self, message: A2AMessage) -> Dict[str, Any]:
-        """Handle RMD deadline queries."""
-        try:
-            days = message.payload.get('days', 90)
-            query = f"upcoming RMD deadlines within {days} days"
-            context = message.context.model_dump() if message.context else {}
-            
-            # Add RMD-specific context
-            result = await self.nl2sql_agent.translate_nl_to_sql(query, context)
-            
-            return {
-                'intent': result.get('intent', 'rmd'),
-                'sql_query': result.get('sql_query', ''),
-                'results': result.get('results', []),
-                'tables_used': ['Households', 'Persons', 'Accounts'],
-                'row_count': result.get('row_count', 0),
-                'execution_time_ms': result.get('execution_time_ms', 0),
-                'success': result.get('success', False),
-                'error': result.get('error'),
-                'message': result.get('message', '')
-            }
-            
-        except Exception as e:
-            logger.error(f"RMD query failed: {e}")
-            return {
-                'success': False,
-                'error': str(e)
-            }
-    
-    async def handle_ira_reminder(self, message: A2AMessage) -> Dict[str, Any]:
-        """Handle IRA contribution reminder queries."""
-        try:
-            query = "IRA contributions YTD zero"
-            context = message.context.model_dump() if message.context else {}
-            
-            result = await self.nl2sql_agent.translate_nl_to_sql(query, context)
-            
-            return {
-                'intent': result.get('intent', 'ira_reminder'),
-                'sql_query': result.get('sql_query', ''),
-                'results': result.get('results', []),
-                'tables_used': ['Households', 'Accounts', 'Contributions'],
-                'row_count': result.get('row_count', 0),
-                'execution_time_ms': result.get('execution_time_ms', 0),
-                'success': result.get('success', False),
-                'error': result.get('error'),
-                'message': result.get('message', '')
-            }
-            
-        except Exception as e:
-            logger.error(f"IRA reminder query failed: {e}")
-            return {
-                'success': False,
-                'error': str(e)
-            }
+    def _extract_tables_from_sql(self, sql_query: str) -> List[str]:
+        """Extract table names from the generated SQL query."""
+        if not sql_query:
+            return []
+        
+        tables_used = []
+        sql_upper = sql_query.upper()
+        
+        # Common table names in your system
+        table_names = [
+            'HOUSEHOLDS', 'ACCOUNTS', 'POSITIONS', 'ALLOCTARGETS', 
+            'BENEFICIARIES', 'CONTRIBUTIONS', 'PERFORMANCE', 'PERSONS',
+            'PERFORMANCEDATA', 'ALLOCATIONS'
+        ]
+        
+        for table in table_names:
+            if table in sql_upper or f'DBO.{table}' in sql_upper:
+                tables_used.append(table.lower().capitalize())
+        
+        return list(set(tables_used))  # Remove duplicates
     
     async def process_direct_query(self, request: NL2SQLRequest) -> NL2SQLResponse:
-        """Process direct NL2SQL request (HTTP API)."""
+        """Process direct NL2SQL request (HTTP API) - simplified version."""
         try:
-            context = {
-                'household_id': request.household_id,
-                'account_id': request.account_id,
-                'schema_hint': request.schema_hint
-            }
+            # Build context from request
+            context = {}
+            if request.household_id:
+                context['household_id'] = request.household_id
+            if request.account_id:
+                context['account_id'] = request.account_id
+            if request.schema_hint:
+                context['schema_hint'] = request.schema_hint
             
-            result = await self.nl2sql_agent.translate_nl_to_sql(
-                request.query, 
-                context
-            )
+            logger.info(f"🔍 Direct API query: '{request.query}'")
+            logger.info(f"📋 Context: {context}")
+            
+            # Let the LLM handle any query
+            result = await self.nl2sql_agent.translate_nl_to_sql(request.query, context)
             
             if not result.get('success'):
                 raise HTTPException(
@@ -681,17 +515,11 @@ class NL2SQLAgentService:
                     detail=f"Query processing failed: {result.get('error', 'Unknown error')}"
                 )
             
-            # Extract table names from SQL
-            tables_used = []
-            sql_query = result.get('sql_query', '')
-            sql_upper = sql_query.upper()
-            table_names = ['HOUSEHOLDS', 'ACCOUNTS', 'POSITIONS', 'ALLOCTARGETS', 'BENEFICIARIES', 'CONTRIBUTIONS', 'PERFORMANCE', 'PERSONS']
-            for table in table_names:
-                if table in sql_upper:
-                    tables_used.append(table.lower().capitalize())
+            # Use the same table extraction logic
+            tables_used = self._extract_tables_from_sql(result.get('sql_query', ''))
             
             return NL2SQLResponse(
-                sql_query=sql_query,
+                sql_query=result.get('sql_query', ''),
                 results=result.get('results', []),
                 tables_used=tables_used,
                 row_count=result.get('row_count', 0),
@@ -705,7 +533,6 @@ class NL2SQLAgentService:
 
 # Global agent instance
 agent: Optional[NL2SQLAgentService] = None
-
 
 async def _start_broker_with_error_handling(broker):
     """Start broker with proper error handling."""
@@ -752,7 +579,6 @@ async def lifespan(app: FastAPI):
             logger.error(f"❌ Error closing broker: {e}")
     logger.info("🏁 NL2SQL Agent stopped")
 
-
 # FastAPI application
 app = FastAPI(
     title="NL2SQL Agent",
@@ -769,21 +595,41 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
 @app.get("/health")
 async def health_check():
     """Health check endpoint."""
     return {"status": "healthy", "agent": "nl2sql"}
 
-
 @app.post("/query", response_model=NL2SQLResponse)
 async def process_query(request: NL2SQLRequest):
-    """Process NL2SQL query directly."""
+    """Process any natural language query directly - no intent classification needed!"""
     if not agent:
         raise HTTPException(status_code=503, detail="Agent not initialized")
     
     return await agent.process_direct_query(request)
 
+@app.post("/ask")
+async def ask_anything(request: Dict[str, Any]):
+    """
+    Ask any question about the database in natural language.
+    Simple endpoint that accepts: {"query": "your question", "household_id": "optional"}
+    """
+    if not agent:
+        raise HTTPException(status_code=503, detail="Agent not initialized")
+    
+    query = request.get("query", "")
+    if not query:
+        raise HTTPException(status_code=400, detail="Query is required")
+    
+    # Build NL2SQLRequest from simple input
+    nl_request = NL2SQLRequest(
+        query=query,
+        household_id=request.get("household_id"),
+        account_id=request.get("account_id"),
+        schema_hint=request.get("schema_hint")
+    )
+    
+    return await agent.process_direct_query(nl_request)
 
 @app.get("/schema")
 async def get_schema():
@@ -798,7 +644,6 @@ async def get_schema():
         logger.error(f"Schema retrieval failed: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
-
 @app.get("/tools")
 async def list_mcp_tools():
     """List available MCP tools."""
@@ -812,7 +657,6 @@ async def list_mcp_tools():
         logger.error(f"Tools listing failed: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
-
 @app.post("/tools/{tool_name}")
 async def call_mcp_tool(tool_name: str, arguments: Dict[str, Any]):
     """Call a specific MCP tool directly."""
@@ -825,7 +669,6 @@ async def call_mcp_tool(tool_name: str, arguments: Dict[str, Any]):
     except Exception as e:
         logger.error(f"Tool execution failed: {e}")
         raise HTTPException(status_code=500, detail=str(e))
-
 
 if __name__ == "__main__":
     import uvicorn

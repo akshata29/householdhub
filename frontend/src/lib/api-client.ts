@@ -18,7 +18,7 @@ import {
 } from './mock-api-data';
 
 // Configuration
-const DATA_SERVICE_BASE_URL = process.env.NEXT_PUBLIC_DATA_SERVICE_URL || 'http://localhost:8000';
+const DATA_SERVICE_BASE_URL = process.env.NEXT_PUBLIC_DATA_SERVICE_URL || 'http://localhost:8010';
 const USE_DATA_SERVICE = process.env.NEXT_PUBLIC_USE_DATA_SERVICE === 'true';
 const REQUEST_TIMEOUT = 10000; // 10 seconds
 

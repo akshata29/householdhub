@@ -8,6 +8,7 @@ from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 import pyodbc
+from dotenv import load_dotenv
 import json
 from datetime import datetime, timedelta, date
 from typing import Optional, List, Dict, Any, Union
@@ -16,6 +17,9 @@ from pydantic import BaseModel, Field
 import logging
 import asyncio
 from functools import lru_cache
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)

@@ -6,6 +6,7 @@ import asyncio
 import logging
 import json
 import time
+import httpx
 from typing import Dict, List, Any, Optional, AsyncGenerator, Callable
 from datetime import datetime, timedelta
 from fastapi import FastAPI, HTTPException, BackgroundTasks
@@ -29,94 +30,36 @@ from common.schemas import (
 )
 from common.config import get_settings, get_cors_origins
 from common.auth import get_credential, get_openai_access_token
-from a2a.broker import create_broker, send_query_to_agent, broadcast_message
+from a2a.broker import create_broker
 
 logger = logging.getLogger(__name__)
 
-
-class IntentRouter:
-    """Routes user queries to appropriate agents based on intent detection."""
+class QueryRouter:
+    """Simple router that determines which agents to use based on query content."""
     
     def __init__(self, kernel: Kernel):
         self.kernel = kernel
-        self.intent_patterns = {
-            IntentType.TOP_CASH: [
-                "top cash", "highest cash", "most cash", "largest cash balance",
-                "cash positions", "liquid funds", "wealthiest by cash"
-            ],
-            IntentType.CASH_BALANCE: [  # New specific intent for individual cash balance queries
-                "cash balance", "available cash", "cash for", "cash position for",
-                "how much cash", "cash holdings", "liquid assets"
-            ],
-            IntentType.CRM_POI: [
-                "crm notes", "points of interest", "client notes", "advisor notes",
-                "conversation history", "meeting notes", "discussion points"
-            ],
-            IntentType.CUSTODIAL_18: [
-                "turned 18", "custodial", "age of majority", "minor account",
-                "transition", "adult account", "custody transfer"
-            ],
-            IntentType.RECON: [
-                "allocation", "mismatch", "drift", "rebalance", "target allocation",
-                "asset allocation", "portfolio drift", "out of range"
-            ],
-            IntentType.EXEC_SUMMARY: [
-                "executive summary", "summary", "overview", "report summary",
-                "household summary", "client summary", "portfolio summary"
-            ],
-            IntentType.MISSING_BEN: [
-                "missing beneficiary", "beneficiary", "no beneficiary",
-                "beneficiary information", "estate planning"
-            ],
-            IntentType.RMD: [
-                "rmd", "required minimum distribution", "distribution deadline",
-                "withdrawal required", "mandatory distribution"
-            ],
-            IntentType.IRA_REMINDER: [
-                "ira contribution", "contribution reminder", "ytd contribution",
-                "annual contribution", "contribution limit", "no contributions"
-            ],
-            IntentType.PERF_SUMMARY: [
-                "performance", "returns", "gain", "loss", "qoq", "qtd", "ytd",
-                "performance summary", "investment performance"
-            ]
-        }
     
-    async def detect_intent(self, query: str) -> IntentType:
-        """Detect the primary intent from user query."""
+    def get_required_agents(self, query: str) -> List[AgentType]:
+        """Determine which agents are needed for this query using simple heuristics."""
         query_lower = query.lower()
         
-        # Score each intent based on keyword matches
-        intent_scores = {}
-        for intent, keywords in self.intent_patterns.items():
-            score = sum(1 for keyword in keywords if keyword in query_lower)
-            if score > 0:
-                intent_scores[intent] = score
+        agents = []
         
-        if not intent_scores:
-            # Default to executive summary for general queries
-            return IntentType.EXEC_SUMMARY
+        # Always include NL2SQL for database queries
+        agents.append(AgentType.NL2SQL)
         
-        # Return intent with highest score
-        return max(intent_scores.keys(), key=lambda k: intent_scores[k])
-    
-    def get_agent_routing(self, intent: IntentType) -> List[AgentType]:
-        """Get list of agents that should handle this intent."""
-        routing_map = {
-            IntentType.TOP_CASH: [AgentType.NL2SQL],
-            IntentType.CASH_BALANCE: [AgentType.NL2SQL],  # New routing for cash balance queries
-            IntentType.CRM_POI: [AgentType.VECTOR],
-            IntentType.CUSTODIAL_18: [AgentType.NL2SQL, AgentType.VECTOR],
-            IntentType.RECON: [AgentType.NL2SQL, AgentType.API],
-            IntentType.EXEC_SUMMARY: [AgentType.NL2SQL, AgentType.VECTOR, AgentType.API],
-            IntentType.MISSING_BEN: [AgentType.NL2SQL],
-            IntentType.RMD: [AgentType.NL2SQL],
-            IntentType.IRA_REMINDER: [AgentType.NL2SQL],
-            IntentType.PERF_SUMMARY: [AgentType.NL2SQL, AgentType.API]
-        }
+        # Add vector agent for CRM/document searches
+        crm_keywords = ["notes", "crm", "conversation", "meeting", "discussion", "client notes"]
+        if any(keyword in query_lower for keyword in crm_keywords):
+            agents.append(AgentType.VECTOR)
         
-        return routing_map.get(intent, [AgentType.NL2SQL])
-
+        # Add API agent for performance/external data
+        api_keywords = ["performance", "returns", "allocation", "drift", "rebalance"]
+        if any(keyword in query_lower for keyword in api_keywords):
+            agents.append(AgentType.API)
+            
+        return agents
 
 class ResponseComposer:
     """Composes final responses from agent results using Semantic Kernel."""
@@ -144,103 +87,8 @@ CRITICAL INSTRUCTIONS:
 
 Answer the question now using the exact data provided above."""
         
-        # Keep templates for backward compatibility but use single template
-        self.templates = {
-            'top_cash': """
-            You MUST use the exact data provided in the SQL Results below. Do NOT make up or generate fake data.
-            
-            IMPORTANT: Use ONLY the household names and amounts from the SQL Results provided below.
-            
-            SQL Results Data: {{$sql_results}}
-            SQL Query Used: {{$sql_query}}
-            
-            Based on the SQL query results above, provide a clear summary of the top cash balances using the EXACT household names and amounts from the data:
-            
-            Format the response as:
-            1. Brief introduction explaining what the query found
-            2. List the top 5 households with their EXACT names and cash balance amounts from the SQL results
-            3. Any notable insights based on the ACTUAL data provided
-            
-            CRITICAL: You must use the exact household names (like "Singh Global Family Office") and exact amounts (like "$37,000,000.00") from the SQL Results. Do not create fake household names like "Household A" or fake amounts.
-            
-            Always include citation: "Source: SQL query on Households and Accounts tables"
-            """,
-            
-            'cash_balance': """
-            Based on the SQL query results, provide a specific cash balance response:
-            
-            SQL Results: {{$sql_results}}
-            SQL Query: {{$sql_query}}
-            Original Query: {{$original_query}}
-            
-            Format the response as:
-            1. Direct answer to the cash balance question
-            2. Specific amount(s) with household/account names
-            3. Context about the query (what was searched)
-            
-            Make the response conversational and helpful. If a specific household was mentioned in the query, focus on that household's results.
-            Always include citation: "Source: SQL query on Households and Accounts tables"
-            """,
-            
-            'crm_poi': """
-            Based on the CRM search results, summarize the key points of interest:
-            
-            Search Results: {{$search_results}}
-            Points of Interest: {{$points_of_interest}}
-            
-            Format the response as:
-            1. Summary of findings
-            2. Key points of interest with dates and authors
-            3. Recommended follow-up actions
-            
-            Always include citations for specific CRM notes referenced.
-            """,
-            
-            'allocation_mismatch': """
-            Based on SQL data and external API information, analyze allocation mismatches:
-            
-            SQL Results: {{$sql_results}}
-            Plan Performance Data: {{$api_results}}
-            
-            Format the response as:
-            1. Overall allocation status
-            2. Specific asset classes out of range
-            3. Recommended rebalancing actions
-            4. Dollar amounts involved
-            
-            Include citations for both SQL tables and external API data.
-            """,
-            
-            'executive_summary': """
-            Create an executive summary based on all available data:
-            
-            SQL Results: {{$sql_results}}
-            CRM Insights: {{$crm_results}}
-            Performance Data: {{$performance_data}}
-            
-            Format as a comprehensive but concise executive summary (max 200 words):
-            1. Key financial metrics
-            2. Important observations from CRM
-            3. Risk factors or opportunities
-            4. Recommended actions
-            
-            Include all relevant citations.
-            """,
-            
-            'general': """
-            Based on the available information, provide a helpful response:
-            
-            Query: {{$query}}
-            Available Data: {{$results}}
-            
-            Provide a clear, informative response that addresses the user's question.
-            Always include appropriate citations for data sources used.
-            """
-        }
-    
     async def compose_response(
         self,
-        intent: IntentType,
         query: str,
         agent_results: Dict[AgentType, Dict[str, Any]]
     ) -> QueryResponse:
@@ -251,7 +99,6 @@ Answer the question now using the exact data provided above."""
             
             logger.info(f"🤖 Response Composition Starting")
             logger.info(f"📝 Original Query: '{query}'")
-            logger.info(f"🎯 Intent: {intent}")
             logger.info(f"🔧 Agent Results Summary:")
             for agent_type, results in agent_results.items():
                 logger.info(f"   - {agent_type}: success={results.get('success')}, data_rows={len(results.get('data', []))}")
@@ -342,17 +189,6 @@ Answer the question now using the exact data provided above."""
                 execution_time_ms=0,
                 agent_calls=[]
             )
-    
-    def _get_template_key(self, intent: IntentType) -> str:
-        """Map intent to template key."""
-        mapping = {
-            IntentType.TOP_CASH: 'top_cash',
-            IntentType.CASH_BALANCE: 'cash_balance',  # New mapping for cash balance
-            IntentType.CRM_POI: 'crm_poi',
-            IntentType.RECON: 'allocation_mismatch',
-            IntentType.EXEC_SUMMARY: 'executive_summary'
-        }
-        return mapping.get(intent, 'general')
     
     def _prepare_context(self, query: str, agent_results: Dict[AgentType, Dict[str, Any]]) -> Dict[str, str]:
         """Prepare context variables for prompt template."""
@@ -448,7 +284,6 @@ Answer the question now using the exact data provided above."""
         nl2sql_results = agent_results.get(AgentType.NL2SQL, {})
         return nl2sql_results.get('sql_query')
 
-
 class OrchestratorAgent:
     """Main orchestrator agent using Semantic Kernel."""
     
@@ -458,7 +293,7 @@ class OrchestratorAgent:
         
         # Initialize Semantic Kernel
         self.kernel = self._create_kernel()
-        self.router = IntentRouter(self.kernel)
+        self.router = QueryRouter(self.kernel)
         self.composer = ResponseComposer(self.kernel)
         
         # Track active queries
@@ -501,15 +336,8 @@ class OrchestratorAgent:
                 "status", "Processing query...", AgentType.ORCHESTRATOR
             )
             
-            # Detect intent
-            intent = await self.router.detect_intent(request.query)
-            
-            yield self._format_streaming_update(
-                "status", f"Detected intent: {intent.value}", AgentType.ORCHESTRATOR
-            )
-            
-            # Get required agents
-            target_agents = self.router.get_agent_routing(intent)
+            # Determine required agents
+            target_agents = self.router.get_required_agents(request.query)
             
             yield self._format_streaming_update(
                 "status", f"Routing to agents: {[a.value for a in target_agents]}", AgentType.ORCHESTRATOR
@@ -519,7 +347,7 @@ class OrchestratorAgent:
             agent_tasks = []
             for agent in target_agents:
                 task = asyncio.create_task(
-                    self._query_agent(agent, intent, request, correlation_id)
+                    self._query_agent(agent, request, correlation_id)
                 )
                 agent_tasks.append((agent, task))
             
@@ -555,7 +383,7 @@ class OrchestratorAgent:
             )
             
             response = await self.composer.compose_response(
-                intent, request.query, agent_results
+                request.query, agent_results
             )
             
             # Store results
@@ -578,18 +406,17 @@ class OrchestratorAgent:
     async def _query_agent(
         self,
         agent: AgentType,
-        intent: IntentType,
         request: QueryRequest,
         correlation_id: str
     ) -> Dict[str, Any]:
         """Send query to specific agent and wait for response."""
         
         if agent == AgentType.NL2SQL:
-            return await self._query_nl2sql_agent(intent, request, correlation_id)
+            return await self._query_nl2sql_agent(request, correlation_id)
         elif agent == AgentType.VECTOR:
-            return await self._query_vector_agent(intent, request, correlation_id)
+            return await self._query_vector_agent(request, correlation_id)
         elif agent == AgentType.API:
-            return await self._query_api_agent(intent, request, correlation_id)
+            return await self._query_api_agent(request, correlation_id)
         else:
             logger.warning(f"Unknown agent type: {agent}")
             return {
@@ -598,81 +425,21 @@ class OrchestratorAgent:
                 'processing_time_ms': 0
             }
     
-    async def _query_nl2sql_agent(self, intent: IntentType, request: QueryRequest, correlation_id: str) -> Dict[str, Any]:
-        """Query NL2SQL agent via A2A messaging."""
+    async def _query_nl2sql_agent(self, request: QueryRequest, correlation_id: str) -> Dict[str, Any]:
+        """Query NL2SQL agent with direct HTTP call."""
         try:
-            # Prepare context
-            context = A2AContext(
-                household_id=request.household_id,
-                account_id=request.account_id,
-                auth=request.user_context
-            )
-            
-            # Prepare payload based on intent
-            payload = {
-                'query': request.query,
-                'limit': 10
-            }
-            
-            if intent == IntentType.RMD:
-                payload['days'] = 90
-            elif intent == IntentType.CASH_BALANCE:
-                payload['specific_query'] = True
-            
-            # Send A2A message
-            message = A2AMessage(
-                from_agent=AgentType.ORCHESTRATOR,
-                to_agents=[AgentType.NL2SQL],
-                intent=intent,
-                payload=payload,
-                context=context,
-                correlation_id=correlation_id
-            )
-            
-            # For now, call the agent's handler method directly (bypass broker)
-            # In production, you'd use proper A2A messaging with response tracking
-            from a2a.broker import send_query_to_agent
-            
-            # Map intent to handler method name  
-            handler_mapping = {
-                IntentType.TOP_CASH: 'handle_top_cash',
-                IntentType.CASH_BALANCE: 'handle_cash_balance',
-                IntentType.RECON: 'handle_recon',
-                IntentType.MISSING_BEN: 'handle_missing_beneficiaries',
-                IntentType.RMD: 'handle_rmd',
-                IntentType.IRA_REMINDER: 'handle_ira_reminder'
-            }
-            
-            handler_name = handler_mapping.get(intent, 'handle_cash_balance')
-            
-            # Use the A2A broker to send the message
-            logger.info(f"🚀 ORCHESTRATOR: About to send message to NL2SQL agent")
-            logger.info(f"   Target Agent: {AgentType.NL2SQL}")
-            logger.info(f"   Intent: {intent.value}")
-            logger.info(f"   Payload: {payload}")
-            
-            correlation_id = await send_query_to_agent(
-                self.broker,
-                AgentType.NL2SQL,
-                intent.value,  # Convert enum to string
-                payload,
-                context.model_dump() if context else None
-            )
-            
-            logger.info(f"✅ ORCHESTRATOR: Message sent successfully!")
-            logger.info(f"   Correlation ID: {correlation_id}")
-            
-            # TODO: For now, make a direct HTTP call to NL2SQL agent since A2A response waiting is not implemented
-            # This is a temporary solution until proper A2A response correlation is implemented
+            logger.info(f"🚀 ORCHESTRATOR: Making direct call to NL2SQL agent")
+            logger.info(f"   Query: {request.query}")
+            logger.info(f"   Household ID: {request.household_id}")
+            logger.info(f"   Account ID: {request.account_id}")
             try:
-                import httpx
                 async with httpx.AsyncClient() as client:
                     logger.info(f"🔗 Making direct HTTP call to NL2SQL agent...")
                     # Prepare the request in the format expected by NL2SQLRequest
                     nl2sql_request = {
                         "query": request.query,
-                        "household_id": context.household_id if context else None,
-                        "account_id": context.account_id if context else None,
+                        "household_id": request.household_id,
+                        "account_id": request.account_id,
                         "schema_hint": None  # Not used currently
                     }
                     
@@ -714,7 +481,7 @@ class OrchestratorAgent:
                 'processing_time_ms': 0
             }
     
-    async def _query_vector_agent(self, intent: IntentType, request: QueryRequest, correlation_id: str) -> Dict[str, Any]:
+    async def _query_vector_agent(self, request: QueryRequest, correlation_id: str) -> Dict[str, Any]:
         """Query Vector agent for CRM/search data."""
         # Placeholder for vector agent query
         return {
@@ -724,7 +491,7 @@ class OrchestratorAgent:
             'processing_time_ms': 1500
         }
     
-    async def _query_api_agent(self, intent: IntentType, request: QueryRequest, correlation_id: str) -> Dict[str, Any]:
+    async def _query_api_agent(self, request: QueryRequest, correlation_id: str) -> Dict[str, Any]:
         """Query API agent for external data."""
         # Placeholder for API agent query  
         return {
@@ -774,10 +541,8 @@ class OrchestratorAgent:
             agent_calls=[]
         )
 
-
 # Global agent instance
 agent: Optional[OrchestratorAgent] = None
-
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -795,7 +560,6 @@ async def lifespan(app: FastAPI):
         await agent.broker.close()
     logger.info("Orchestrator Agent stopped")
 
-
 # FastAPI application
 app = FastAPI(
     title="Orchestrator Agent",
@@ -812,7 +576,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
 @app.get("/health")
 async def health_check():
     """Health check endpoint."""
@@ -825,25 +588,22 @@ async def debug_context(request: QueryRequest):
         raise HTTPException(status_code=503, detail="Agent not initialized")
     
     try:
-        # Detect intent
-        intent = await agent.router.detect_intent(request.query)
-        
-        # Get required agents for this intent
-        required_agents = agent.router.get_agent_routing(intent)
+        # Get required agents for this query
+        required_agents = agent.router.get_required_agents(request.query)
         from uuid import uuid4
         correlation_id = str(uuid4())
         
         # Query agents
         agent_results = {}
         for target_agent in required_agents:
-            result = await agent._query_agent(target_agent, intent, request, correlation_id)
+            result = await agent._query_agent(target_agent, request, correlation_id)
             agent_results[target_agent] = result
         
         # Prepare context (without LLM call)
         context = agent.composer._prepare_context(request.query, agent_results)
         
         return {
-            "intent": intent,
+            "query": request.query,
             "required_agents": [str(a) for a in required_agents],
             "agent_results": agent_results,
             "llm_context": context
@@ -852,7 +612,6 @@ async def debug_context(request: QueryRequest):
         logger.error(f"Debug context failed: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
-
 @app.post("/copilot/query")
 async def process_query_sync(request: QueryRequest):
     """Process query synchronously."""
@@ -860,7 +619,6 @@ async def process_query_sync(request: QueryRequest):
         raise HTTPException(status_code=503, detail="Agent not initialized")
     
     return await agent.process_query_sync(request)
-
 
 @app.post("/copilot/query/stream")
 async def process_query_stream(request: QueryRequest):
@@ -880,98 +638,6 @@ async def process_query_stream(request: QueryRequest):
             "Connection": "keep-alive"
         }
     )
-
-
-# Business-specific endpoints
-@app.get("/households/{household_id}/top-cash")
-async def get_top_cash(
-    household_id: str,
-    limit: int = 3
-):
-    """Get top cash balances for household."""
-    if not agent:
-        raise HTTPException(status_code=503, detail="Agent not initialized")
-    
-    request = QueryRequest(
-        query=f"top {limit} cash balances",
-        household_id=household_id
-    )
-    
-    return await agent.process_query_sync(request)
-
-
-@app.get("/accounts/{account_id}/crm/insights")
-async def get_crm_insights(
-    account_id: str,
-    top_k: int = 5
-):
-    """Get CRM insights for account."""
-    if not agent:
-        raise HTTPException(status_code=503, detail="Agent not initialized")
-    
-    request = QueryRequest(
-        query="points of interest from CRM notes",
-        account_id=account_id
-    )
-    
-    return await agent.process_query_sync(request)
-
-
-@app.get("/households/{household_id}/recon/allocation-mismatch")
-async def get_allocation_mismatch(household_id: str):
-    """Get allocation mismatch analysis."""
-    if not agent:
-        raise HTTPException(status_code=503, detail="Agent not initialized")
-    
-    request = QueryRequest(
-        query="allocation mismatch analysis",
-        household_id=household_id
-    )
-    
-    return await agent.process_query_sync(request)
-
-
-@app.get("/households/{household_id}/rmd/upcoming")
-async def get_upcoming_rmd(
-    household_id: str,
-    days: int = 90
-):
-    """Get upcoming RMD deadlines."""
-    if not agent:
-        raise HTTPException(status_code=503, detail="Agent not initialized")
-    
-    request = QueryRequest(
-        query=f"upcoming RMD deadlines within {days} days",
-        household_id=household_id
-    )
-    
-    return await agent.process_query_sync(request)
-
-
-@app.post("/households/{household_id}/summary")
-async def get_executive_summary(household_id: str):
-    """Generate executive summary for household."""
-    if not agent:
-        raise HTTPException(status_code=503, detail="Agent not initialized")
-    
-    request = QueryRequest(
-        query="executive summary of household",
-        household_id=household_id
-    )
-    
-    return await agent.process_query_sync(request)
-
-
-@app.post("/notifications/ira-reminder")
-async def generate_ira_reminder(request: QueryRequest):
-    """Generate IRA contribution reminder."""
-    if not agent:
-        raise HTTPException(status_code=503, detail="Agent not initialized")
-    
-    request.query = "IRA contribution reminder for accounts with zero YTD contributions"
-    
-    return await agent.process_query_sync(request)
-
 
 if __name__ == "__main__":
     import uvicorn
