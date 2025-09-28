@@ -32,33 +32,198 @@ from common.config import get_settings, get_cors_origins
 from common.auth import get_credential, get_openai_access_token
 from a2a.broker import create_broker
 
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
 logger = logging.getLogger(__name__)
 
+
 class QueryRouter:
-    """Simple router that determines which agents to use based on query content."""
+    """Intelligent router that uses LLM to determine which agents to use based on query analysis."""
     
     def __init__(self, kernel: Kernel):
         self.kernel = kernel
+        
+        # Agent routing template
+        self.routing_template = """You are an intelligent agent router for a financial advisory system. Analyze the user's query and determine which data sources/agents are needed to provide a complete answer.
+
+Available Agents:
+1. NL2SQL Agent: Accesses structured database data including:
+   - Household financial data (assets, liabilities, net worth)
+   - Account information (balances, types, allocations)
+   - Transaction history
+   - Portfolio performance metrics
+   - Asset allocation data
+   - Investment holdings
+
+2. Vector Agent: Accesses unstructured CRM data including:
+   - Client meeting notes and communications
+   - Advisor observations and insights
+   - Client preferences and goals
+   - Relationship management notes
+   - Executive summaries from past interactions
+   - Action items and follow-ups
+   - Client feedback and concerns
+
+3. API Agent: Accesses external market data including:
+   - Real-time portfolio performance
+   - Market benchmarks and comparisons
+   - Asset allocation analysis
+   - Rebalancing recommendations
+
+User Query: {{$query}}
+
+Analyze this query and determine which agents are needed. Consider:
+- Does it need structured financial data from the database? (NL2SQL)
+- Does it need client notes, communications, or relationship insights? (Vector)
+- Does it need external market data or performance analysis? (API)
+
+Respond with a JSON object containing:
+{
+  "agents_needed": ["NL2SQL", "VECTOR", "API"],
+  "reasoning": "Brief explanation of why each agent is needed",
+  "primary_agent": "The most important agent for this query"
+}
+
+Only include agents that are actually needed. Be precise and avoid unnecessary agents."""
+        
+    async def get_required_agents(self, query: str) -> List[AgentType]:
+        """Determine which agents are needed using LLM analysis."""
+        try:
+            logger.info(f"🤖 Analyzing query for agent routing: '{query}'")
+            
+            # Create routing function
+            from semantic_kernel.prompt_template import PromptTemplateConfig, InputVariable
+            
+            input_variables = [
+                InputVariable(name="query", description="User's query to analyze")
+            ]
+            
+            prompt_config = PromptTemplateConfig(
+                template=self.routing_template,
+                input_variables=input_variables
+            )
+            
+            logger.info(f"📝 Creating routing function...")
+            routing_function = self.kernel.add_function(
+                function_name="route_query",
+                plugin_name="QueryRouter",
+                prompt_template_config=prompt_config
+            )
+            logger.info(f"✅ Routing function created successfully")
+            
+            # Execute routing analysis
+            from semantic_kernel.functions import KernelArguments
+            kernel_args = KernelArguments(query=query)
+            
+            logger.info(f"🚀 Calling LLM for agent routing with query: '{query[:100]}...'")
+            result = await self.kernel.invoke(routing_function, kernel_args)
+            routing_response = str(result).strip()
+            
+            logger.info(f"🧠 LLM Routing Analysis (length: {len(routing_response)}): {routing_response}")
+            
+            if not routing_response:
+                logger.error(f"❌ Empty response from LLM routing")
+                return self._fallback_keyword_routing(query)
+            
+            # Parse the JSON response - handle markdown code blocks
+            import json
+            try:
+                # Clean the response - remove markdown code blocks if present
+                cleaned_response = routing_response.strip()
+                
+                # Remove ```json and ``` if present
+                if cleaned_response.startswith("```json"):
+                    cleaned_response = cleaned_response[7:]  # Remove ```json
+                elif cleaned_response.startswith("```"):
+                    cleaned_response = cleaned_response[3:]   # Remove ```
+                
+                if cleaned_response.endswith("```"):
+                    cleaned_response = cleaned_response[:-3]  # Remove trailing ```
+                
+                cleaned_response = cleaned_response.strip()
+                
+                logger.info(f"🧹 Cleaned JSON: {cleaned_response[:200]}...")
+                
+                routing_data = json.loads(cleaned_response)
+                agents_needed = routing_data.get("agents_needed", [])
+                reasoning = routing_data.get("reasoning", "")
+                primary_agent = routing_data.get("primary_agent", "")
+                
+                logger.info(f"📋 Agents needed: {agents_needed}")
+                logger.info(f"💭 Reasoning: {reasoning}")
+                logger.info(f"🎯 Primary agent: {primary_agent}")
+                
+                # Convert to AgentType enums
+                agent_mapping = {
+                    "NL2SQL": AgentType.NL2SQL,
+                    "VECTOR": AgentType.VECTOR,
+                    "API": AgentType.API
+                }
+                
+                required_agents = []
+                for agent_name in agents_needed:
+                    if agent_name in agent_mapping:
+                        required_agents.append(agent_mapping[agent_name])
+                
+                if not required_agents:
+                    # Fallback to NL2SQL if no agents detected
+                    logger.warning("⚠️ No agents detected, falling back to NL2SQL")
+                    required_agents = [AgentType.NL2SQL]
+                
+                logger.info(f"✅ Final agent list: {[agent.value for agent in required_agents]}")
+                return required_agents
+                
+            except json.JSONDecodeError as e:
+                logger.error(f"❌ Failed to parse routing JSON: {e}")
+                logger.error(f"Raw response: {routing_response}")
+                
+                # Fallback: Use keyword-based routing
+                return self._fallback_keyword_routing(query)
+                
+        except Exception as e:
+            logger.error(f"❌ Agent routing failed: {e}")
+            logger.error(f"❌ Exception type: {type(e)}")
+            logger.error(f"❌ Query was: '{query}'")
+            import traceback
+            logger.error(f"❌ Full traceback: {traceback.format_exc()}")
+            # Fallback: Use keyword-based routing
+            return self._fallback_keyword_routing(query)
     
-    def get_required_agents(self, query: str) -> List[AgentType]:
-        """Determine which agents are needed for this query using simple heuristics."""
+    def _fallback_keyword_routing(self, query: str) -> List[AgentType]:
+        """Fallback keyword-based routing when LLM routing fails."""
+        logger.info(f"🔄 Using fallback keyword routing")
         query_lower = query.lower()
         
         agents = []
         
-        # Always include NL2SQL for database queries
-        agents.append(AgentType.NL2SQL)
+        # Check for CRM/Vector keywords
+        crm_keywords = [
+            "notes", "crm", "conversation", "meeting", "discussion", "client notes",
+            "communications", "activities", "insights", "action items", "opportunities",
+            "executive summary", "client relationship", "interactions", "conversations",
+            "communications history", "relationship management", "client feedback",
+            "meeting notes", "call notes", "follow up", "follow-up"
+        ]
         
-        # Add vector agent for CRM/document searches
-        crm_keywords = ["notes", "crm", "conversation", "meeting", "discussion", "client notes"]
+        # Check for API keywords
+        api_keywords = ["performance", "returns", "allocation", "drift", "rebalance"]
+        
+        # Add Vector agent for CRM queries
         if any(keyword in query_lower for keyword in crm_keywords):
             agents.append(AgentType.VECTOR)
         
-        # Add API agent for performance/external data
-        api_keywords = ["performance", "returns", "allocation", "drift", "rebalance"]
+        # Add API agent for performance queries
         if any(keyword in query_lower for keyword in api_keywords):
             agents.append(AgentType.API)
-            
+        
+        # Add NL2SQL for financial data queries (or as default)
+        if not agents or any(keyword in query_lower for keyword in ["household", "account", "balance", "asset", "portfolio", "total"]):
+            agents.append(AgentType.NL2SQL)
+        
+        logger.info(f"🔄 Fallback routing result: {[agent.value for agent in agents]}")
         return agents
 
 class ResponseComposer:
@@ -67,7 +232,7 @@ class ResponseComposer:
     def __init__(self, kernel: Kernel):
         self.kernel = kernel
         
-        # Single intelligent template that can handle any financial query
+        # Enhanced template that can handle financial queries with CRM context
         self.template = """You are a financial advisor AI assistant. Answer the user's question based on the provided data.
 
 User Question: {{$query}}
@@ -76,14 +241,24 @@ SQL Query Results: {{$sql_results}}
 
 SQL Query Used: {{$sql_query}}
 
+CRM Notes and Communications: {{$search_results}}
+
+CRM Points of Interest: {{$crm_results}}
+
+Performance Data: {{$api_results}}
+
 CRITICAL INSTRUCTIONS:
-1. You MUST use ONLY the exact data provided above in "SQL Query Results". 
+1. You MUST use ONLY the exact data provided above in the results sections. 
 2. Do NOT create, invent, or hallucinate any fake data, names, or numbers.
-3. Use the exact household names, account names, and amounts from the SQL results.
+3. Use the exact household names, account names, amounts, and CRM notes from the provided data.
 4. Answer the user's specific question directly using the real data provided.
 5. If SQL results show household names like "Singh Global Family Office" with amounts like "37000000.00", use those exact names and amounts.
-6. Do NOT use generic names like "Household A" or fake amounts.
-7. Format your response professionally and include proper citations.
+6. If CRM notes are provided in the "CRM Notes and Communications" section, incorporate relevant insights, conversations, and client communications into your response.
+7. For executive summary requests, structure your response with clear sections: Overview, Key Insights, Action Items, and Opportunities.
+8. Do NOT use generic names like "Household A" or fake amounts.
+9. Format your response professionally and include proper citations.
+10. When CRM context is available, prioritize client communication insights and relationship management aspects.
+11. If a data section is empty or contains "[]" or null, simply ignore that section and focus on the available data.
 
 Answer the question now using the exact data provided above."""
         
@@ -119,6 +294,7 @@ Answer the question now using the exact data provided above."""
                 InputVariable(name="sql_results", description="SQL query results data"),
                 InputVariable(name="sql_query", description="SQL query used"),
                 InputVariable(name="search_results", description="CRM search results", is_required=False),
+                InputVariable(name="crm_results", description="CRM points of interest", is_required=False),
                 InputVariable(name="api_results", description="External API results", is_required=False)
             ]
             
@@ -157,6 +333,7 @@ Answer the question now using the exact data provided above."""
                     sql_results=context.get('sql_results', ''),
                     sql_query=context.get('sql_query', ''),
                     search_results=context.get('search_results', ''),
+                    crm_results=context.get('crm_results', ''),
                     api_results=context.get('api_results', '')
                 )
                 result = await self.kernel.invoke(compose_function, kernel_args)
@@ -192,7 +369,19 @@ Answer the question now using the exact data provided above."""
     
     def _prepare_context(self, query: str, agent_results: Dict[AgentType, Dict[str, Any]]) -> Dict[str, str]:
         """Prepare context variables for prompt template."""
-        context = {'query': query, 'original_query': query}
+        # Initialize all template variables with default values
+        context = {
+            'query': query, 
+            'original_query': query,
+            'sql_results': '[]',
+            'sql_query': '',
+            'search_results': '[]',
+            'crm_results': '[]',
+            'points_of_interest': '[]',
+            'api_results': '[]',
+            'performance_data': '[]',
+            'intent': ''
+        }
         
         logger.info(f"🔧 Preparing LLM Context from Agent Results:")
         
@@ -337,7 +526,7 @@ class OrchestratorAgent:
             )
             
             # Determine required agents
-            target_agents = self.router.get_required_agents(request.query)
+            target_agents = await self.router.get_required_agents(request.query)
             
             yield self._format_streaming_update(
                 "status", f"Routing to agents: {[a.value for a in target_agents]}", AgentType.ORCHESTRATOR
@@ -483,13 +672,78 @@ class OrchestratorAgent:
     
     async def _query_vector_agent(self, request: QueryRequest, correlation_id: str) -> Dict[str, Any]:
         """Query Vector agent for CRM/search data."""
-        # Placeholder for vector agent query
-        return {
-            'status': 'success',
-            'message': 'Vector agent response (placeholder)',
-            'results': [],
-            'processing_time_ms': 1500
-        }
+        try:
+            start_time = time.time()
+            logger.info(f"🔍 ORCHESTRATOR: Making direct call to Vector agent")
+            
+            # Vector agent URL - default to localhost:9002
+            vector_agent_url = "http://localhost:9002"
+            
+            # Determine household ID from request context
+            household_id = getattr(request, 'household_id', 'international-family')
+            if not household_id:
+                household_id = 'international-family'  # Default household for testing
+            
+            logger.info(f"🏠 Using household_id: {household_id}")
+            logger.info(f"❓ Query: {request.query}")
+            
+            # Call vector agent's CRM endpoint
+            async with httpx.AsyncClient(timeout=30.0) as client:
+                logger.info(f"🔗 Making HTTP call to Vector agent at {vector_agent_url}")
+                
+                # Build query parameters
+                params = {
+                    'query': request.query,
+                    'limit': 20
+                }
+                
+                url = f"{vector_agent_url}/household/{household_id}/crm"
+                logger.info(f"🌐 Full URL: {url}")
+                logger.info(f"📊 Params: {params}")
+                
+                response = await client.get(url, params=params)
+                response.raise_for_status()
+                
+                result = response.json()
+                logger.info(f"✅ Vector agent responded successfully")
+                logger.info(f"📊 Got {len(result.get('results', []))} CRM notes")
+                
+                # Also get executive summary for context
+                try:
+                    summary_url = f"{vector_agent_url}/household/{household_id}/summary"
+                    summary_response = await client.get(summary_url, params={'days_back': 90})
+                    
+                    if summary_response.status_code == 200:
+                        summary_data = summary_response.json()
+                        logger.info(f"📋 Also retrieved executive summary")
+                        
+                        # Add summary to results
+                        result['executive_summary'] = summary_data.get('summary', {})
+                except Exception as summary_error:
+                    logger.warning(f"⚠️ Could not retrieve summary: {summary_error}")
+                    result['executive_summary'] = {}
+                
+                processing_time = int((time.time() - start_time) * 1000)
+                
+                return {
+                    'status': 'success',
+                    'message': f'Retrieved {len(result.get("results", []))} CRM notes',
+                    'results': result.get('results', []),
+                    'points_of_interest': result.get('executive_summary', {}),
+                    'total_found': result.get('total_found', 0),
+                    'household_id': household_id,
+                    'processing_time_ms': processing_time
+                }
+                
+        except Exception as e:
+            logger.error(f"❌ Vector agent call failed: {e}")
+            processing_time = int((time.time() - start_time) * 1000)
+            return {
+                'status': 'error',
+                'message': f'Vector agent error: {str(e)}',
+                'results': [],
+                'processing_time_ms': processing_time
+            }
     
     async def _query_api_agent(self, request: QueryRequest, correlation_id: str) -> Dict[str, Any]:
         """Query API agent for external data."""
@@ -589,7 +843,7 @@ async def debug_context(request: QueryRequest):
     
     try:
         # Get required agents for this query
-        required_agents = agent.router.get_required_agents(request.query)
+        required_agents = await agent.router.get_required_agents(request.query)
         from uuid import uuid4
         correlation_id = str(uuid4())
         

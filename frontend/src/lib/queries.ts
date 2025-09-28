@@ -150,3 +150,91 @@ export function useReports(
     ...options,
   });
 }
+
+// CRM-related queries
+export function useCrmNotes(
+  householdId: string,
+  query: string = '*',
+  category?: string,
+  daysBack?: number,
+  limit: number = 20,
+  options?: UseQueryOptions<any>
+) {
+  return useQuery({
+    queryKey: ['household', householdId, 'crm', 'notes', { query, category, daysBack, limit }],
+    queryFn: async () => {
+      const VECTOR_AGENT_URL = process.env.NEXT_PUBLIC_VECTOR_AGENT_URL || 'http://localhost:9002';
+      
+      // Build query parameters
+      const params = new URLSearchParams({
+        query: query,
+        limit: limit.toString()
+      });
+      
+      if (category) params.append('category', category);
+      if (daysBack) params.append('days', daysBack.toString());
+      
+      const response = await fetch(`${VECTOR_AGENT_URL}/household/${householdId}/crm?${params}`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      return data.results || []; // Return the results array, or empty array if none
+    },
+    staleTime: 5 * 60 * 1000, // 5 minutes
+    enabled: !!householdId,
+    ...options,
+  });
+}
+
+export function useCrmCategories(
+  householdId: string,
+  options?: UseQueryOptions<any>
+) {
+  return useQuery({
+    queryKey: ['household', householdId, 'crm', 'categories'],
+    queryFn: async () => {
+      const VECTOR_AGENT_URL = process.env.NEXT_PUBLIC_VECTOR_AGENT_URL || 'http://localhost:9002';
+      
+      const response = await fetch(`${VECTOR_AGENT_URL}/household/${householdId}/categories`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      return data.categories || [];
+    },
+    staleTime: 15 * 60 * 1000, // 15 minutes
+    enabled: !!householdId,
+    ...options,
+  });
+}
+
+export function useCrmSummary(
+  householdId: string,
+  daysBack: number = 90,
+  options?: UseQueryOptions<any>
+) {
+  return useQuery({
+    queryKey: ['household', householdId, 'crm', 'summary', daysBack],
+    queryFn: async () => {
+      const VECTOR_AGENT_URL = process.env.NEXT_PUBLIC_VECTOR_AGENT_URL || 'http://localhost:9002';
+      
+      const response = await fetch(`${VECTOR_AGENT_URL}/household/${householdId}/summary?days_back=${daysBack}`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      return data.summary || {
+        overview: 'No summary available',
+        key_insights: [],
+        action_items: [],
+        trends: [],
+        risk_factors: [],
+        opportunities: []
+      };
+    },
+    staleTime: 10 * 60 * 1000, // 10 minutes
+    enabled: !!householdId,
+    ...options,
+  });
+}

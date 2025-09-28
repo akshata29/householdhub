@@ -1,0 +1,10 @@
+{
+  "search_endpoint": "https://your-search.search.windows.net",
+  "search_key": "your-key",
+  "index_name": "householdhub-crm-index",
+  "openai_endpoint": "https://your-openai.openai.azure.com",
+  "openai_key": "your-key",
+  "embedding_model": "text-embedding-3-small",
+  "chat_model": "gpt-4o",
+  "batch_size": 10
+}

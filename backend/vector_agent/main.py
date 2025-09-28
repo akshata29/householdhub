@@ -20,25 +20,70 @@ from azure.search.documents.indexes.models import (
     SemanticConfiguration, SemanticSearch, SemanticField, SemanticPrioritizedFields
 )
 from azure.search.documents.models import VectorizedQuery
+from azure.core.credentials import AzureKeyCredential
 from openai import AsyncAzureOpenAI
 
 from common.schemas import (
-    A2AMessage, VectorSearchRequest, VectorSearchResponse, 
-    VectorSearchResult, PointOfInterest, AgentType
+    A2AMessage, A2AContext, VectorSearchRequest, VectorSearchResponse, 
+    VectorSearchResult, PointOfInterest, AgentType, IntentType
 )
 from common.config import get_settings, get_cors_origins
-from common.auth import get_credential, get_search_access_token, get_openai_access_token
 from a2a.broker import create_broker
 
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
 logger = logging.getLogger(__name__)
+
+def resolve_household_id(household_identifier: str) -> str:
+    """
+    Resolve household identifier to numeric ID used in CRM data.
+    If already numeric, return as-is. If it's a household code, 
+    map it to the appropriate numeric ID.
+    """
+    # If it's already numeric, return as-is
+    if household_identifier.isdigit():
+        return household_identifier
+    
+    # Map household codes to numeric IDs based on our synthetic data
+    # This mapping corresponds to the households we generated CRM data for
+    household_code_to_id = {
+        'johnson-family-trust': '1',      # The Johnson Family Trust
+        'martinez-family': '2',           # Martinez Family Wealth  
+        'chen-enterprises': '3',          # Chen Enterprises
+        'wilson-retirement': '4',         # Wilson Retirement Fund
+        'garcia-foundation': '5',         # Garcia Foundation
+        'thompson-individual': '6',       # Thompson Individual Account
+        'retired-educators': '7',         # Retired Educators Fund
+        'startup-founder': '8',           # Startup Founder Portfolio
+        'multigenerational-wealth': '9',  # Multigenerational Wealth
+        'divorced-single-parent': '10',   # Divorced Single Parent
+        'real-estate-investors': '11',    # Real Estate Investors
+        'young-inheritance': '12',        # Young Inheritance Recipients
+        'energy-executive': '13',         # Energy Executive Account
+        'healthcare-professionals': '14', # Healthcare Professionals
+        'military-retirees': '15',        # Military Retirees Fund
+        'entertainment-industry': '16',   # Entertainment Industry
+        'small-business-owners': '17',    # Small Business Owners
+        'legal-professionals': '18',      # Legal Professionals
+        'international-family': '19',     # International Family Office
+        'tech-entrepreneur': '20',        # Tech Entrepreneur Portfolio
+        'nonprofit-endowment': '21',      # Nonprofit Endowment Fund
+    }
+    
+    # Return mapped ID or default to '1' if not found
+    return household_code_to_id.get(household_identifier, '1')
 
 
 class AzureSearchClient:
     """Client for Azure AI Search with vector capabilities."""
     
     def __init__(self):
+        # Clear the cache and reload settings to ensure fresh config
+        get_settings.cache_clear()
         self.settings = get_settings()
-        self.credential = get_credential()
         self.index_name = self.settings.ai_search_index_name
         self.degraded_mode = False
         
@@ -53,7 +98,7 @@ class AzureSearchClient:
             self._search_client = SearchClient(
                 endpoint=self.settings.ai_search_endpoint,
                 index_name=self.index_name,
-                credential=self.credential
+                credential=AzureKeyCredential(self.settings.ai_search_key)
             )
         return self._search_client
     
@@ -62,20 +107,18 @@ class AzureSearchClient:
         if self._index_client is None:
             self._index_client = SearchIndexClient(
                 endpoint=self.settings.ai_search_endpoint,
-                credential=self.credential
+                credential=AzureKeyCredential(self.settings.ai_search_key)
             )
         return self._index_client
     
     async def _get_openai_client(self) -> AsyncAzureOpenAI:
         """Get or create OpenAI client."""
         if self._openai_client is None:
-            # Use access token for authentication
-            access_token = get_openai_access_token()
-            
+            # Use API key for authentication
             self._openai_client = AsyncAzureOpenAI(
                 azure_endpoint=self.settings.azure_openai_endpoint,
                 api_version=self.settings.azure_openai_api_version,
-                azure_ad_token=access_token
+                api_key=self.settings.azure_openai_key
             )
         return self._openai_client
     
@@ -238,28 +281,46 @@ class AzureSearchClient:
                     }
                 )
             ]
-        
+
         try:
-            # Generate query embedding
-            query_embedding = await self.generate_embeddings([query])
+            # Check if query is meaningful (not empty, not just "*", not just whitespace)
+            meaningful_query = query and query.strip() and query.strip() != "*"
             
+            # Generate query embedding only for meaningful queries
+            query_embedding = None
+            if meaningful_query:
+                query_embedding = await self.generate_embeddings([query.strip()])
+                
             search_client = await self._get_search_client()
             
-            # Create vector query
-            vector_query = VectorizedQuery(
-                vector=query_embedding[0],
-                k_nearest_neighbors=top_k * 2,  # Get more candidates for reranking
-                fields="content_vector"
-            )
+            # Create vector query only if we have an embedding
+            vector_queries = []
+            if query_embedding:
+                vector_query = VectorizedQuery(
+                    vector=query_embedding[0],
+                    k_nearest_neighbors=top_k * 2,  # Get more candidates for reranking
+                    fields="content_vector"
+                )
+                vector_queries.append(vector_query)
             
-            # Perform search
-            results = await search_client.search(
-                search_text=query,
-                vector_queries=[vector_query],
-                filter=filters,
-                top=top_k,
-                select=["id", "text", "author", "created_at", "tags", "account_id", "household_id"]
-            )
+            # Perform search - use text search for non-meaningful queries, hybrid for meaningful ones
+            if meaningful_query and vector_queries:
+                results = await search_client.search(
+                    search_text=query.strip(),
+                    vector_queries=vector_queries,
+                    filter=filters,
+                    top=top_k,
+                    select=["id", "text", "author", "created_at", "tags", "account_id", "household_id"]
+                )
+            else:
+                # For empty/wildcard queries, just do filtered search without vector/text
+                results = await search_client.search(
+                    search_text=None,
+                    vector_queries=None,
+                    filter=filters,
+                    top=top_k,
+                    select=["id", "text", "author", "created_at", "tags", "account_id", "household_id"]
+                )
             
             search_results = []
             async for result in results:
@@ -345,59 +406,274 @@ class VectorAgent:
             logger.error(f"CRM POI query failed: {e}")
             raise
     
-    async def extract_points_of_interest(self, results: List[VectorSearchResult]) -> List[PointOfInterest]:
-        """Extract points of interest from search results."""
-        if self.degraded_mode:
-            return [
-                PointOfInterest(
-                    text="Mock point of interest from degraded mode",
-                    importance=0.8,
-                    category="mock",
-                    source_id="mock-1"
-                )
-            ]
-        
-        # Extract key points from the search results
-        pois = []
-        for result in results:
-            if result.score > 0.7:  # High relevance threshold
-                pois.append(PointOfInterest(
-                    text=result.text[:200] + "..." if len(result.text) > 200 else result.text,
-                    importance=result.score,
-                    category="crm_note",
-                    source_id=result.id
-                ))
-        
-        return pois
-    
     async def handle_exec_summary(self, message: A2AMessage) -> Dict[str, Any]:
-        """Handle executive summary queries."""
+        """Handle executive summary queries for CRM insights."""
         try:
             household_id = message.context.household_id
-            query = message.payload.get('query', 'executive summary key points')
+            account_id = message.context.account_id
+            days_back = message.payload.get('days_back', 90)
             
-            # Search for relevant CRM notes
-            filter_str = f"household_id eq '{household_id}'" if household_id else None
+            # Build comprehensive query for executive summary
+            queries = [
+                "performance review quarterly meeting client satisfaction",
+                "risk assessment portfolio allocation changes recommendations",
+                "tax planning strategies opportunities savings",
+                "estate planning updates beneficiaries documents",
+                "retirement planning projections income goals"
+            ]
             
-            results = await self.search_client.hybrid_search(
-                query=query,
-                top_k=10,
-                filters=filter_str
-            )
+            all_results = []
+            for query in queries:
+                # Build filter
+                filters = []
+                if household_id:
+                    filters.append(f"household_id eq '{household_id}'")
+                if account_id:
+                    filters.append(f"account_id eq '{account_id}'")
+                
+                # Add date filter for recent items
+                from datetime import datetime, timedelta
+                cutoff_date = (datetime.utcnow() - timedelta(days=days_back)).isoformat() + 'Z'
+                filters.append(f"created_at ge {cutoff_date}")
+                
+                filter_str = " and ".join(filters) if filters else None
+                
+                # Perform search
+                results = await self.search_client.hybrid_search(
+                    query=query,
+                    top_k=3,
+                    filters=filter_str
+                )
+                all_results.extend(results)
             
-            # Summarize findings
-            summary = await self.generate_summary(results, household_id)
+            # Remove duplicates and sort by relevance
+            unique_results = {}
+            for result in all_results:
+                if result.id not in unique_results or result.score > unique_results[result.id].score:
+                    unique_results[result.id] = result
+            
+            sorted_results = sorted(unique_results.values(), key=lambda x: x.score, reverse=True)[:10]
+            
+            # Generate executive summary insights
+            summary = await self.generate_executive_summary(sorted_results)
             
             return {
-                'query': query,
+                'household_id': household_id,
+                'account_id': account_id,
+                'period_days': days_back,
                 'summary': summary,
-                'supporting_notes': [result.model_dump() for result in results[:5]],
-                'total_notes_reviewed': len(results)
+                'key_insights': summary.get('key_insights', []),
+                'action_items': summary.get('action_items', []),
+                'results': [result.model_dump() for result in sorted_results],
+                'total_found': len(sorted_results)
             }
             
         except Exception as e:
             logger.error(f"Executive summary query failed: {e}")
             raise
+    
+    async def generate_executive_summary(self, results: List[VectorSearchResult]) -> Dict[str, Any]:
+        """Generate executive summary from CRM search results using AI."""
+        if self.degraded_mode or not results:
+            return {
+                'overview': 'Limited data available for executive summary.',
+                'key_insights': ['Sample insight: Portfolio review completed'],
+                'action_items': ['Sample action: Schedule follow-up meeting'],
+                'trends': ['Sample trend: Increasing client engagement']
+            }
+        
+        try:
+            # Prepare context from search results
+            context_notes = []
+            for result in results:
+                note_summary = {
+                    'date': result.metadata.get('created_at', ''),
+                    'author': result.metadata.get('author', ''),
+                    'content': result.text[:300] + '...' if len(result.text) > 300 else result.text,
+                    'tags': result.metadata.get('tags', [])
+                }
+                context_notes.append(note_summary)
+            
+            # Generate summary using OpenAI
+            openai_client = await self.search_client._get_openai_client()
+            
+            summary_prompt = f"""
+Analyze the following CRM notes and provide an executive summary in VALID JSON format only.
+
+CRM Notes:
+{json.dumps(context_notes, indent=2)}
+
+You must respond with ONLY a valid JSON object in this exact format (no other text):
+{{
+    "overview": "Brief 2-3 sentence overview of the household's current financial status and recent activities",
+    "key_insights": ["Insight 1", "Insight 2", "Insight 3"],
+    "action_items": ["Action 1", "Action 2", "Action 3"],
+    "opportunities": ["Opportunity 1", "Opportunity 2", "Opportunity 3"]
+}}
+
+Requirements:
+- Respond with ONLY valid JSON (no markdown, no explanations)
+- Include 3-5 items in each array
+- Focus on actionable, specific insights
+- Base all insights on the actual CRM notes provided
+"""
+
+            response = await openai_client.chat.completions.create(
+                model=self.settings.azure_openai_deployment,
+                messages=[
+                    {"role": "system", "content": "You are an expert financial advisor. You MUST respond with ONLY valid JSON format. No explanations, no markdown, just pure JSON."},
+                    {"role": "user", "content": summary_prompt}
+                ],
+                temperature=0.1,  # Lower temperature for more consistent JSON
+                max_tokens=800
+            )
+            
+            summary_text = response.choices[0].message.content
+            
+            # Parse JSON response
+            try:
+                # Clean the response text (remove potential markdown formatting)
+                clean_text = summary_text.strip()
+                if clean_text.startswith('```json'):
+                    clean_text = clean_text.replace('```json', '').replace('```', '').strip()
+                elif clean_text.startswith('```'):
+                    clean_text = clean_text.replace('```', '').strip()
+                
+                summary_data = json.loads(clean_text)
+                
+                # Validate required fields and fix if necessary
+                if not isinstance(summary_data.get('key_insights'), list):
+                    summary_data['key_insights'] = []
+                if not isinstance(summary_data.get('action_items'), list):
+                    summary_data['action_items'] = []
+                if not isinstance(summary_data.get('opportunities'), list):
+                    summary_data['opportunities'] = []
+                if not summary_data.get('overview'):
+                    summary_data['overview'] = 'Executive summary generated from recent CRM activity'
+                    
+                return summary_data
+                
+            except json.JSONDecodeError as e:
+                logger.warning(f"Failed to parse AI summary as JSON: {e}")
+                logger.warning(f"Raw AI response: {summary_text[:200]}...")
+                
+                # Create a structured response from the raw text
+                lines = summary_text.split('\n')
+                overview_lines = [line for line in lines if line.strip() and not line.strip().startswith('-')][:3]
+                
+                return {
+                    'overview': ' '.join(overview_lines) if overview_lines else 'Recent CRM activity summary available.',
+                    'key_insights': [
+                        'Portfolio and investment activity reviewed',
+                        'Client communication and meeting notes updated',
+                        'Financial planning discussions documented'
+                    ],
+                    'action_items': [
+                        'Review recent account activity',
+                        'Schedule client follow-up meeting',
+                        'Update investment recommendations'
+                    ],
+                    'opportunities': [
+                        'Assess portfolio rebalancing needs',
+                        'Review tax planning strategies',
+                        'Evaluate additional investment opportunities'
+                    ]
+                }
+                
+        except Exception as e:
+            logger.error(f"Failed to generate executive summary: {e}")
+            return {
+                'overview': f'Summary generation failed: {str(e)}',
+                'key_insights': ['Error in AI analysis'],
+                'action_items': ['Review system logs'],
+                'trends': ['Unable to analyze'],
+                'risk_factors': ['System error'],
+                'opportunities': ['Check configuration']
+            }
+    
+    async def search_crm_by_household(
+        self, 
+        household_id: str, 
+        query: str = "*", 
+        top_k: int = 10,
+        category_filter: Optional[str] = None,
+        date_range_days: Optional[int] = None
+    ) -> List[VectorSearchResult]:
+        """Search CRM notes for a specific household with optional filters."""
+        try:
+            # Build filters
+            filters = [f"household_id eq '{household_id}'"]
+            
+            if category_filter:
+                filters.append(f"category eq '{category_filter}'")
+            
+            if date_range_days:
+                from datetime import datetime, timedelta
+                cutoff_date = (datetime.utcnow() - timedelta(days=date_range_days)).isoformat() + 'Z'
+                filters.append(f"created_at ge {cutoff_date}")
+            
+            filter_str = " and ".join(filters)
+            
+            # Perform search
+            results = await self.search_client.hybrid_search(
+                query=query,
+                top_k=top_k,
+                filters=filter_str
+            )
+            
+            return results
+            
+        except Exception as e:
+            logger.error(f"CRM search by household failed: {e}")
+            raise
+    
+    async def get_crm_categories(self, household_id: str) -> List[Dict[str, Any]]:
+        """Get available CRM categories for a household."""
+        if self.degraded_mode:
+            return [
+                {"category": "investment_review", "count": 5},
+                {"category": "financial_planning", "count": 3},
+                {"category": "client_communication", "count": 8}
+            ]
+        
+        try:
+            # Search for all categories
+            results = await self.search_client.hybrid_search(
+                query="*",
+                top_k=100,
+                filters=f"household_id eq '{household_id}'"
+            )
+            
+            # Count categories from tags
+            category_counts = {}
+            for result in results:
+                tags = result.metadata.get('tags', [])
+                # Extract categories from tags - look for known category patterns
+                categories_found = []
+                for tag in tags:
+                    if tag in ['investment review', 'financial planning', 'client communication', 
+                              'account management', 'compliance review', 'market events']:
+                        categories_found.append(tag.replace(' ', '_'))
+                
+                # If no known categories found, use first tag or 'uncategorized'
+                if not categories_found:
+                    if tags:
+                        categories_found = [tags[0].replace(' ', '_')]
+                    else:
+                        categories_found = ['uncategorized']
+                
+                # Count each category
+                for category in categories_found:
+                    category_counts[category] = category_counts.get(category, 0) + 1
+            
+            return [
+                {"category": cat, "count": count} 
+                for cat, count in sorted(category_counts.items())
+            ]
+            
+        except Exception as e:
+            logger.error(f"Failed to get CRM categories: {e}")
+            return []
     
     async def extract_points_of_interest(self, results: List[VectorSearchResult]) -> List[PointOfInterest]:
         """Extract points of interest from search results."""
@@ -524,10 +800,8 @@ class VectorAgent:
             logger.error(f"Direct search failed: {e}")
             raise HTTPException(status_code=500, detail=str(e))
 
-
 # Global agent instance
 agent: Optional[VectorAgent] = None
-
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -549,7 +823,6 @@ async def lifespan(app: FastAPI):
         await agent.broker.close()
     logger.info("Vector Agent stopped")
 
-
 # FastAPI application
 app = FastAPI(
     title="Vector Agent",
@@ -566,12 +839,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
 @app.get("/health")
 async def health_check():
     """Health check endpoint."""
     return {"status": "healthy", "agent": "vector"}
-
 
 @app.post("/search", response_model=VectorSearchResponse)
 async def search_crm_notes(request: VectorSearchRequest):
@@ -580,7 +851,6 @@ async def search_crm_notes(request: VectorSearchRequest):
         raise HTTPException(status_code=503, detail="Agent not initialized")
     
     return await agent.process_direct_search(request)
-
 
 @app.post("/ingest")
 async def ingest_documents(documents: List[Dict[str, Any]]):
@@ -591,6 +861,171 @@ async def ingest_documents(documents: List[Dict[str, Any]]):
     await agent.search_client.ingest_documents(documents)
     return {"message": f"Ingested {len(documents)} documents"}
 
+@app.get("/household/{household_id}/crm")
+async def get_household_crm_notes(
+    household_id: str,
+    query: str = "*",
+    category: Optional[str] = None,
+    days: Optional[int] = None,
+    limit: int = 20
+):
+    """Get CRM notes for a specific household with optional filters."""
+    if not agent:
+        raise HTTPException(status_code=503, detail="Agent not initialized")
+    
+    try:
+        # Resolve household code to numeric ID
+        resolved_household_id = resolve_household_id(household_id)
+        
+        results = await agent.search_crm_by_household(
+            household_id=resolved_household_id,
+            query=query,
+            top_k=limit,
+            category_filter=category,
+            date_range_days=days
+        )
+        
+        return {
+            "household_id": household_id,
+            "results": [result.model_dump() for result in results],
+            "total_found": len(results),
+            "filters_applied": {
+                "category": category,
+                "days_back": days,
+                "query": query
+            }
+        }
+    except Exception as e:
+        logger.error(f"Error fetching household CRM notes: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/household/{household_id}/categories")
+async def get_household_categories(household_id: str):
+    """Get available CRM categories for a household."""
+    if not agent:
+        raise HTTPException(status_code=503, detail="Agent not initialized")
+    
+    try:
+        # Resolve household code to numeric ID
+        resolved_household_id = resolve_household_id(household_id)
+        
+        categories = await agent.get_crm_categories(resolved_household_id)
+        return {"household_id": household_id, "categories": categories}
+    except Exception as e:
+        logger.error(f"Error fetching categories: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/household/{household_id}/summary")
+async def get_household_executive_summary(
+    household_id: str,
+    days_back: int = 90
+):
+    """Get executive summary for a household based on recent CRM activity."""
+    if not agent:
+        raise HTTPException(status_code=503, detail="Agent not initialized")
+    
+    try:
+        # Resolve household code to numeric ID
+        resolved_household_id = resolve_household_id(household_id)
+        
+        # Create A2A message for exec summary
+        message = A2AMessage(
+            from_agent=AgentType.VECTOR,
+            to_agents=[AgentType.VECTOR],
+            intent=IntentType.EXEC_SUMMARY,
+            payload={"days_back": days_back},
+            context=A2AContext(household_id=resolved_household_id)
+        )
+        
+        result = await agent.handle_exec_summary(message)
+        return result
+        
+    except Exception as e:
+        logger.error(f"Error generating executive summary: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/household/{household_id}/crm/simple")
+async def get_household_crm_simple(household_id: str, limit: int = 5):
+    """Get CRM notes using simple text search (no embeddings)."""
+    if not agent:
+        raise HTTPException(status_code=503, detail="Agent not initialized")
+    
+    try:
+        # Resolve household code to numeric ID
+        resolved_household_id = resolve_household_id(household_id)
+        
+        search_client = await agent.search_client._get_search_client()
+        
+        # Simple text search without vector embeddings
+        results = await search_client.search(
+            search_text="*",
+            filter=f"household_id eq '{resolved_household_id}'",
+            top=limit,
+            select=["id", "text", "author", "created_at", "tags", "household_id"]
+        )
+        
+        search_results = []
+        async for result in results:
+            search_results.append({
+                "id": result["id"],
+                "text": result["text"][:200] + "..." if len(result["text"]) > 200 else result["text"],
+                "author": result.get("author"),
+                "created_at": result.get("created_at"),
+                "tags": result.get("tags", []),
+                "household_id": result.get("household_id")
+            })
+        
+        return {
+            "household_id": household_id,
+            "results": search_results,
+            "total_found": len(search_results)
+        }
+        
+    except Exception as e:
+        logger.error(f"Simple search failed: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/debug/settings")
+async def debug_settings():
+    """Debug agent settings."""
+    if not agent:
+        raise HTTPException(status_code=503, detail="Agent not initialized")
+    
+    return {
+        "ai_search_endpoint": agent.settings.ai_search_endpoint,
+        "ai_search_index_name": agent.settings.ai_search_index_name,
+        "azure_openai_endpoint": agent.settings.azure_openai_endpoint,
+        "azure_openai_deployment": agent.settings.azure_openai_deployment,
+        "azure_openai_embedding_deployment": agent.settings.azure_openai_embedding_deployment,
+        "azure_openai_api_version": agent.settings.azure_openai_api_version,
+        "has_openai_key": bool(agent.settings.azure_openai_key),
+        "has_search_key": bool(agent.settings.ai_search_key)
+    }
+
+@app.get("/test/embeddings")
+async def test_embeddings():
+    """Test embedding generation."""
+    if not agent:
+        raise HTTPException(status_code=503, detail="Agent not initialized")
+    
+    try:
+        # Test with a simple text
+        test_text = ["hello world"]
+        embeddings = await agent.search_client.generate_embeddings(test_text)
+        
+        return {
+            "status": "success",
+            "text": test_text[0],
+            "embedding_length": len(embeddings[0]) if embeddings else 0,
+            "first_few_values": embeddings[0][:5] if embeddings else []
+        }
+    except Exception as e:
+        return {
+            "status": "error",
+            "error": str(e),
+            "endpoint": agent.settings.azure_openai_endpoint,
+            "deployment": agent.settings.azure_openai_embedding_deployment
+        }
 
 @app.get("/index/stats")
 async def get_index_stats():
@@ -598,9 +1033,30 @@ async def get_index_stats():
     if not agent:
         raise HTTPException(status_code=503, detail="Agent not initialized")
     
-    # TODO: Implement index statistics
-    return {"message": "Index statistics not yet implemented"}
-
+    try:
+        if agent.degraded_mode:
+            return {
+                "status": "degraded",
+                "message": "Vector Agent running in degraded mode",
+                "document_count": 0
+            }
+        
+        # Use the search client to get stats
+        search_client = await agent.search_client._get_search_client()
+        document_count = await search_client.get_document_count()
+        
+        return {
+            "status": "healthy",
+            "document_count": document_count,
+            "index_name": agent.search_client.index_name
+        }
+    except Exception as e:
+        logger.error(f"Error getting index stats: {e}")
+        return {
+            "status": "error",
+            "message": str(e),
+            "document_count": 0
+        }
 
 if __name__ == "__main__":
     import uvicorn

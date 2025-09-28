@@ -1,0 +1,4300 @@
+[
+  {
+    "id": "856d6044-f0f5-4d6e-85b1-d781aeff0d24",
+    "household_id": "1",
+    "household_code": "international-family",
+    "account_id": "4",
+    "text": "Earnings season review: Discussed individual stock performance in Singh Global Family Office's portfolio. Beat expectations noted in technology.",
+    "author": "Michael Chen",
+    "created_at": "2023-12-19T14:45:16.012207Z",
+    "tags": [
+      "market events",
+      "performance review"
+    ],
+    "category": "market_events"
+  },
+  {
+    "id": "046b5d32-1211-4e54-a26e-cd94106ecb13",
+    "household_id": "1",
+    "household_code": "international-family",
+    "account_id": "4",
+    "text": "Tax planning discussion with Singh Global Family Office. Identified opportunities for tax-loss harvesting in fixed income. Estimated savings: $45,200.",
+    "author": "Michael Chen",
+    "created_at": "2024-10-30T14:45:16.012207Z",
+    "tags": [
+      "financial planning",
+      "tax planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "856c9fdf-f922-486f-aadd-71286860a90e",
+    "household_id": "1",
+    "household_code": "international-family",
+    "account_id": null,
+    "text": "Required Minimum Distribution (RMD) calculation completed for Singh Global Family Office. 2024 RMD amount: $67,200. Distribution scheduled for 2025-10-09.",
+    "author": "Michael Chen",
+    "created_at": "2023-10-25T14:45:16.012207Z",
+    "tags": [
+      "account management"
+    ],
+    "category": "account_management"
+  },
+  {
+    "id": "3fd0e39c-c6cf-41b0-afb0-90787b1b3e8d",
+    "household_id": "1",
+    "household_code": "international-family",
+    "account_id": null,
+    "text": "Annual compliance review for Singh Global Family Office. All documentation current. Updated investment policy statement to reflect updated beneficiaries.",
+    "author": "Michael Chen",
+    "created_at": "2025-05-24T14:45:16.012207Z",
+    "tags": [
+      "compliance review"
+    ],
+    "category": "compliance_review"
+  },
+  {
+    "id": "45b227e9-e327-498a-b6ca-3f12ea730204",
+    "household_id": "1",
+    "household_code": "international-family",
+    "account_id": "1",
+    "text": "Anti-money laundering review: No red flags identified for Singh Global Family Office. All transactions within normal parameters.",
+    "author": "Michael Chen",
+    "created_at": "2025-07-18T14:45:16.012207Z",
+    "tags": [
+      "compliance review"
+    ],
+    "category": "compliance_review"
+  },
+  {
+    "id": "172bf2cf-c252-4ebc-bf9f-dbb53e12d00d",
+    "household_id": "1",
+    "household_code": "international-family",
+    "account_id": "1",
+    "text": "Investment committee meeting notes for Singh Global Family Office: Recommended increasing allocation to equities by 7.5% based on risk tolerance and market outlook.",
+    "author": "Michael Chen",
+    "created_at": "2025-07-03T14:45:16.012207Z",
+    "tags": [
+      "investment review",
+      "risk assessment"
+    ],
+    "category": "investment_review"
+  },
+  {
+    "id": "5db4d92b-a622-4eae-9fa2-6bc82e7723a4",
+    "household_id": "1",
+    "household_code": "international-family",
+    "account_id": "2",
+    "text": "Account consolidation: Transferred $2,000,000 from previous 401k to trust account for Singh Global Family Office. Fees waived due to relationship status.",
+    "author": "Michael Chen",
+    "created_at": "2025-06-03T14:45:16.012207Z",
+    "tags": [
+      "account management"
+    ],
+    "category": "account_management"
+  },
+  {
+    "id": "87304e35-1ecf-49dd-bb54-ec86a50487ce",
+    "household_id": "1",
+    "household_code": "international-family",
+    "account_id": null,
+    "text": "Anti-money laundering review: No red flags identified for Singh Global Family Office. All transactions within normal parameters.",
+    "author": "Michael Chen",
+    "created_at": "2024-09-04T14:45:16.012207Z",
+    "tags": [
+      "compliance review"
+    ],
+    "category": "compliance_review"
+  },
+  {
+    "id": "9770a952-6a32-4748-8831-306ba7e83c93",
+    "household_id": "1",
+    "household_code": "international-family",
+    "account_id": null,
+    "text": "Market volatility discussion with Singh Global Family Office. Explained impact of geopolitical tensions on portfolio. Client comfortable with long-term strategy.",
+    "author": "Michael Chen",
+    "created_at": "2025-07-28T14:45:16.012207Z",
+    "tags": [
+      "market events"
+    ],
+    "category": "market_events"
+  },
+  {
+    "id": "39b7e3b9-487f-4ec1-abf2-af764648e41f",
+    "household_id": "1",
+    "household_code": "international-family",
+    "account_id": null,
+    "text": "Suitability review completed. Singh Global Family Office's risk profile remains appropriate for current allocation. No changes recommended.",
+    "author": "Michael Chen",
+    "created_at": "2023-11-15T14:45:16.012207Z",
+    "tags": [
+      "compliance review",
+      "risk assessment"
+    ],
+    "category": "compliance_review"
+  },
+  {
+    "id": "e8fb9634-dba4-4cd3-b50e-817e75b53642",
+    "household_id": "1",
+    "household_code": "international-family",
+    "account_id": "3",
+    "text": "Investment committee meeting notes for Singh Global Family Office: Recommended increasing allocation to international equities by 12.5% based on risk tolerance and market outlook.",
+    "author": "Michael Chen",
+    "created_at": "2024-06-04T14:45:16.012207Z",
+    "tags": [
+      "investment review",
+      "risk assessment"
+    ],
+    "category": "investment_review"
+  },
+  {
+    "id": "e0a39e09-a1ec-4c85-94bf-06839af5abe4",
+    "household_id": "1",
+    "household_code": "international-family",
+    "account_id": "3",
+    "text": "Earnings season review: Discussed individual stock performance in Singh Global Family Office's portfolio. Beat expectations noted in healthcare.",
+    "author": "Michael Chen",
+    "created_at": "2023-10-03T14:45:16.012207Z",
+    "tags": [
+      "market events",
+      "performance review"
+    ],
+    "category": "market_events"
+  },
+  {
+    "id": "697ae479-974a-4bfd-ade5-2e8516028dbb",
+    "household_id": "1",
+    "household_code": "international-family",
+    "account_id": null,
+    "text": "Earnings season review: Discussed individual stock performance in Singh Global Family Office's portfolio. Weak guidance noted in technology.",
+    "author": "Michael Chen",
+    "created_at": "2024-07-02T14:45:16.012207Z",
+    "tags": [
+      "market events",
+      "performance review"
+    ],
+    "category": "market_events"
+  },
+  {
+    "id": "4386c322-b2d6-48d5-a484-bf0fa6f22254",
+    "household_id": "1",
+    "household_code": "international-family",
+    "account_id": "3",
+    "text": "Annual compliance review for Singh Global Family Office. All documentation current. Updated investment policy statement to reflect updated beneficiaries.",
+    "author": "Michael Chen",
+    "created_at": "2025-03-28T14:45:16.012207Z",
+    "tags": [
+      "compliance review"
+    ],
+    "category": "compliance_review"
+  },
+  {
+    "id": "8933578e-7bd8-4973-9d4e-06eed1389fa3",
+    "household_id": "1",
+    "household_code": "international-family",
+    "account_id": "3",
+    "text": "Suitability review completed. Singh Global Family Office's risk profile remains appropriate for current allocation. No changes recommended.",
+    "author": "Michael Chen",
+    "created_at": "2024-08-24T14:45:16.012207Z",
+    "tags": [
+      "compliance review",
+      "risk assessment"
+    ],
+    "category": "compliance_review"
+  },
+  {
+    "id": "8ecdb71f-4dcf-4e35-bf6a-3d02127c8710",
+    "household_id": "2",
+    "household_code": "young-professionals",
+    "account_id": null,
+    "text": "Earnings season review: Discussed individual stock performance in The Lee-Kim Partnership's portfolio. Missed estimates noted in technology.",
+    "author": "Emily Lee",
+    "created_at": "2025-07-12T14:45:16.195425Z",
+    "tags": [
+      "market events",
+      "performance review"
+    ],
+    "category": "market_events"
+  },
+  {
+    "id": "0ec5f54e-2625-4377-b3e7-997864a43810",
+    "household_id": "2",
+    "household_code": "young-professionals",
+    "account_id": null,
+    "text": "Suitability review completed. The Lee-Kim Partnership's risk profile remains appropriate for current allocation. No changes recommended.",
+    "author": "Emily Lee",
+    "created_at": "2023-12-04T14:45:16.195425Z",
+    "tags": [
+      "compliance review",
+      "risk assessment"
+    ],
+    "category": "compliance_review"
+  },
+  {
+    "id": "92f1416a-2c19-4277-b5a9-f65a9f8cdbfa",
+    "household_id": "2",
+    "household_code": "young-professionals",
+    "account_id": null,
+    "text": "Tax planning discussion with The Lee-Kim Partnership. Identified opportunities for tax-loss harvesting in real estate. Estimated savings: $45,200.",
+    "author": "Emily Lee",
+    "created_at": "2024-02-19T14:45:16.196445Z",
+    "tags": [
+      "financial planning",
+      "tax planning",
+      "estate planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "4ea77a31-ac55-4d0f-8b2f-9fd763457971",
+    "household_id": "2",
+    "household_code": "young-professionals",
+    "account_id": null,
+    "text": "Insurance review completed. Recommended increasing long-term care coverage by $2,000,000 based on current assets and income.",
+    "author": "Emily Lee",
+    "created_at": "2024-11-10T14:45:16.196445Z",
+    "tags": [
+      "financial planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "fa16beae-7d4b-4afd-bcfe-56d97a7d30a4",
+    "household_id": "2",
+    "household_code": "young-professionals",
+    "account_id": "7",
+    "text": "Insurance review completed. Recommended increasing umbrella coverage by $750,000 based on current assets and income.",
+    "author": "Emily Lee",
+    "created_at": "2024-04-08T14:45:16.196445Z",
+    "tags": [
+      "financial planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "7b88fc8b-3cd3-42a7-95d4-0c4fef58600c",
+    "household_id": "2",
+    "household_code": "young-professionals",
+    "account_id": "5",
+    "text": "Estate planning session with The Lee-Kim Partnership. Reviewed beneficiary designations and identified need to update will. Next steps: dollar-cost averaging.",
+    "author": "Emily Lee",
+    "created_at": "2024-02-12T14:45:16.196445Z",
+    "tags": [
+      "financial planning",
+      "estate planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "b0ed465c-ef50-48af-9d17-07f7c0258f94",
+    "household_id": "2",
+    "household_code": "young-professionals",
+    "account_id": null,
+    "text": "Sector rotation recommendation: Suggested reducing industrials exposure and increasing real estate allocation for The Lee-Kim Partnership.",
+    "author": "Emily Lee",
+    "created_at": "2024-01-07T14:45:16.196445Z",
+    "tags": [
+      "market events",
+      "estate planning"
+    ],
+    "category": "market_events"
+  },
+  {
+    "id": "0681dfb6-286b-4914-a8dd-ee8a06282972",
+    "household_id": "2",
+    "household_code": "young-professionals",
+    "account_id": "6",
+    "text": "Suitability review completed. The Lee-Kim Partnership's risk profile remains appropriate for current allocation. No changes recommended.",
+    "author": "Emily Lee",
+    "created_at": "2023-11-22T14:45:16.196445Z",
+    "tags": [
+      "compliance review",
+      "risk assessment"
+    ],
+    "category": "compliance_review"
+  },
+  {
+    "id": "0bf0f9dd-2f3a-42e7-83a8-fa6e1371591c",
+    "household_id": "2",
+    "household_code": "young-professionals",
+    "account_id": "6",
+    "text": "Met with The Lee-Kim Partnership for quarterly investment review. Discussed portfolio performance of +8.5% YTD. Client expressed caution about current allocation in commodities.",
+    "author": "Emily Lee",
+    "created_at": "2025-08-19T14:45:16.196445Z",
+    "tags": [
+      "investment review",
+      "performance review"
+    ],
+    "category": "investment_review"
+  },
+  {
+    "id": "a47ff273-7c44-4ef0-85b1-89d46c8ae58b",
+    "household_id": "2",
+    "household_code": "young-professionals",
+    "account_id": null,
+    "text": "Education planning for The Lee-Kim Partnership's children. 529 plan contributions should increase to $500/month to meet goals.",
+    "author": "Emily Lee",
+    "created_at": "2024-11-04T14:45:16.196445Z",
+    "tags": [
+      "financial planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "c82f8479-3fd2-4ff6-b635-bb82b0b44856",
+    "household_id": "2",
+    "household_code": "young-professionals",
+    "account_id": "7",
+    "text": "Suitability review completed. The Lee-Kim Partnership's risk profile remains appropriate for current allocation. No changes recommended.",
+    "author": "Emily Lee",
+    "created_at": "2024-06-12T14:45:16.196445Z",
+    "tags": [
+      "compliance review",
+      "risk assessment"
+    ],
+    "category": "compliance_review"
+  },
+  {
+    "id": "75170cfc-8af7-4545-8945-9f92d827731b",
+    "household_id": "2",
+    "household_code": "young-professionals",
+    "account_id": "5",
+    "text": "Sent quarterly performance report to The Lee-Kim Partnership. Client responded with questions about asset allocation. Scheduled follow-up call for 2025-10-18.",
+    "author": "Emily Lee",
+    "created_at": "2024-03-13T14:45:16.196445Z",
+    "tags": [
+      "client communication",
+      "performance review"
+    ],
+    "category": "client_communication"
+  },
+  {
+    "id": "190bdb49-1735-4982-8996-d31d99bc4c57",
+    "household_id": "2",
+    "household_code": "young-professionals",
+    "account_id": null,
+    "text": "Client call with The Lee-Kim Partnership - document signing. Duration: 60 minutes. Follow-up required: pending client response.",
+    "author": "Emily Lee",
+    "created_at": "2025-03-14T14:45:16.196445Z",
+    "tags": [
+      "client communication"
+    ],
+    "category": "client_communication"
+  },
+  {
+    "id": "773fb8cf-7bac-43ef-a497-60ea36991431",
+    "household_id": "2",
+    "household_code": "young-professionals",
+    "account_id": "5",
+    "text": "Education planning for The Lee-Kim Partnership's children. 529 plan contributions should increase to $2,000/month to meet goals.",
+    "author": "Emily Lee",
+    "created_at": "2025-09-13T14:45:16.196445Z",
+    "tags": [
+      "financial planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "99ad6caa-7301-49d2-8a51-0463f7c20fb1",
+    "household_id": "2",
+    "household_code": "young-professionals",
+    "account_id": null,
+    "text": "Email exchange with The Lee-Kim Partnership regarding tax strategies. Provided clarification on fee structure and shared relevant market research.",
+    "author": "Emily Lee",
+    "created_at": "2023-12-11T14:45:16.196445Z",
+    "tags": [
+      "client communication",
+      "tax planning"
+    ],
+    "category": "client_communication"
+  },
+  {
+    "id": "7cda5319-d58b-4844-a82c-e42869b4ff44",
+    "household_id": "3",
+    "household_code": "tech-executive",
+    "account_id": null,
+    "text": "Anti-money laundering review: No red flags identified for White Executive Portfolio. All transactions within normal parameters.",
+    "author": "Sarah Martinez",
+    "created_at": "2025-07-04T14:45:16.379004Z",
+    "tags": [
+      "compliance review"
+    ],
+    "category": "compliance_review"
+  },
+  {
+    "id": "cace1ad1-ac12-4ff3-a5be-3986f36569e4",
+    "household_id": "3",
+    "household_code": "tech-executive",
+    "account_id": "9",
+    "text": "KYC documentation updated for White Executive Portfolio. Added beneficiary forms and verified employment status change to corporate executive.",
+    "author": "Sarah Martinez",
+    "created_at": "2025-07-04T14:45:16.379004Z",
+    "tags": [
+      "compliance review",
+      "estate planning"
+    ],
+    "category": "compliance_review"
+  },
+  {
+    "id": "a0d55e66-9516-4552-85fa-0fb2d858cd50",
+    "household_id": "3",
+    "household_code": "tech-executive",
+    "account_id": "9",
+    "text": "Investment committee meeting notes for White Executive Portfolio: Recommended increasing allocation to fixed income by 3% based on risk tolerance and market outlook.",
+    "author": "Sarah Martinez",
+    "created_at": "2025-01-05T14:45:16.379004Z",
+    "tags": [
+      "investment review",
+      "risk assessment"
+    ],
+    "category": "investment_review"
+  },
+  {
+    "id": "b0e483bb-ed23-42d2-bd88-0e1ea67a6b9f",
+    "household_id": "3",
+    "household_code": "tech-executive",
+    "account_id": null,
+    "text": "Account consolidation: Transferred $750,000 from other advisor account to trust account for White Executive Portfolio. Fees waived due to relationship status.",
+    "author": "Sarah Martinez",
+    "created_at": "2025-09-13T14:45:16.379004Z",
+    "tags": [
+      "account management"
+    ],
+    "category": "account_management"
+  },
+  {
+    "id": "4010d7fc-0567-4d05-b916-7c73d3a277fe",
+    "household_id": "3",
+    "household_code": "tech-executive",
+    "account_id": "11",
+    "text": "Annual investment review completed with White Executive Portfolio. Portfolio rebalancing recommended due to 7.1% drift in commodities. Client approved changes.",
+    "author": "Sarah Martinez",
+    "created_at": "2025-04-12T14:45:16.379004Z",
+    "tags": [
+      "investment review"
+    ],
+    "category": "investment_review"
+  },
+  {
+    "id": "94b8aa3d-f7b9-4f1c-b02c-c34bd477ff1e",
+    "household_id": "3",
+    "household_code": "tech-executive",
+    "account_id": null,
+    "text": "Education planning for White Executive Portfolio's children. 529 plan contributions should increase to $2,000/month to meet goals.",
+    "author": "Sarah Martinez",
+    "created_at": "2023-11-29T14:45:16.379004Z",
+    "tags": [
+      "financial planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "18fb1ae0-5b51-4443-81d6-c9b518b36bb9",
+    "household_id": "3",
+    "household_code": "tech-executive",
+    "account_id": "11",
+    "text": "Tax planning discussion with White Executive Portfolio. Identified opportunities for tax-loss harvesting in equities. Estimated savings: $6,800.",
+    "author": "Sarah Martinez",
+    "created_at": "2025-08-11T14:45:16.379004Z",
+    "tags": [
+      "financial planning",
+      "tax planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "705c89c6-9d6a-428b-9ffa-0368f980e51e",
+    "household_id": "3",
+    "household_code": "tech-executive",
+    "account_id": "11",
+    "text": "Insurance review completed. Recommended increasing umbrella coverage by $2,000,000 based on current assets and income.",
+    "author": "Sarah Martinez",
+    "created_at": "2024-03-16T14:45:16.379004Z",
+    "tags": [
+      "financial planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "d14af457-577f-49b3-8b4a-f7a0f976c56f",
+    "household_id": "3",
+    "household_code": "tech-executive",
+    "account_id": "10",
+    "text": "Investment committee meeting notes for White Executive Portfolio: Recommended increasing allocation to fixed income by 7.5% based on risk tolerance and market outlook.",
+    "author": "Sarah Martinez",
+    "created_at": "2025-01-27T14:45:16.379004Z",
+    "tags": [
+      "investment review",
+      "risk assessment"
+    ],
+    "category": "investment_review"
+  },
+  {
+    "id": "626abb43-1fb0-4798-9528-b40edcf6f0eb",
+    "household_id": "3",
+    "household_code": "tech-executive",
+    "account_id": null,
+    "text": "Suitability review completed. White Executive Portfolio's risk profile remains appropriate for current allocation. No changes recommended.",
+    "author": "Sarah Martinez",
+    "created_at": "2025-03-12T14:45:16.379004Z",
+    "tags": [
+      "compliance review",
+      "risk assessment"
+    ],
+    "category": "compliance_review"
+  },
+  {
+    "id": "67b56b16-0de4-426f-bf3e-8eb6f638e6ed",
+    "household_id": "3",
+    "household_code": "tech-executive",
+    "account_id": null,
+    "text": "Earnings season review: Discussed individual stock performance in White Executive Portfolio's portfolio. Strong earnings noted in consumer goods.",
+    "author": "Sarah Martinez",
+    "created_at": "2025-09-20T14:45:16.379004Z",
+    "tags": [
+      "market events",
+      "performance review"
+    ],
+    "category": "market_events"
+  },
+  {
+    "id": "4d1a62ae-2eff-498a-8f80-a9a3b818cffe",
+    "household_id": "3",
+    "household_code": "tech-executive",
+    "account_id": null,
+    "text": "Client referral: White Executive Portfolio referred David Wilson for wealth management services. Initial meeting scheduled for 2025-10-18.",
+    "author": "Sarah Martinez",
+    "created_at": "2023-11-25T14:45:16.379004Z",
+    "tags": [
+      "client communication"
+    ],
+    "category": "client_communication"
+  },
+  {
+    "id": "cb480536-88f3-4c9e-9071-03648c37e55a",
+    "household_id": "3",
+    "household_code": "tech-executive",
+    "account_id": "11",
+    "text": "Education planning for White Executive Portfolio's children. 529 plan contributions should increase to $2,000/month to meet goals.",
+    "author": "Sarah Martinez",
+    "created_at": "2025-04-15T14:45:16.379004Z",
+    "tags": [
+      "financial planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "eb29555e-a495-47c0-910c-2da43ffaded7",
+    "household_id": "3",
+    "household_code": "tech-executive",
+    "account_id": null,
+    "text": "Fed interest rate change analysis shared with White Executive Portfolio. Discussed implications for sector ETFs holdings and potential rebalancing.",
+    "author": "Sarah Martinez",
+    "created_at": "2025-03-26T14:45:16.379004Z",
+    "tags": [
+      "market events"
+    ],
+    "category": "market_events"
+  },
+  {
+    "id": "c3527cf9-9079-41d6-a949-76cc6ae25511",
+    "household_id": "3",
+    "household_code": "tech-executive",
+    "account_id": null,
+    "text": "Insurance review completed. Recommended increasing life coverage by $500,000 based on current assets and income.",
+    "author": "Sarah Martinez",
+    "created_at": "2025-01-13T14:45:16.379004Z",
+    "tags": [
+      "financial planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "18750ea5-1d11-48b6-8f77-8a0d0d441d4e",
+    "household_id": "4",
+    "household_code": "johnson-family-trust",
+    "account_id": null,
+    "text": "Email exchange with Johnson Family Trust regarding social security optimization. Provided clarification on performance attribution and shared relevant market research.",
+    "author": "David Johnson",
+    "created_at": "2025-04-25T14:45:16.644770Z",
+    "tags": [
+      "client communication",
+      "performance review"
+    ],
+    "category": "client_communication"
+  },
+  {
+    "id": "12d2bd74-b41c-4376-aba9-6235dbc966c7",
+    "household_id": "4",
+    "household_code": "johnson-family-trust",
+    "account_id": null,
+    "text": "Follow-up call with Johnson Family Trust regarding recent market volatility. Client requested tax-loss harvesting and showed caution about sector ETFs positions.",
+    "author": "David Johnson",
+    "created_at": "2025-06-02T14:45:16.644770Z",
+    "tags": [
+      "investment review",
+      "tax planning"
+    ],
+    "category": "investment_review"
+  },
+  {
+    "id": "f2fd01e8-7cdd-4403-a076-363f51238f13",
+    "household_id": "4",
+    "household_code": "johnson-family-trust",
+    "account_id": null,
+    "text": "Anti-money laundering review: No red flags identified for Johnson Family Trust. All transactions within normal parameters.",
+    "author": "David Johnson",
+    "created_at": "2023-11-25T14:45:16.644770Z",
+    "tags": [
+      "compliance review"
+    ],
+    "category": "compliance_review"
+  },
+  {
+    "id": "03132ecf-c474-4d9e-9cb9-cc77ec9d4fea",
+    "household_id": "4",
+    "household_code": "johnson-family-trust",
+    "account_id": null,
+    "text": "Sent quarterly performance report to Johnson Family Trust. Client responded with questions about Roth conversions. Scheduled follow-up call for 2025-10-06.",
+    "author": "David Johnson",
+    "created_at": "2024-09-02T14:45:16.645451Z",
+    "tags": [
+      "client communication",
+      "performance review"
+    ],
+    "category": "client_communication"
+  },
+  {
+    "id": "a5a192ea-efa5-4e75-89ce-fcaf99056bad",
+    "household_id": "4",
+    "household_code": "johnson-family-trust",
+    "account_id": "13",
+    "text": "Email exchange with Johnson Family Trust regarding Roth conversions. Provided clarification on tax implications and shared relevant market research.",
+    "author": "David Johnson",
+    "created_at": "2024-01-13T14:45:16.645451Z",
+    "tags": [
+      "client communication",
+      "tax planning"
+    ],
+    "category": "client_communication"
+  },
+  {
+    "id": "da6f48f4-21f6-4ffd-ac5a-05e3c8a6b088",
+    "household_id": "4",
+    "household_code": "johnson-family-trust",
+    "account_id": "14",
+    "text": "New account opening: 401k Rollover established for Johnson Family Trust with initial funding of $250,000. Investment policy statement created.",
+    "author": "David Johnson",
+    "created_at": "2025-09-26T14:45:16.645451Z",
+    "tags": [
+      "account management"
+    ],
+    "category": "account_management"
+  },
+  {
+    "id": "1c0aa887-cc01-4b8a-9a67-4293081d0992",
+    "household_id": "4",
+    "household_code": "johnson-family-trust",
+    "account_id": "14",
+    "text": "Fed interest rate change analysis shared with Johnson Family Trust. Discussed implications for sector ETFs holdings and potential rebalancing.",
+    "author": "David Johnson",
+    "created_at": "2024-03-05T14:45:16.645451Z",
+    "tags": [
+      "market events"
+    ],
+    "category": "market_events"
+  },
+  {
+    "id": "95e8d9e1-ffb0-4c66-be05-8642d4599dae",
+    "household_id": "4",
+    "household_code": "johnson-family-trust",
+    "account_id": null,
+    "text": "Insurance review completed. Recommended increasing umbrella coverage by $250,000 based on current assets and income.",
+    "author": "David Johnson",
+    "created_at": "2024-08-04T14:45:16.645451Z",
+    "tags": [
+      "financial planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "6a153f5f-e028-4cc7-85d4-95cce7fdeed6",
+    "household_id": "4",
+    "household_code": "johnson-family-trust",
+    "account_id": "13",
+    "text": "Annual compliance review for Johnson Family Trust. All documentation current. Updated investment policy statement to reflect new investment objectives.",
+    "author": "David Johnson",
+    "created_at": "2025-09-25T14:45:16.645451Z",
+    "tags": [
+      "compliance review"
+    ],
+    "category": "compliance_review"
+  },
+  {
+    "id": "b070b30b-887d-43b4-bd52-98ed6ca8fb52",
+    "household_id": "4",
+    "household_code": "johnson-family-trust",
+    "account_id": "14",
+    "text": "Account maintenance: Updated contact information and investment objectives for Johnson Family Trust. Changed risk tolerance from moderate to conservative.",
+    "author": "David Johnson",
+    "created_at": "2025-07-22T14:45:16.645451Z",
+    "tags": [
+      "account management",
+      "risk assessment"
+    ],
+    "category": "account_management"
+  },
+  {
+    "id": "39d3b6ac-e0cc-46fb-884c-541062bdf3bc",
+    "household_id": "4",
+    "household_code": "johnson-family-trust",
+    "account_id": null,
+    "text": "Tax planning discussion with Johnson Family Trust. Identified opportunities for tax-loss harvesting in fixed income. Estimated savings: $8,300.",
+    "author": "David Johnson",
+    "created_at": "2024-05-07T14:45:16.645451Z",
+    "tags": [
+      "financial planning",
+      "tax planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "4c5ce5ec-8125-47d7-8f6d-47eb046dc95b",
+    "household_id": "4",
+    "household_code": "johnson-family-trust",
+    "account_id": null,
+    "text": "Investment committee meeting notes for Johnson Family Trust: Recommended increasing allocation to alternatives by 15% based on risk tolerance and market outlook.",
+    "author": "David Johnson",
+    "created_at": "2024-11-03T14:45:16.645451Z",
+    "tags": [
+      "investment review",
+      "risk assessment"
+    ],
+    "category": "investment_review"
+  },
+  {
+    "id": "f689e88c-597f-4270-a47d-193da1456344",
+    "household_id": "4",
+    "household_code": "johnson-family-trust",
+    "account_id": "14",
+    "text": "New account opening: Taxable Investment established for Johnson Family Trust with initial funding of $500,000. Investment policy statement created.",
+    "author": "David Johnson",
+    "created_at": "2024-09-27T14:45:16.645451Z",
+    "tags": [
+      "account management",
+      "tax planning"
+    ],
+    "category": "account_management"
+  },
+  {
+    "id": "55335e18-346f-4a68-991f-2325c790bed6",
+    "household_id": "4",
+    "household_code": "johnson-family-trust",
+    "account_id": null,
+    "text": "Sent quarterly performance report to Johnson Family Trust. Client responded with questions about asset allocation. Scheduled follow-up call for 2025-10-11.",
+    "author": "David Johnson",
+    "created_at": "2024-08-11T14:45:16.645451Z",
+    "tags": [
+      "client communication",
+      "performance review"
+    ],
+    "category": "client_communication"
+  },
+  {
+    "id": "78e0c2e9-9261-4a9d-a58e-4d0e5d1122c7",
+    "household_id": "4",
+    "household_code": "johnson-family-trust",
+    "account_id": null,
+    "text": "Fed interest rate change analysis shared with Johnson Family Trust. Discussed implications for REITs holdings and potential rebalancing.",
+    "author": "David Johnson",
+    "created_at": "2025-02-22T14:45:16.645451Z",
+    "tags": [
+      "market events"
+    ],
+    "category": "market_events"
+  },
+  {
+    "id": "d9617c62-867d-4192-9a04-47c26a8805fd",
+    "household_id": "5",
+    "household_code": "chen-enterprises",
+    "account_id": "16",
+    "text": "Market volatility discussion with Chen Enterprises LLC. Explained impact of Fed rate change on portfolio. Client comfortable with long-term strategy.",
+    "author": "Emily Lee",
+    "created_at": "2024-11-26T14:45:16.844123Z",
+    "tags": [
+      "market events"
+    ],
+    "category": "market_events"
+  },
+  {
+    "id": "8f03dba2-e286-4a79-893b-bcff178a7cc3",
+    "household_id": "5",
+    "household_code": "chen-enterprises",
+    "account_id": null,
+    "text": "Sector rotation recommendation: Suggested reducing healthcare exposure and increasing consumer staples allocation for Chen Enterprises LLC.",
+    "author": "Emily Lee",
+    "created_at": "2025-01-24T14:45:16.844123Z",
+    "tags": [
+      "market events"
+    ],
+    "category": "market_events"
+  },
+  {
+    "id": "f3db1a13-c07b-44d2-a81c-b4d5d3410624",
+    "household_id": "5",
+    "household_code": "chen-enterprises",
+    "account_id": "15",
+    "text": "Client call with Chen Enterprises LLC - strategy discussion. Duration: 30 minutes. Follow-up required: no.",
+    "author": "Emily Lee",
+    "created_at": "2024-03-01T14:45:16.844123Z",
+    "tags": [
+      "client communication"
+    ],
+    "category": "client_communication"
+  },
+  {
+    "id": "1922b315-72e2-42c7-b86e-95875a5f4001",
+    "household_id": "5",
+    "household_code": "chen-enterprises",
+    "account_id": null,
+    "text": "Sector rotation recommendation: Suggested reducing industrials exposure and increasing consumer staples allocation for Chen Enterprises LLC.",
+    "author": "Emily Lee",
+    "created_at": "2023-11-08T14:45:16.844123Z",
+    "tags": [
+      "market events"
+    ],
+    "category": "market_events"
+  },
+  {
+    "id": "f8da4343-c219-4ad1-8250-07330d35c9b0",
+    "household_id": "5",
+    "household_code": "chen-enterprises",
+    "account_id": "15",
+    "text": "Client referral: Chen Enterprises LLC referred Mary Johnson for wealth management services. Initial meeting scheduled for 2025-10-24.",
+    "author": "Emily Lee",
+    "created_at": "2024-05-24T14:45:16.844123Z",
+    "tags": [
+      "client communication"
+    ],
+    "category": "client_communication"
+  },
+  {
+    "id": "9d6b89bc-071c-4e49-9e81-0b951dd071cc",
+    "household_id": "5",
+    "household_code": "chen-enterprises",
+    "account_id": "15",
+    "text": "Sent quarterly performance report to Chen Enterprises LLC. Client responded with questions about insurance needs. Scheduled follow-up call for 2025-10-24.",
+    "author": "Emily Lee",
+    "created_at": "2024-03-12T14:45:16.844123Z",
+    "tags": [
+      "client communication",
+      "performance review"
+    ],
+    "category": "client_communication"
+  },
+  {
+    "id": "55899dc0-6db7-4c53-9e8a-086bd2cec545",
+    "household_id": "5",
+    "household_code": "chen-enterprises",
+    "account_id": null,
+    "text": "Investment committee meeting notes for Chen Enterprises LLC: Recommended increasing allocation to equities by 15% based on risk tolerance and market outlook.",
+    "author": "Emily Lee",
+    "created_at": "2024-05-20T14:45:16.844991Z",
+    "tags": [
+      "investment review",
+      "risk assessment"
+    ],
+    "category": "investment_review"
+  },
+  {
+    "id": "837ebb08-2ae7-457a-a34c-295ed8f52a05",
+    "household_id": "5",
+    "household_code": "chen-enterprises",
+    "account_id": null,
+    "text": "Account consolidation: Transferred $750,000 from inherited IRA to investment account for Chen Enterprises LLC. Fees waived due to relationship status.",
+    "author": "Emily Lee",
+    "created_at": "2024-04-30T14:45:16.844991Z",
+    "tags": [
+      "account management"
+    ],
+    "category": "account_management"
+  },
+  {
+    "id": "fc3566a4-7162-4dc0-a420-6d791c6b3496",
+    "household_id": "5",
+    "household_code": "chen-enterprises",
+    "account_id": "16",
+    "text": "Sector rotation recommendation: Suggested reducing industrials exposure and increasing telecommunications allocation for Chen Enterprises LLC.",
+    "author": "Emily Lee",
+    "created_at": "2025-09-11T14:45:16.844991Z",
+    "tags": [
+      "market events"
+    ],
+    "category": "market_events"
+  },
+  {
+    "id": "aa210968-fd3e-4910-900a-0ad022bd47d5",
+    "household_id": "5",
+    "household_code": "chen-enterprises",
+    "account_id": null,
+    "text": "Sent quarterly performance report to Chen Enterprises LLC. Client responded with questions about Roth conversions. Scheduled follow-up call for 2025-10-18.",
+    "author": "Emily Lee",
+    "created_at": "2025-06-22T14:45:16.844991Z",
+    "tags": [
+      "client communication",
+      "performance review"
+    ],
+    "category": "client_communication"
+  },
+  {
+    "id": "fa226723-0059-423f-940a-91ef390bdb93",
+    "household_id": "5",
+    "household_code": "chen-enterprises",
+    "account_id": "15",
+    "text": "Met with Chen Enterprises LLC for quarterly investment review. Discussed portfolio performance of -1.5% YTD. Client expressed caution about current allocation in fixed income.",
+    "author": "Emily Lee",
+    "created_at": "2025-08-28T14:45:16.844991Z",
+    "tags": [
+      "investment review",
+      "performance review"
+    ],
+    "category": "investment_review"
+  },
+  {
+    "id": "c5638937-89a3-4fc2-9e15-4a46528b6ebd",
+    "household_id": "5",
+    "household_code": "chen-enterprises",
+    "account_id": "16",
+    "text": "Met with Chen Enterprises LLC for quarterly investment review. Discussed portfolio performance of +12.3% YTD. Client expressed disappointment about current allocation in commodities.",
+    "author": "Emily Lee",
+    "created_at": "2024-05-28T14:45:16.844991Z",
+    "tags": [
+      "investment review",
+      "performance review"
+    ],
+    "category": "investment_review"
+  },
+  {
+    "id": "59514863-c30f-4acf-a72e-473f3efdcfe6",
+    "household_id": "5",
+    "household_code": "chen-enterprises",
+    "account_id": null,
+    "text": "Follow-up call with Chen Enterprises LLC regarding recent market volatility. Client requested dollar-cost averaging and showed disappointment about sector ETFs positions.",
+    "author": "Emily Lee",
+    "created_at": "2024-05-19T14:45:16.844991Z",
+    "tags": [
+      "investment review"
+    ],
+    "category": "investment_review"
+  },
+  {
+    "id": "14332646-30b9-4bd6-b0da-a4051c617eb4",
+    "household_id": "5",
+    "household_code": "chen-enterprises",
+    "account_id": null,
+    "text": "Sector rotation recommendation: Suggested reducing industrials exposure and increasing materials allocation for Chen Enterprises LLC.",
+    "author": "Emily Lee",
+    "created_at": "2025-07-10T14:45:16.844991Z",
+    "tags": [
+      "market events"
+    ],
+    "category": "market_events"
+  },
+  {
+    "id": "25a878d4-0dcf-4d37-871b-920e25d9c8fa",
+    "household_id": "5",
+    "household_code": "chen-enterprises",
+    "account_id": null,
+    "text": "Met with Chen Enterprises LLC for quarterly investment review. Discussed portfolio performance of +9.4% YTD. Client expressed optimism about current allocation in international equities.",
+    "author": "Emily Lee",
+    "created_at": "2023-11-27T14:45:16.844991Z",
+    "tags": [
+      "investment review",
+      "performance review"
+    ],
+    "category": "investment_review"
+  },
+  {
+    "id": "e67dcfa3-30b6-43f1-8869-e6c85c9953f2",
+    "household_id": "6",
+    "household_code": "wilson-retirement",
+    "account_id": null,
+    "text": "Anti-money laundering review: No red flags identified for Wilson Retirement Fund. All transactions within normal parameters.",
+    "author": "Richard Parker",
+    "created_at": "2025-07-10T14:45:17.052322Z",
+    "tags": [
+      "compliance review",
+      "retirement planning"
+    ],
+    "category": "compliance_review"
+  },
+  {
+    "id": "221735b0-cf79-45ac-99bf-167a8dcbbc60",
+    "household_id": "6",
+    "household_code": "wilson-retirement",
+    "account_id": null,
+    "text": "Retirement planning meeting focused on social security optimization. Projected retirement income of $200,000 annually. Client needs to increase savings by 3%.",
+    "author": "Richard Parker",
+    "created_at": "2025-05-17T14:45:17.052322Z",
+    "tags": [
+      "financial planning",
+      "retirement planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "e7e7cfb2-11aa-4244-86a9-2ef3797ed4aa",
+    "household_id": "6",
+    "household_code": "wilson-retirement",
+    "account_id": null,
+    "text": "Suitability review completed. Wilson Retirement Fund's risk profile remains appropriate for current allocation. No changes recommended.",
+    "author": "Richard Parker",
+    "created_at": "2023-09-30T14:45:17.060342Z",
+    "tags": [
+      "compliance review",
+      "risk assessment",
+      "retirement planning"
+    ],
+    "category": "compliance_review"
+  },
+  {
+    "id": "4b03e007-22ea-4567-b2e6-f4dc4223f432",
+    "household_id": "6",
+    "household_code": "wilson-retirement",
+    "account_id": null,
+    "text": "Email exchange with Wilson Retirement Fund regarding social security optimization. Provided clarification on market volatility and shared relevant market research.",
+    "author": "Richard Parker",
+    "created_at": "2024-01-02T14:45:17.060342Z",
+    "tags": [
+      "client communication",
+      "retirement planning"
+    ],
+    "category": "client_communication"
+  },
+  {
+    "id": "b29700dd-2e72-44c1-b8e7-e54dee2934ab",
+    "household_id": "6",
+    "household_code": "wilson-retirement",
+    "account_id": "17",
+    "text": "Account consolidation: Transferred $750,000 from previous 401k to trust account for Wilson Retirement Fund. Fees waived due to relationship status.",
+    "author": "Richard Parker",
+    "created_at": "2025-09-06T14:45:17.060342Z",
+    "tags": [
+      "account management",
+      "retirement planning"
+    ],
+    "category": "account_management"
+  },
+  {
+    "id": "6f071d3a-ec04-4d70-a9bd-6dde0fd27fac",
+    "household_id": "6",
+    "household_code": "wilson-retirement",
+    "account_id": "19",
+    "text": "Annual compliance review for Wilson Retirement Fund. All documentation current. Updated investment policy statement to reflect updated beneficiaries.",
+    "author": "Richard Parker",
+    "created_at": "2024-01-10T14:45:17.060342Z",
+    "tags": [
+      "compliance review",
+      "retirement planning"
+    ],
+    "category": "compliance_review"
+  },
+  {
+    "id": "b5c3e3fa-e901-449a-b1ec-50878c8ccc98",
+    "household_id": "6",
+    "household_code": "wilson-retirement",
+    "account_id": "19",
+    "text": "KYC documentation updated for Wilson Retirement Fund. Added trust and verified employment status change to retired.",
+    "author": "Richard Parker",
+    "created_at": "2024-08-10T14:45:17.060342Z",
+    "tags": [
+      "compliance review",
+      "retirement planning"
+    ],
+    "category": "compliance_review"
+  },
+  {
+    "id": "04aa0a85-007a-419e-8044-af6bf1b94de1",
+    "household_id": "6",
+    "household_code": "wilson-retirement",
+    "account_id": "18",
+    "text": "Client call with Wilson Retirement Fund - account inquiry. Duration: 15 minutes. Follow-up required: no.",
+    "author": "Richard Parker",
+    "created_at": "2023-10-15T14:45:17.060342Z",
+    "tags": [
+      "client communication",
+      "retirement planning"
+    ],
+    "category": "client_communication"
+  },
+  {
+    "id": "84994627-baf2-495b-af3c-b72195059090",
+    "household_id": "6",
+    "household_code": "wilson-retirement",
+    "account_id": "19",
+    "text": "Client call with Wilson Retirement Fund - performance questions. Duration: 30 minutes. Follow-up required: pending client response.",
+    "author": "Richard Parker",
+    "created_at": "2025-03-31T14:45:17.060342Z",
+    "tags": [
+      "client communication",
+      "performance review",
+      "retirement planning"
+    ],
+    "category": "client_communication"
+  },
+  {
+    "id": "834bec63-2624-4701-a943-c7c6c6a0f675",
+    "household_id": "6",
+    "household_code": "wilson-retirement",
+    "account_id": "19",
+    "text": "Required Minimum Distribution (RMD) calculation completed for Wilson Retirement Fund. 2024 RMD amount: $28,300. Distribution scheduled for 2025-10-25.",
+    "author": "Richard Parker",
+    "created_at": "2025-07-18T14:45:17.060342Z",
+    "tags": [
+      "account management",
+      "retirement planning"
+    ],
+    "category": "account_management"
+  },
+  {
+    "id": "626187bb-14cf-44a4-b316-67b944d9571e",
+    "household_id": "6",
+    "household_code": "wilson-retirement",
+    "account_id": "19",
+    "text": "Retirement planning meeting focused on insurance needs. Projected retirement income of $85,000 annually. Client needs to increase savings by 3%.",
+    "author": "Richard Parker",
+    "created_at": "2025-01-14T14:45:17.060342Z",
+    "tags": [
+      "financial planning",
+      "retirement planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "57291bd3-b1d1-48c6-8a99-807ba9bd5a99",
+    "household_id": "6",
+    "household_code": "wilson-retirement",
+    "account_id": "18",
+    "text": "Suitability review completed. Wilson Retirement Fund's risk profile remains appropriate for current allocation. No changes recommended.",
+    "author": "Richard Parker",
+    "created_at": "2025-03-06T14:45:17.060342Z",
+    "tags": [
+      "compliance review",
+      "risk assessment",
+      "retirement planning"
+    ],
+    "category": "compliance_review"
+  },
+  {
+    "id": "547afe24-0108-4969-b909-eb6c0729b36b",
+    "household_id": "6",
+    "household_code": "wilson-retirement",
+    "account_id": null,
+    "text": "Suitability review completed. Wilson Retirement Fund's risk profile remains appropriate for current allocation. No changes recommended.",
+    "author": "Richard Parker",
+    "created_at": "2024-04-27T14:45:17.060342Z",
+    "tags": [
+      "compliance review",
+      "risk assessment",
+      "retirement planning"
+    ],
+    "category": "compliance_review"
+  },
+  {
+    "id": "8ee80ee8-2d8e-4711-a432-36f1e8c0ecc9",
+    "household_id": "6",
+    "household_code": "wilson-retirement",
+    "account_id": "19",
+    "text": "Sector rotation recommendation: Suggested reducing financials exposure and increasing utilities allocation for Wilson Retirement Fund.",
+    "author": "Richard Parker",
+    "created_at": "2024-05-16T14:45:17.060342Z",
+    "tags": [
+      "market events",
+      "retirement planning"
+    ],
+    "category": "market_events"
+  },
+  {
+    "id": "a61555a7-060b-4cf2-9ad9-976607d765a2",
+    "household_id": "6",
+    "household_code": "wilson-retirement",
+    "account_id": "18",
+    "text": "Required Minimum Distribution (RMD) calculation completed for Wilson Retirement Fund. 2024 RMD amount: $15,500. Distribution scheduled for 2025-10-12.",
+    "author": "Richard Parker",
+    "created_at": "2025-07-06T14:45:17.060342Z",
+    "tags": [
+      "account management",
+      "retirement planning"
+    ],
+    "category": "account_management"
+  },
+  {
+    "id": "43bcb01e-6f90-49dc-a477-8141e435b9f1",
+    "household_id": "7",
+    "household_code": "garcia-foundation",
+    "account_id": null,
+    "text": "Account maintenance: Updated contact information and investment objectives for Garcia Family Foundation. Changed risk tolerance from moderate to conservative.",
+    "author": "Michael Chen",
+    "created_at": "2025-01-25T14:45:17.228445Z",
+    "tags": [
+      "account management",
+      "risk assessment"
+    ],
+    "category": "account_management"
+  },
+  {
+    "id": "101373cb-48cb-465a-89fd-cb79a5cd4b96",
+    "household_id": "7",
+    "household_code": "garcia-foundation",
+    "account_id": "21",
+    "text": "Education planning for Garcia Family Foundation's children. 529 plan contributions should increase to $500/month to meet goals.",
+    "author": "Michael Chen",
+    "created_at": "2024-05-03T14:45:17.228445Z",
+    "tags": [
+      "financial planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "646ba110-21a0-4616-8349-1a9d4c503ca5",
+    "household_id": "7",
+    "household_code": "garcia-foundation",
+    "account_id": null,
+    "text": "Email exchange with Garcia Family Foundation regarding social security optimization. Provided clarification on allocation strategy and shared relevant market research.",
+    "author": "Michael Chen",
+    "created_at": "2024-04-26T14:45:17.228445Z",
+    "tags": [
+      "client communication"
+    ],
+    "category": "client_communication"
+  },
+  {
+    "id": "aa43365c-b670-4869-b39a-849dd37c75d8",
+    "household_id": "7",
+    "household_code": "garcia-foundation",
+    "account_id": null,
+    "text": "Client referral: Garcia Family Foundation referred David Wilson for wealth management services. Initial meeting scheduled for 2025-10-05.",
+    "author": "Michael Chen",
+    "created_at": "2023-11-18T14:45:17.228445Z",
+    "tags": [
+      "client communication"
+    ],
+    "category": "client_communication"
+  },
+  {
+    "id": "09d9fd77-04d4-4278-b740-fb9dde267fd4",
+    "household_id": "7",
+    "household_code": "garcia-foundation",
+    "account_id": null,
+    "text": "Sector rotation recommendation: Suggested reducing financials exposure and increasing real estate allocation for Garcia Family Foundation.",
+    "author": "Michael Chen",
+    "created_at": "2025-09-04T14:45:17.228445Z",
+    "tags": [
+      "market events",
+      "estate planning"
+    ],
+    "category": "market_events"
+  },
+  {
+    "id": "60487bb6-8e37-43dd-baa5-28e58a6fd17a",
+    "household_id": "7",
+    "household_code": "garcia-foundation",
+    "account_id": "21",
+    "text": "Account consolidation: Transferred $250,000 from inherited IRA to trust account for Garcia Family Foundation. Fees waived due to relationship status.",
+    "author": "Michael Chen",
+    "created_at": "2024-05-20T14:45:17.228445Z",
+    "tags": [
+      "account management"
+    ],
+    "category": "account_management"
+  },
+  {
+    "id": "48ae7a9e-643a-400b-819c-4320619b62da",
+    "household_id": "7",
+    "household_code": "garcia-foundation",
+    "account_id": null,
+    "text": "Fed interest rate change analysis shared with Garcia Family Foundation. Discussed implications for REITs holdings and potential rebalancing.",
+    "author": "Michael Chen",
+    "created_at": "2025-06-28T14:45:17.228445Z",
+    "tags": [
+      "market events"
+    ],
+    "category": "market_events"
+  },
+  {
+    "id": "17dba9c5-6934-4328-a22f-6f5ee5f8cdc1",
+    "household_id": "7",
+    "household_code": "garcia-foundation",
+    "account_id": "21",
+    "text": "Earnings season review: Discussed individual stock performance in Garcia Family Foundation's portfolio. Weak guidance noted in consumer goods.",
+    "author": "Michael Chen",
+    "created_at": "2024-01-06T14:45:17.228445Z",
+    "tags": [
+      "market events",
+      "performance review"
+    ],
+    "category": "market_events"
+  },
+  {
+    "id": "6ad21f89-dddd-43ed-b7fc-a36df947c276",
+    "household_id": "7",
+    "household_code": "garcia-foundation",
+    "account_id": null,
+    "text": "Account maintenance: Updated contact information and investment objectives for Garcia Family Foundation. Changed risk tolerance from moderate to conservative.",
+    "author": "Michael Chen",
+    "created_at": "2024-02-18T14:45:17.228445Z",
+    "tags": [
+      "account management",
+      "risk assessment"
+    ],
+    "category": "account_management"
+  },
+  {
+    "id": "81aae044-5a95-45db-86ef-bf9368f1b33e",
+    "household_id": "7",
+    "household_code": "garcia-foundation",
+    "account_id": "21",
+    "text": "Investment committee meeting notes for Garcia Family Foundation: Recommended increasing allocation to real estate by 3% based on risk tolerance and market outlook.",
+    "author": "Michael Chen",
+    "created_at": "2025-09-12T14:45:17.228445Z",
+    "tags": [
+      "investment review",
+      "risk assessment",
+      "estate planning"
+    ],
+    "category": "investment_review"
+  },
+  {
+    "id": "b17e73af-e024-4f9e-a15f-b5e060dd49e8",
+    "household_id": "7",
+    "household_code": "garcia-foundation",
+    "account_id": "21",
+    "text": "Anti-money laundering review: No red flags identified for Garcia Family Foundation. All transactions within normal parameters.",
+    "author": "Michael Chen",
+    "created_at": "2024-07-12T14:45:17.228445Z",
+    "tags": [
+      "compliance review"
+    ],
+    "category": "compliance_review"
+  },
+  {
+    "id": "6b0591b6-bf5b-42c3-a4c0-81aa4fea0cfc",
+    "household_id": "7",
+    "household_code": "garcia-foundation",
+    "account_id": null,
+    "text": "Required Minimum Distribution (RMD) calculation completed for Garcia Family Foundation. 2024 RMD amount: $42,700. Distribution scheduled for 2025-10-16.",
+    "author": "Michael Chen",
+    "created_at": "2025-08-23T14:45:17.228445Z",
+    "tags": [
+      "account management"
+    ],
+    "category": "account_management"
+  },
+  {
+    "id": "1fe21229-3216-4cbe-bb73-70faed30d6b1",
+    "household_id": "7",
+    "household_code": "garcia-foundation",
+    "account_id": "20",
+    "text": "Earnings season review: Discussed individual stock performance in Garcia Family Foundation's portfolio. Beat expectations noted in consumer goods.",
+    "author": "Michael Chen",
+    "created_at": "2025-01-11T14:45:17.228445Z",
+    "tags": [
+      "market events",
+      "performance review"
+    ],
+    "category": "market_events"
+  },
+  {
+    "id": "f8c6209e-d2fc-40e2-8ee8-9d93d3776199",
+    "household_id": "7",
+    "household_code": "garcia-foundation",
+    "account_id": null,
+    "text": "Suitability review completed. Garcia Family Foundation's risk profile remains appropriate for current allocation. No changes recommended.",
+    "author": "Michael Chen",
+    "created_at": "2025-01-25T14:45:17.228445Z",
+    "tags": [
+      "compliance review",
+      "risk assessment"
+    ],
+    "category": "compliance_review"
+  },
+  {
+    "id": "7b50a707-3ff2-487b-b16a-f0a2db5c119f",
+    "household_id": "7",
+    "household_code": "garcia-foundation",
+    "account_id": "21",
+    "text": "Account maintenance: Updated contact information and investment objectives for Garcia Family Foundation. Changed risk tolerance from conservative to moderate.",
+    "author": "Michael Chen",
+    "created_at": "2025-01-04T14:45:17.228445Z",
+    "tags": [
+      "account management",
+      "risk assessment"
+    ],
+    "category": "account_management"
+  },
+  {
+    "id": "3c9f5316-b6b0-4b9a-98cf-cc5964bcb987",
+    "household_id": "8",
+    "household_code": "thompson-individual",
+    "account_id": "23",
+    "text": "Investment committee meeting notes for Dr. Amanda Thompson: Recommended increasing allocation to alternatives by 5% based on risk tolerance and market outlook.",
+    "author": "Sarah Martinez",
+    "created_at": "2025-07-06T14:45:17.413913Z",
+    "tags": [
+      "investment review",
+      "risk assessment"
+    ],
+    "category": "investment_review"
+  },
+  {
+    "id": "6fda4918-3902-4b63-aaf5-d4b01f03f0ee",
+    "household_id": "8",
+    "household_code": "thompson-individual",
+    "account_id": "23",
+    "text": "Investment committee meeting notes for Dr. Amanda Thompson: Recommended increasing allocation to equities by 3% based on risk tolerance and market outlook.",
+    "author": "Sarah Martinez",
+    "created_at": "2023-10-17T14:45:17.413913Z",
+    "tags": [
+      "investment review",
+      "risk assessment"
+    ],
+    "category": "investment_review"
+  },
+  {
+    "id": "ac2964f4-84be-4179-8e95-fbdaefc84fc5",
+    "household_id": "8",
+    "household_code": "thompson-individual",
+    "account_id": "23",
+    "text": "Sent quarterly performance report to Dr. Amanda Thompson. Client responded with questions about insurance needs. Scheduled follow-up call for 2025-10-19.",
+    "author": "Sarah Martinez",
+    "created_at": "2025-06-07T14:45:17.413913Z",
+    "tags": [
+      "client communication",
+      "performance review"
+    ],
+    "category": "client_communication"
+  },
+  {
+    "id": "cbbfaae6-e8c2-4744-bf15-6944ffb95097",
+    "household_id": "8",
+    "household_code": "thompson-individual",
+    "account_id": null,
+    "text": "Sent quarterly performance report to Dr. Amanda Thompson. Client responded with questions about social security optimization. Scheduled follow-up call for 2025-10-11.",
+    "author": "Sarah Martinez",
+    "created_at": "2025-05-26T14:45:17.413913Z",
+    "tags": [
+      "client communication",
+      "performance review"
+    ],
+    "category": "client_communication"
+  },
+  {
+    "id": "fc0b301b-4ac6-4ff5-9262-ace2126a277c",
+    "household_id": "8",
+    "household_code": "thompson-individual",
+    "account_id": "24",
+    "text": "Earnings season review: Discussed individual stock performance in Dr. Amanda Thompson's portfolio. Strong earnings noted in energy.",
+    "author": "Sarah Martinez",
+    "created_at": "2025-08-21T14:45:17.413913Z",
+    "tags": [
+      "market events",
+      "performance review"
+    ],
+    "category": "market_events"
+  },
+  {
+    "id": "55342ea8-c9d7-4360-bba7-aa0152cbddbd",
+    "household_id": "8",
+    "household_code": "thompson-individual",
+    "account_id": null,
+    "text": "Email exchange with Dr. Amanda Thompson regarding asset allocation. Provided clarification on fee structure and shared relevant market research.",
+    "author": "Sarah Martinez",
+    "created_at": "2024-02-24T14:45:17.413913Z",
+    "tags": [
+      "client communication"
+    ],
+    "category": "client_communication"
+  },
+  {
+    "id": "bcc8f1f1-a0d6-46d1-8bd3-68d88192d8e8",
+    "household_id": "8",
+    "household_code": "thompson-individual",
+    "account_id": "24",
+    "text": "Required Minimum Distribution (RMD) calculation completed for Dr. Amanda Thompson. 2024 RMD amount: $15,500. Distribution scheduled for 2025-10-04.",
+    "author": "Sarah Martinez",
+    "created_at": "2025-09-14T14:45:17.413913Z",
+    "tags": [
+      "account management"
+    ],
+    "category": "account_management"
+  },
+  {
+    "id": "0f73ed09-7810-484a-9af0-44ab752e7432",
+    "household_id": "8",
+    "household_code": "thompson-individual",
+    "account_id": "23",
+    "text": "Account consolidation: Transferred $750,000 from previous 401k to trust account for Dr. Amanda Thompson. Fees waived due to relationship status.",
+    "author": "Sarah Martinez",
+    "created_at": "2024-12-16T14:45:17.413913Z",
+    "tags": [
+      "account management"
+    ],
+    "category": "account_management"
+  },
+  {
+    "id": "dc1b9cce-616b-42e8-9996-9424ea0954c4",
+    "household_id": "8",
+    "household_code": "thompson-individual",
+    "account_id": null,
+    "text": "Suitability review completed. Dr. Amanda Thompson's risk profile remains appropriate for current allocation. No changes recommended.",
+    "author": "Sarah Martinez",
+    "created_at": "2024-12-31T14:45:17.413913Z",
+    "tags": [
+      "compliance review",
+      "risk assessment"
+    ],
+    "category": "compliance_review"
+  },
+  {
+    "id": "74fb08a6-27a9-4189-8eb0-5f14bb471c7d",
+    "household_id": "8",
+    "household_code": "thompson-individual",
+    "account_id": null,
+    "text": "Estate planning session with Dr. Amanda Thompson. Reviewed beneficiary designations and identified need to update power of attorney. Next steps: tax-loss harvesting.",
+    "author": "Sarah Martinez",
+    "created_at": "2024-06-07T14:45:17.413913Z",
+    "tags": [
+      "financial planning",
+      "tax planning",
+      "estate planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "267dd50d-7e77-4203-930b-10985896524e",
+    "household_id": "8",
+    "household_code": "thompson-individual",
+    "account_id": null,
+    "text": "Estate planning session with Dr. Amanda Thompson. Reviewed beneficiary designations and identified need to update power of attorney. Next steps: dollar-cost averaging.",
+    "author": "Sarah Martinez",
+    "created_at": "2024-12-22T14:45:17.413913Z",
+    "tags": [
+      "financial planning",
+      "estate planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "ed631424-5c68-4f01-83ca-b554dfb9e929",
+    "household_id": "8",
+    "household_code": "thompson-individual",
+    "account_id": "24",
+    "text": "Annual investment review completed with Dr. Amanda Thompson. Portfolio rebalancing recommended due to 4.5% drift in alternatives. Client approved changes.",
+    "author": "Sarah Martinez",
+    "created_at": "2024-02-17T14:45:17.413913Z",
+    "tags": [
+      "investment review"
+    ],
+    "category": "investment_review"
+  },
+  {
+    "id": "6a9fca83-91e5-41e6-8ec8-145683aa373d",
+    "household_id": "8",
+    "household_code": "thompson-individual",
+    "account_id": "23",
+    "text": "Required Minimum Distribution (RMD) calculation completed for Dr. Amanda Thompson. 2024 RMD amount: $67,200. Distribution scheduled for 2025-10-04.",
+    "author": "Sarah Martinez",
+    "created_at": "2024-01-04T14:45:17.413913Z",
+    "tags": [
+      "account management"
+    ],
+    "category": "account_management"
+  },
+  {
+    "id": "2a22c461-087b-49f8-a540-f2452fc602c9",
+    "household_id": "8",
+    "household_code": "thompson-individual",
+    "account_id": "23",
+    "text": "Met with Dr. Amanda Thompson for quarterly investment review. Discussed portfolio performance of +22.1% YTD. Client expressed optimism about current allocation in international equities.",
+    "author": "Sarah Martinez",
+    "created_at": "2025-03-17T14:45:17.413913Z",
+    "tags": [
+      "investment review",
+      "performance review"
+    ],
+    "category": "investment_review"
+  },
+  {
+    "id": "7a836030-6483-4bc4-bbb8-fc5e7ae38277",
+    "household_id": "8",
+    "household_code": "thompson-individual",
+    "account_id": null,
+    "text": "Suitability review completed. Dr. Amanda Thompson's risk profile remains appropriate for current allocation. No changes recommended.",
+    "author": "Sarah Martinez",
+    "created_at": "2024-10-13T14:45:17.413913Z",
+    "tags": [
+      "compliance review",
+      "risk assessment"
+    ],
+    "category": "compliance_review"
+  },
+  {
+    "id": "4d0b94ae-e206-4cfc-82e7-57231325232d",
+    "household_id": "9",
+    "household_code": "retired-educators",
+    "account_id": null,
+    "text": "Insurance review completed. Recommended increasing long-term care coverage by $250,000 based on current assets and income.",
+    "author": "Richard Parker",
+    "created_at": "2024-03-09T14:45:17.630726Z",
+    "tags": [
+      "financial planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "3c6ab4b6-39c4-4d1c-8132-f85163f05da5",
+    "household_id": "9",
+    "household_code": "retired-educators",
+    "account_id": null,
+    "text": "Follow-up call with Brown Educator Pension regarding recent market volatility. Client requested tax-loss harvesting and showed concern about value stocks positions.",
+    "author": "Richard Parker",
+    "created_at": "2024-04-15T14:45:17.630726Z",
+    "tags": [
+      "investment review",
+      "tax planning"
+    ],
+    "category": "investment_review"
+  },
+  {
+    "id": "7b122e54-1652-49ca-b303-a96118bf0fd2",
+    "household_id": "9",
+    "household_code": "retired-educators",
+    "account_id": null,
+    "text": "Investment committee meeting notes for Brown Educator Pension: Recommended increasing allocation to alternatives by 7.5% based on risk tolerance and market outlook.",
+    "author": "Richard Parker",
+    "created_at": "2025-07-06T14:45:17.630726Z",
+    "tags": [
+      "investment review",
+      "risk assessment"
+    ],
+    "category": "investment_review"
+  },
+  {
+    "id": "7a2757ce-878e-44e8-9c76-8b2ff8aeca4f",
+    "household_id": "9",
+    "household_code": "retired-educators",
+    "account_id": "26",
+    "text": "Tax planning discussion with Brown Educator Pension. Identified opportunities for tax-loss harvesting in commodities. Estimated savings: $45,200.",
+    "author": "Richard Parker",
+    "created_at": "2024-12-22T14:45:17.630726Z",
+    "tags": [
+      "financial planning",
+      "tax planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "949a1997-5641-45e8-b133-a4172e512ff3",
+    "household_id": "9",
+    "household_code": "retired-educators",
+    "account_id": "26",
+    "text": "Anti-money laundering review: No red flags identified for Brown Educator Pension. All transactions within normal parameters.",
+    "author": "Richard Parker",
+    "created_at": "2024-09-23T14:45:17.630726Z",
+    "tags": [
+      "compliance review"
+    ],
+    "category": "compliance_review"
+  },
+  {
+    "id": "94fcc213-83b0-4c4d-a977-13bfa36d5777",
+    "household_id": "9",
+    "household_code": "retired-educators",
+    "account_id": null,
+    "text": "Sector rotation recommendation: Suggested reducing industrials exposure and increasing telecommunications allocation for Brown Educator Pension.",
+    "author": "Richard Parker",
+    "created_at": "2025-06-03T14:45:17.630726Z",
+    "tags": [
+      "market events"
+    ],
+    "category": "market_events"
+  },
+  {
+    "id": "a69366a6-33ec-4168-8571-70dd2e015afb",
+    "household_id": "9",
+    "household_code": "retired-educators",
+    "account_id": null,
+    "text": "Retirement planning meeting focused on insurance needs. Projected retirement income of $200,000 annually. Client needs to increase savings by 12.5%.",
+    "author": "Richard Parker",
+    "created_at": "2024-02-12T14:45:17.630726Z",
+    "tags": [
+      "financial planning",
+      "retirement planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "39d588dd-f165-4ba8-86b1-4e513e624f01",
+    "household_id": "9",
+    "household_code": "retired-educators",
+    "account_id": null,
+    "text": "Insurance review completed. Recommended increasing disability coverage by $1,000,000 based on current assets and income.",
+    "author": "Richard Parker",
+    "created_at": "2025-06-15T14:45:17.630726Z",
+    "tags": [
+      "financial planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "faacb686-3249-42aa-b883-eaeefa008c8b",
+    "household_id": "9",
+    "household_code": "retired-educators",
+    "account_id": null,
+    "text": "Fed interest rate change analysis shared with Brown Educator Pension. Discussed implications for bonds holdings and potential rebalancing.",
+    "author": "Richard Parker",
+    "created_at": "2024-09-13T14:45:17.630726Z",
+    "tags": [
+      "market events"
+    ],
+    "category": "market_events"
+  },
+  {
+    "id": "fd926730-0b36-4e2f-a1c4-fb703dff77c8",
+    "household_id": "9",
+    "household_code": "retired-educators",
+    "account_id": "26",
+    "text": "Investment committee meeting notes for Brown Educator Pension: Recommended increasing allocation to alternatives by 5% based on risk tolerance and market outlook.",
+    "author": "Richard Parker",
+    "created_at": "2024-02-10T14:45:17.630726Z",
+    "tags": [
+      "investment review",
+      "risk assessment"
+    ],
+    "category": "investment_review"
+  },
+  {
+    "id": "ba414f45-7fdc-4a73-8771-27d02c7b20df",
+    "household_id": "9",
+    "household_code": "retired-educators",
+    "account_id": "25",
+    "text": "Client referral: Brown Educator Pension referred Robert Chen for wealth management services. Initial meeting scheduled for 2025-10-14.",
+    "author": "Richard Parker",
+    "created_at": "2024-12-08T14:45:17.630726Z",
+    "tags": [
+      "client communication"
+    ],
+    "category": "client_communication"
+  },
+  {
+    "id": "f8f0b6de-1808-4b9f-9df5-3f056d7314e0",
+    "household_id": "9",
+    "household_code": "retired-educators",
+    "account_id": "26",
+    "text": "Required Minimum Distribution (RMD) calculation completed for Brown Educator Pension. 2024 RMD amount: $42,700. Distribution scheduled for 2025-10-07.",
+    "author": "Richard Parker",
+    "created_at": "2024-12-02T14:45:17.630726Z",
+    "tags": [
+      "account management"
+    ],
+    "category": "account_management"
+  },
+  {
+    "id": "a5dddd52-28d7-47f7-8327-abb837ee22f9",
+    "household_id": "9",
+    "household_code": "retired-educators",
+    "account_id": "25",
+    "text": "Anti-money laundering review: No red flags identified for Brown Educator Pension. All transactions within normal parameters.",
+    "author": "Richard Parker",
+    "created_at": "2025-07-18T14:45:17.630726Z",
+    "tags": [
+      "compliance review"
+    ],
+    "category": "compliance_review"
+  },
+  {
+    "id": "a9e974e3-660d-4434-a6ce-cb0a2a2e0879",
+    "household_id": "9",
+    "household_code": "retired-educators",
+    "account_id": "26",
+    "text": "Retirement planning meeting focused on tax strategies. Projected retirement income of $120,000 annually. Client needs to increase savings by 7.5%.",
+    "author": "Richard Parker",
+    "created_at": "2025-09-19T14:45:17.630726Z",
+    "tags": [
+      "financial planning",
+      "tax planning",
+      "retirement planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "aae30647-ad75-463c-a7c0-9ebe032ebcfe",
+    "household_id": "9",
+    "household_code": "retired-educators",
+    "account_id": "25",
+    "text": "Annual compliance review for Brown Educator Pension. All documentation current. Updated investment policy statement to reflect increased risk tolerance.",
+    "author": "Richard Parker",
+    "created_at": "2024-01-12T14:45:17.630726Z",
+    "tags": [
+      "compliance review",
+      "risk assessment"
+    ],
+    "category": "compliance_review"
+  },
+  {
+    "id": "40a5b699-7635-4bdb-a1a6-1c9fb9831a4c",
+    "household_id": "10",
+    "household_code": "startup-founder",
+    "account_id": "29",
+    "text": "Tax planning discussion with Patel Ventures. Identified opportunities for tax-loss harvesting in commodities. Estimated savings: $45,200.",
+    "author": "Emily Lee",
+    "created_at": "2023-10-10T14:45:18.014512Z",
+    "tags": [
+      "financial planning",
+      "tax planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "2afd6bb2-038d-4250-9eee-9b68a4395302",
+    "household_id": "10",
+    "household_code": "startup-founder",
+    "account_id": "28",
+    "text": "Fed interest rate change analysis shared with Patel Ventures. Discussed implications for sector ETFs holdings and potential rebalancing.",
+    "author": "Emily Lee",
+    "created_at": "2024-04-10T14:45:18.014512Z",
+    "tags": [
+      "market events"
+    ],
+    "category": "market_events"
+  },
+  {
+    "id": "a866b5e8-abdd-46d9-b538-1169625768c3",
+    "household_id": "10",
+    "household_code": "startup-founder",
+    "account_id": "29",
+    "text": "Estate planning session with Patel Ventures. Reviewed beneficiary designations and identified need to update power of attorney. Next steps: rebalancing.",
+    "author": "Emily Lee",
+    "created_at": "2024-01-08T14:45:18.015539Z",
+    "tags": [
+      "financial planning",
+      "estate planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "3a684fd8-3fa2-469f-abcb-8e71e9b2317e",
+    "household_id": "10",
+    "household_code": "startup-founder",
+    "account_id": "29",
+    "text": "Annual investment review completed with Patel Ventures. Portfolio rebalancing recommended due to 3.2% drift in equities. Client approved changes.",
+    "author": "Emily Lee",
+    "created_at": "2025-06-05T14:45:18.015539Z",
+    "tags": [
+      "investment review"
+    ],
+    "category": "investment_review"
+  },
+  {
+    "id": "6636d769-c07b-4300-b6b3-7c89a2cb8475",
+    "household_id": "10",
+    "household_code": "startup-founder",
+    "account_id": "28",
+    "text": "Sector rotation recommendation: Suggested reducing energy exposure and increasing telecommunications allocation for Patel Ventures.",
+    "author": "Emily Lee",
+    "created_at": "2024-03-22T14:45:18.015539Z",
+    "tags": [
+      "market events"
+    ],
+    "category": "market_events"
+  },
+  {
+    "id": "b78e6556-cbea-4895-b6c9-006bf8a64388",
+    "household_id": "10",
+    "household_code": "startup-founder",
+    "account_id": "28",
+    "text": "Sent quarterly performance report to Patel Ventures. Client responded with questions about Roth conversions. Scheduled follow-up call for 2025-10-15.",
+    "author": "Emily Lee",
+    "created_at": "2024-06-23T14:45:18.015539Z",
+    "tags": [
+      "client communication",
+      "performance review"
+    ],
+    "category": "client_communication"
+  },
+  {
+    "id": "62bd8067-22a4-4b0b-97dd-4a10cd023ac4",
+    "household_id": "10",
+    "household_code": "startup-founder",
+    "account_id": "29",
+    "text": "Required Minimum Distribution (RMD) calculation completed for Patel Ventures. 2024 RMD amount: $67,200. Distribution scheduled for 2025-10-26.",
+    "author": "Emily Lee",
+    "created_at": "2025-06-24T14:45:18.015539Z",
+    "tags": [
+      "account management"
+    ],
+    "category": "account_management"
+  },
+  {
+    "id": "a5a4a0dc-6cb9-41cf-a3a5-7fa17350983a",
+    "household_id": "10",
+    "household_code": "startup-founder",
+    "account_id": "28",
+    "text": "Fed interest rate change analysis shared with Patel Ventures. Discussed implications for bonds holdings and potential rebalancing.",
+    "author": "Emily Lee",
+    "created_at": "2024-11-13T14:45:18.015984Z",
+    "tags": [
+      "market events"
+    ],
+    "category": "market_events"
+  },
+  {
+    "id": "5d2200eb-e1b1-4da8-aa36-0a05dae520fb",
+    "household_id": "10",
+    "household_code": "startup-founder",
+    "account_id": "29",
+    "text": "Required Minimum Distribution (RMD) calculation completed for Patel Ventures. 2024 RMD amount: $91,800. Distribution scheduled for 2025-10-10.",
+    "author": "Emily Lee",
+    "created_at": "2024-01-13T14:45:18.015984Z",
+    "tags": [
+      "account management"
+    ],
+    "category": "account_management"
+  },
+  {
+    "id": "1300dbb3-d680-4e45-a702-7e8da7a2493a",
+    "household_id": "10",
+    "household_code": "startup-founder",
+    "account_id": "28",
+    "text": "Tax planning discussion with Patel Ventures. Identified opportunities for tax-loss harvesting in real estate. Estimated savings: $15,700.",
+    "author": "Emily Lee",
+    "created_at": "2024-10-25T14:45:18.015984Z",
+    "tags": [
+      "financial planning",
+      "tax planning",
+      "estate planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "0bcc7e71-6315-4f34-b668-6e40810a24e0",
+    "household_id": "10",
+    "household_code": "startup-founder",
+    "account_id": null,
+    "text": "Sent quarterly performance report to Patel Ventures. Client responded with questions about insurance needs. Scheduled follow-up call for 2025-10-08.",
+    "author": "Emily Lee",
+    "created_at": "2025-04-02T14:45:18.015984Z",
+    "tags": [
+      "client communication",
+      "performance review"
+    ],
+    "category": "client_communication"
+  },
+  {
+    "id": "3b06f365-a335-4234-9ec2-ed0390d5c956",
+    "household_id": "10",
+    "household_code": "startup-founder",
+    "account_id": "29",
+    "text": "Insurance review completed. Recommended increasing umbrella coverage by $1,000,000 based on current assets and income.",
+    "author": "Emily Lee",
+    "created_at": "2024-10-24T14:45:18.015984Z",
+    "tags": [
+      "financial planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "8d78b856-0ea6-4747-8684-0cd9f949b9a9",
+    "household_id": "10",
+    "household_code": "startup-founder",
+    "account_id": null,
+    "text": "Account maintenance: Updated contact information and investment objectives for Patel Ventures. Changed risk tolerance from moderate to conservative.",
+    "author": "Emily Lee",
+    "created_at": "2023-12-12T14:45:18.015984Z",
+    "tags": [
+      "account management",
+      "risk assessment"
+    ],
+    "category": "account_management"
+  },
+  {
+    "id": "096ab3a2-8d29-423a-b3ba-690a422df19c",
+    "household_id": "10",
+    "household_code": "startup-founder",
+    "account_id": null,
+    "text": "Retirement planning meeting focused on asset allocation. Projected retirement income of $200,000 annually. Client needs to increase savings by 15%.",
+    "author": "Emily Lee",
+    "created_at": "2024-07-06T14:45:18.015984Z",
+    "tags": [
+      "financial planning",
+      "retirement planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "b7947cb1-2994-43aa-964d-d3f0d6e48f21",
+    "household_id": "10",
+    "household_code": "startup-founder",
+    "account_id": "28",
+    "text": "Sent quarterly performance report to Patel Ventures. Client responded with questions about asset allocation. Scheduled follow-up call for 2025-10-04.",
+    "author": "Emily Lee",
+    "created_at": "2024-05-02T14:45:18.015984Z",
+    "tags": [
+      "client communication",
+      "performance review"
+    ],
+    "category": "client_communication"
+  },
+  {
+    "id": "3d647445-b18d-43eb-9b12-2cc290fbc0f0",
+    "household_id": "11",
+    "household_code": "multigenerational-wealth",
+    "account_id": null,
+    "text": "KYC documentation updated for The Anderson Legacy Trust. Added insurance policies and verified employment status change to part-time.",
+    "author": "Michael Chen",
+    "created_at": "2025-09-22T14:45:18.213312Z",
+    "tags": [
+      "compliance review"
+    ],
+    "category": "compliance_review"
+  },
+  {
+    "id": "d14ee1d0-c7bf-4b94-8e05-e739c7ae058b",
+    "household_id": "11",
+    "household_code": "multigenerational-wealth",
+    "account_id": "30",
+    "text": "Retirement planning meeting focused on insurance needs. Projected retirement income of $85,000 annually. Client needs to increase savings by 5%.",
+    "author": "Michael Chen",
+    "created_at": "2024-10-05T14:45:18.213312Z",
+    "tags": [
+      "financial planning",
+      "retirement planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "ba4941b4-b0f1-4f4d-ab59-c4b7531c3407",
+    "household_id": "11",
+    "household_code": "multigenerational-wealth",
+    "account_id": "31",
+    "text": "Investment committee meeting notes for The Anderson Legacy Trust: Recommended increasing allocation to international equities by 12.5% based on risk tolerance and market outlook.",
+    "author": "Michael Chen",
+    "created_at": "2023-12-17T14:45:18.213312Z",
+    "tags": [
+      "investment review",
+      "risk assessment"
+    ],
+    "category": "investment_review"
+  },
+  {
+    "id": "a1d930e4-6598-4fb4-bac7-abaeb35ab3cd",
+    "household_id": "11",
+    "household_code": "multigenerational-wealth",
+    "account_id": null,
+    "text": "KYC documentation updated for The Anderson Legacy Trust. Added beneficiary forms and verified employment status change to consultant.",
+    "author": "Michael Chen",
+    "created_at": "2025-05-22T14:45:18.213312Z",
+    "tags": [
+      "compliance review",
+      "estate planning"
+    ],
+    "category": "compliance_review"
+  },
+  {
+    "id": "ee0929b9-1b2d-4e3d-bf4b-eab52ed57614",
+    "household_id": "11",
+    "household_code": "multigenerational-wealth",
+    "account_id": "31",
+    "text": "Follow-up call with The Anderson Legacy Trust regarding recent market volatility. Client requested rebalancing and showed excitement about REITs positions.",
+    "author": "Michael Chen",
+    "created_at": "2023-10-15T14:45:18.213312Z",
+    "tags": [
+      "investment review"
+    ],
+    "category": "investment_review"
+  },
+  {
+    "id": "bb521315-5904-4454-90b4-edcf7dc7f392",
+    "household_id": "11",
+    "household_code": "multigenerational-wealth",
+    "account_id": null,
+    "text": "Client referral: The Anderson Legacy Trust referred Lisa Garcia for wealth management services. Initial meeting scheduled for 2025-10-26.",
+    "author": "Michael Chen",
+    "created_at": "2024-07-03T14:45:18.213312Z",
+    "tags": [
+      "client communication"
+    ],
+    "category": "client_communication"
+  },
+  {
+    "id": "6b09e487-f860-47bc-bfc6-b001ab13cd2d",
+    "household_id": "11",
+    "household_code": "multigenerational-wealth",
+    "account_id": null,
+    "text": "Estate planning session with The Anderson Legacy Trust. Reviewed beneficiary designations and identified need to update will. Next steps: dollar-cost averaging.",
+    "author": "Michael Chen",
+    "created_at": "2024-06-19T14:45:18.213312Z",
+    "tags": [
+      "financial planning",
+      "estate planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "338a068c-fc1e-43b6-9b8e-5334c6c5531b",
+    "household_id": "11",
+    "household_code": "multigenerational-wealth",
+    "account_id": null,
+    "text": "Education planning for The Anderson Legacy Trust's children. 529 plan contributions should increase to $500/month to meet goals.",
+    "author": "Michael Chen",
+    "created_at": "2024-12-30T14:45:18.213312Z",
+    "tags": [
+      "financial planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "04c66f50-8789-463e-b5db-22c02f2c1b1d",
+    "household_id": "11",
+    "household_code": "multigenerational-wealth",
+    "account_id": "31",
+    "text": "Met with The Anderson Legacy Trust for quarterly investment review. Discussed portfolio performance of +8.5% YTD. Client expressed satisfaction about current allocation in fixed income.",
+    "author": "Michael Chen",
+    "created_at": "2024-04-16T14:45:18.213312Z",
+    "tags": [
+      "investment review",
+      "performance review"
+    ],
+    "category": "investment_review"
+  },
+  {
+    "id": "407bc95b-39e8-4f8c-b161-78cc23b850b8",
+    "household_id": "11",
+    "household_code": "multigenerational-wealth",
+    "account_id": "30",
+    "text": "Investment committee meeting notes for The Anderson Legacy Trust: Recommended increasing allocation to real estate by 3% based on risk tolerance and market outlook.",
+    "author": "Michael Chen",
+    "created_at": "2025-01-18T14:45:18.213312Z",
+    "tags": [
+      "investment review",
+      "risk assessment",
+      "estate planning"
+    ],
+    "category": "investment_review"
+  },
+  {
+    "id": "5b8c0622-c01b-4719-8f62-9f5dabd407cf",
+    "household_id": "11",
+    "household_code": "multigenerational-wealth",
+    "account_id": null,
+    "text": "Suitability review completed. The Anderson Legacy Trust's risk profile remains appropriate for current allocation. No changes recommended.",
+    "author": "Michael Chen",
+    "created_at": "2024-05-07T14:45:18.213312Z",
+    "tags": [
+      "compliance review",
+      "risk assessment"
+    ],
+    "category": "compliance_review"
+  },
+  {
+    "id": "f065a238-3234-45f2-b79a-d68d95588254",
+    "household_id": "11",
+    "household_code": "multigenerational-wealth",
+    "account_id": null,
+    "text": "Client referral: The Anderson Legacy Trust referred Mary Johnson for wealth management services. Initial meeting scheduled for 2025-10-12.",
+    "author": "Michael Chen",
+    "created_at": "2024-02-04T14:45:18.213312Z",
+    "tags": [
+      "client communication"
+    ],
+    "category": "client_communication"
+  },
+  {
+    "id": "d30e980f-da57-425c-a498-62fa5ed1f5a4",
+    "household_id": "11",
+    "household_code": "multigenerational-wealth",
+    "account_id": "31",
+    "text": "Client referral: The Anderson Legacy Trust referred Robert Chen for wealth management services. Initial meeting scheduled for 2025-10-27.",
+    "author": "Michael Chen",
+    "created_at": "2024-10-05T14:45:18.213312Z",
+    "tags": [
+      "client communication"
+    ],
+    "category": "client_communication"
+  },
+  {
+    "id": "e9ad2d82-fdf8-41d3-9f31-2581213e8ed0",
+    "household_id": "11",
+    "household_code": "multigenerational-wealth",
+    "account_id": "30",
+    "text": "Insurance review completed. Recommended increasing long-term care coverage by $500,000 based on current assets and income.",
+    "author": "Michael Chen",
+    "created_at": "2024-07-11T14:45:18.213312Z",
+    "tags": [
+      "financial planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "8d67437e-6b37-454b-9f0c-caca85cff0b8",
+    "household_id": "11",
+    "household_code": "multigenerational-wealth",
+    "account_id": "31",
+    "text": "Email exchange with The Anderson Legacy Trust regarding tax strategies. Provided clarification on allocation strategy and shared relevant market research.",
+    "author": "Michael Chen",
+    "created_at": "2024-07-07T14:45:18.213312Z",
+    "tags": [
+      "client communication",
+      "tax planning"
+    ],
+    "category": "client_communication"
+  },
+  {
+    "id": "50639227-9765-4aee-b0fa-ddba69d26257",
+    "household_id": "12",
+    "household_code": "divorced-single-parent",
+    "account_id": null,
+    "text": "Anti-money laundering review: No red flags identified for Jennifer Walsh Family. All transactions within normal parameters.",
+    "author": "Sarah Martinez",
+    "created_at": "2025-04-18T14:45:18.380275Z",
+    "tags": [
+      "compliance review"
+    ],
+    "category": "compliance_review"
+  },
+  {
+    "id": "bc74086b-8513-4b30-8538-12fd48f3442b",
+    "household_id": "12",
+    "household_code": "divorced-single-parent",
+    "account_id": null,
+    "text": "Annual investment review completed with Jennifer Walsh Family. Portfolio rebalancing recommended due to 7.1% drift in international equities. Client approved changes.",
+    "author": "Sarah Martinez",
+    "created_at": "2024-07-27T14:45:18.380275Z",
+    "tags": [
+      "investment review"
+    ],
+    "category": "investment_review"
+  },
+  {
+    "id": "de6db735-368e-4c57-9e4f-326c336cfa88",
+    "household_id": "12",
+    "household_code": "divorced-single-parent",
+    "account_id": null,
+    "text": "Email exchange with Jennifer Walsh Family regarding Roth conversions. Provided clarification on fee structure and shared relevant market research.",
+    "author": "Sarah Martinez",
+    "created_at": "2024-03-25T14:45:18.380275Z",
+    "tags": [
+      "client communication"
+    ],
+    "category": "client_communication"
+  },
+  {
+    "id": "1cfb7ea4-0cc2-4ce1-9e4d-0dd43afaa822",
+    "household_id": "12",
+    "household_code": "divorced-single-parent",
+    "account_id": null,
+    "text": "Sector rotation recommendation: Suggested reducing technology exposure and increasing real estate allocation for Jennifer Walsh Family.",
+    "author": "Sarah Martinez",
+    "created_at": "2025-02-11T14:45:18.380275Z",
+    "tags": [
+      "market events",
+      "estate planning"
+    ],
+    "category": "market_events"
+  },
+  {
+    "id": "88b1baa5-273b-41a2-939b-4f720ef6c1f6",
+    "household_id": "12",
+    "household_code": "divorced-single-parent",
+    "account_id": null,
+    "text": "Estate planning session with Jennifer Walsh Family. Reviewed beneficiary designations and identified need to update insurance policies. Next steps: rebalancing.",
+    "author": "Sarah Martinez",
+    "created_at": "2024-03-31T14:45:18.380275Z",
+    "tags": [
+      "financial planning",
+      "estate planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "f2a88aea-4d1a-4d35-8aab-ffc6252b17e4",
+    "household_id": "12",
+    "household_code": "divorced-single-parent",
+    "account_id": null,
+    "text": "New account opening: Roth IRA established for Jennifer Walsh Family with initial funding of $500,000. Investment policy statement created.",
+    "author": "Sarah Martinez",
+    "created_at": "2024-07-29T14:45:18.380275Z",
+    "tags": [
+      "account management"
+    ],
+    "category": "account_management"
+  },
+  {
+    "id": "95c66af9-90de-4209-8cdc-09170d49370c",
+    "household_id": "12",
+    "household_code": "divorced-single-parent",
+    "account_id": null,
+    "text": "Annual investment review completed with Jennifer Walsh Family. Portfolio rebalancing recommended due to 4.5% drift in commodities. Client approved changes.",
+    "author": "Sarah Martinez",
+    "created_at": "2025-06-29T14:45:18.380275Z",
+    "tags": [
+      "investment review"
+    ],
+    "category": "investment_review"
+  },
+  {
+    "id": "8b980de8-444e-49f7-9ce8-bbfcbc563227",
+    "household_id": "12",
+    "household_code": "divorced-single-parent",
+    "account_id": "33",
+    "text": "Required Minimum Distribution (RMD) calculation completed for Jennifer Walsh Family. 2024 RMD amount: $91,800. Distribution scheduled for 2025-10-06.",
+    "author": "Sarah Martinez",
+    "created_at": "2024-08-21T14:45:18.380275Z",
+    "tags": [
+      "account management"
+    ],
+    "category": "account_management"
+  },
+  {
+    "id": "4f6fbc36-56bb-4edc-9d1b-d18b81177ee9",
+    "household_id": "12",
+    "household_code": "divorced-single-parent",
+    "account_id": "34",
+    "text": "Market volatility discussion with Jennifer Walsh Family. Explained impact of geopolitical tensions on portfolio. Client comfortable with long-term strategy.",
+    "author": "Sarah Martinez",
+    "created_at": "2025-05-01T14:45:18.380275Z",
+    "tags": [
+      "market events"
+    ],
+    "category": "market_events"
+  },
+  {
+    "id": "056bffa5-25b7-421c-ad04-a6fbc2cf49b8",
+    "household_id": "12",
+    "household_code": "divorced-single-parent",
+    "account_id": "33",
+    "text": "Account consolidation: Transferred $500,000 from bank savings to retirement account for Jennifer Walsh Family. Fees waived due to relationship status.",
+    "author": "Sarah Martinez",
+    "created_at": "2024-08-19T14:45:18.380275Z",
+    "tags": [
+      "account management",
+      "retirement planning"
+    ],
+    "category": "account_management"
+  },
+  {
+    "id": "d574abda-429a-4047-b1e0-134def5a7f87",
+    "household_id": "12",
+    "household_code": "divorced-single-parent",
+    "account_id": "33",
+    "text": "Education planning for Jennifer Walsh Family's children. 529 plan contributions should increase to $600/month to meet goals.",
+    "author": "Sarah Martinez",
+    "created_at": "2024-06-02T14:45:18.380275Z",
+    "tags": [
+      "financial planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "3e8edc0e-c5d0-476c-9ebd-d3a028699f1e",
+    "household_id": "12",
+    "household_code": "divorced-single-parent",
+    "account_id": "33",
+    "text": "Estate planning session with Jennifer Walsh Family. Reviewed beneficiary designations and identified need to update insurance policies. Next steps: increased monitoring.",
+    "author": "Sarah Martinez",
+    "created_at": "2024-07-09T14:45:18.380275Z",
+    "tags": [
+      "financial planning",
+      "estate planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "5a4d1c88-354b-4235-a9fe-ba4d3180bf18",
+    "household_id": "12",
+    "household_code": "divorced-single-parent",
+    "account_id": "32",
+    "text": "Sector rotation recommendation: Suggested reducing industrials exposure and increasing consumer staples allocation for Jennifer Walsh Family.",
+    "author": "Sarah Martinez",
+    "created_at": "2025-08-22T14:45:18.380275Z",
+    "tags": [
+      "market events"
+    ],
+    "category": "market_events"
+  },
+  {
+    "id": "e3856c76-0fd0-407b-83c1-cda3a68c2f92",
+    "household_id": "12",
+    "household_code": "divorced-single-parent",
+    "account_id": "32",
+    "text": "Estate planning session with Jennifer Walsh Family. Reviewed beneficiary designations and identified need to update power of attorney. Next steps: tax-loss harvesting.",
+    "author": "Sarah Martinez",
+    "created_at": "2025-02-21T14:45:18.380275Z",
+    "tags": [
+      "financial planning",
+      "tax planning",
+      "estate planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "144fece8-3eae-45ba-ad86-25b34e48231d",
+    "household_id": "12",
+    "household_code": "divorced-single-parent",
+    "account_id": "33",
+    "text": "Email exchange with Jennifer Walsh Family regarding tax strategies. Provided clarification on market volatility and shared relevant market research.",
+    "author": "Sarah Martinez",
+    "created_at": "2024-05-17T14:45:18.380275Z",
+    "tags": [
+      "client communication",
+      "tax planning"
+    ],
+    "category": "client_communication"
+  },
+  {
+    "id": "6a57dbfc-de6d-4676-9fff-119a99e95947",
+    "household_id": "13",
+    "household_code": "real-estate-investors",
+    "account_id": null,
+    "text": "New account opening: Taxable Investment established for Morrison Property Holdings with initial funding of $250,000. Investment policy statement created.",
+    "author": "Richard Parker",
+    "created_at": "2025-04-12T14:45:18.550015Z",
+    "tags": [
+      "account management",
+      "tax planning"
+    ],
+    "category": "account_management"
+  },
+  {
+    "id": "891c94ef-c0f9-4184-8b85-bd039145a2fc",
+    "household_id": "13",
+    "household_code": "real-estate-investors",
+    "account_id": "36",
+    "text": "Estate planning session with Morrison Property Holdings. Reviewed beneficiary designations and identified need to update trust. Next steps: position reduction.",
+    "author": "Richard Parker",
+    "created_at": "2024-03-03T14:45:18.550015Z",
+    "tags": [
+      "financial planning",
+      "estate planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "466f9ebc-a18b-4720-9c85-f699c3ff6637",
+    "household_id": "13",
+    "household_code": "real-estate-investors",
+    "account_id": null,
+    "text": "Investment committee meeting notes for Morrison Property Holdings: Recommended increasing allocation to fixed income by 5% based on risk tolerance and market outlook.",
+    "author": "Richard Parker",
+    "created_at": "2024-09-19T14:45:18.550015Z",
+    "tags": [
+      "investment review",
+      "risk assessment"
+    ],
+    "category": "investment_review"
+  },
+  {
+    "id": "d95b7bcd-9773-472c-9736-e5025d865716",
+    "household_id": "13",
+    "household_code": "real-estate-investors",
+    "account_id": null,
+    "text": "New account opening: Taxable Investment established for Morrison Property Holdings with initial funding of $250,000. Investment policy statement created.",
+    "author": "Richard Parker",
+    "created_at": "2024-09-11T14:45:18.550015Z",
+    "tags": [
+      "account management",
+      "tax planning"
+    ],
+    "category": "account_management"
+  },
+  {
+    "id": "216fb0c9-5411-47df-bc36-1151f65afd74",
+    "household_id": "13",
+    "household_code": "real-estate-investors",
+    "account_id": null,
+    "text": "Education planning for Morrison Property Holdings's children. 529 plan contributions should increase to $500/month to meet goals.",
+    "author": "Richard Parker",
+    "created_at": "2025-02-14T14:45:18.550015Z",
+    "tags": [
+      "financial planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "8192336c-f185-4a76-a906-b2df1792ad08",
+    "household_id": "13",
+    "household_code": "real-estate-investors",
+    "account_id": "36",
+    "text": "Annual compliance review for Morrison Property Holdings. All documentation current. Updated investment policy statement to reflect revised time horizon.",
+    "author": "Richard Parker",
+    "created_at": "2023-12-26T14:45:18.550015Z",
+    "tags": [
+      "compliance review"
+    ],
+    "category": "compliance_review"
+  },
+  {
+    "id": "aaa78363-747f-4fea-9193-d7421c0059ca",
+    "household_id": "13",
+    "household_code": "real-estate-investors",
+    "account_id": "35",
+    "text": "Retirement planning meeting focused on social security optimization. Projected retirement income of $75,000 annually. Client needs to increase savings by 10%.",
+    "author": "Richard Parker",
+    "created_at": "2024-02-02T14:45:18.550015Z",
+    "tags": [
+      "financial planning",
+      "retirement planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "66314882-6aab-4165-834e-bebc9de800d5",
+    "household_id": "13",
+    "household_code": "real-estate-investors",
+    "account_id": null,
+    "text": "Retirement planning meeting focused on social security optimization. Projected retirement income of $150,000 annually. Client needs to increase savings by 5%.",
+    "author": "Richard Parker",
+    "created_at": "2024-02-14T14:45:18.550015Z",
+    "tags": [
+      "financial planning",
+      "retirement planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "29e861a1-04e3-492c-abe8-bc7674664812",
+    "household_id": "13",
+    "household_code": "real-estate-investors",
+    "account_id": "36",
+    "text": "Email exchange with Morrison Property Holdings regarding tax strategies. Provided clarification on fee structure and shared relevant market research.",
+    "author": "Richard Parker",
+    "created_at": "2025-07-02T14:45:18.550015Z",
+    "tags": [
+      "client communication",
+      "tax planning"
+    ],
+    "category": "client_communication"
+  },
+  {
+    "id": "448d7ee0-c015-4f84-9979-497826721783",
+    "household_id": "13",
+    "household_code": "real-estate-investors",
+    "account_id": "36",
+    "text": "Client referral: Morrison Property Holdings referred Mary Johnson for wealth management services. Initial meeting scheduled for 2025-10-19.",
+    "author": "Richard Parker",
+    "created_at": "2025-08-17T14:45:18.550015Z",
+    "tags": [
+      "client communication"
+    ],
+    "category": "client_communication"
+  },
+  {
+    "id": "57a8e6b1-6006-4e47-b4b2-c8af8f875cd7",
+    "household_id": "13",
+    "household_code": "real-estate-investors",
+    "account_id": "35",
+    "text": "Anti-money laundering review: No red flags identified for Morrison Property Holdings. All transactions within normal parameters.",
+    "author": "Richard Parker",
+    "created_at": "2023-12-29T14:45:18.550015Z",
+    "tags": [
+      "compliance review"
+    ],
+    "category": "compliance_review"
+  },
+  {
+    "id": "46df9d63-044d-46e9-b05a-9d1901e5592d",
+    "household_id": "13",
+    "household_code": "real-estate-investors",
+    "account_id": null,
+    "text": "Estate planning session with Morrison Property Holdings. Reviewed beneficiary designations and identified need to update will. Next steps: tax-loss harvesting.",
+    "author": "Richard Parker",
+    "created_at": "2023-10-02T14:45:18.550015Z",
+    "tags": [
+      "financial planning",
+      "tax planning",
+      "estate planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "c0d68948-2da3-4722-8f35-abaafc236869",
+    "household_id": "13",
+    "household_code": "real-estate-investors",
+    "account_id": "36",
+    "text": "Education planning for Morrison Property Holdings's children. 529 plan contributions should increase to $1,200/month to meet goals.",
+    "author": "Richard Parker",
+    "created_at": "2023-09-30T14:45:18.550015Z",
+    "tags": [
+      "financial planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "1f8ac60d-4927-4180-a626-0eaac2ee3baf",
+    "household_id": "13",
+    "household_code": "real-estate-investors",
+    "account_id": "35",
+    "text": "Required Minimum Distribution (RMD) calculation completed for Morrison Property Holdings. 2024 RMD amount: $91,800. Distribution scheduled for 2025-10-16.",
+    "author": "Richard Parker",
+    "created_at": "2025-08-04T14:45:18.550015Z",
+    "tags": [
+      "account management"
+    ],
+    "category": "account_management"
+  },
+  {
+    "id": "e027cbdb-0ff0-4c3a-bbaa-1613bc9af123",
+    "household_id": "13",
+    "household_code": "real-estate-investors",
+    "account_id": null,
+    "text": "Tax planning discussion with Morrison Property Holdings. Identified opportunities for tax-loss harvesting in fixed income. Estimated savings: $6,800.",
+    "author": "Richard Parker",
+    "created_at": "2023-12-13T14:45:18.550015Z",
+    "tags": [
+      "financial planning",
+      "tax planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "8d68e966-4323-4cb5-953b-73ff17b0d3ce",
+    "household_id": "14",
+    "household_code": "young-inheritance",
+    "account_id": "38",
+    "text": "Annual compliance review for Taylor Trust Beneficiary. All documentation current. Updated investment policy statement to reflect increased risk tolerance.",
+    "author": "Emily Lee",
+    "created_at": "2023-11-24T14:45:18.730117Z",
+    "tags": [
+      "compliance review",
+      "risk assessment",
+      "estate planning"
+    ],
+    "category": "compliance_review"
+  },
+  {
+    "id": "49494e5b-ff0b-4db2-be63-4c16eeb9d05b",
+    "household_id": "14",
+    "household_code": "young-inheritance",
+    "account_id": null,
+    "text": "Sector rotation recommendation: Suggested reducing energy exposure and increasing telecommunications allocation for Taylor Trust Beneficiary.",
+    "author": "Emily Lee",
+    "created_at": "2024-05-02T14:45:18.730117Z",
+    "tags": [
+      "market events",
+      "estate planning"
+    ],
+    "category": "market_events"
+  },
+  {
+    "id": "ce422517-6552-44b6-9105-25804eaea185",
+    "household_id": "14",
+    "household_code": "young-inheritance",
+    "account_id": "37",
+    "text": "Client call with Taylor Trust Beneficiary - account inquiry. Duration: 60 minutes. Follow-up required: yes.",
+    "author": "Emily Lee",
+    "created_at": "2023-10-05T14:45:18.730117Z",
+    "tags": [
+      "client communication",
+      "estate planning"
+    ],
+    "category": "client_communication"
+  },
+  {
+    "id": "b224ed97-315b-4392-850e-e13df919a8e3",
+    "household_id": "14",
+    "household_code": "young-inheritance",
+    "account_id": null,
+    "text": "Estate planning session with Taylor Trust Beneficiary. Reviewed beneficiary designations and identified need to update beneficiary forms. Next steps: dollar-cost averaging.",
+    "author": "Emily Lee",
+    "created_at": "2024-03-14T14:45:18.730117Z",
+    "tags": [
+      "financial planning",
+      "estate planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "613e8204-e989-45b9-9dfa-e8ea2f3e3ddd",
+    "household_id": "14",
+    "household_code": "young-inheritance",
+    "account_id": "37",
+    "text": "Account consolidation: Transferred $500,000 from other advisor account to trust account for Taylor Trust Beneficiary. Fees waived due to relationship status.",
+    "author": "Emily Lee",
+    "created_at": "2024-06-04T14:45:18.730117Z",
+    "tags": [
+      "account management",
+      "estate planning"
+    ],
+    "category": "account_management"
+  },
+  {
+    "id": "b5b5233a-ce28-4259-ae5a-9ebe6b6f751c",
+    "household_id": "14",
+    "household_code": "young-inheritance",
+    "account_id": null,
+    "text": "Sent quarterly performance report to Taylor Trust Beneficiary. Client responded with questions about Roth conversions. Scheduled follow-up call for 2025-10-21.",
+    "author": "Emily Lee",
+    "created_at": "2024-07-02T14:45:18.730117Z",
+    "tags": [
+      "client communication",
+      "performance review",
+      "estate planning"
+    ],
+    "category": "client_communication"
+  },
+  {
+    "id": "76e8ca8e-2652-42d9-9a99-5eb2e7ba5a9b",
+    "household_id": "14",
+    "household_code": "young-inheritance",
+    "account_id": "37",
+    "text": "Account consolidation: Transferred $2,000,000 from inherited IRA to consolidated portfolio for Taylor Trust Beneficiary. Fees waived due to relationship status.",
+    "author": "Emily Lee",
+    "created_at": "2025-04-11T14:45:18.730117Z",
+    "tags": [
+      "account management",
+      "estate planning"
+    ],
+    "category": "account_management"
+  },
+  {
+    "id": "09a6e52f-aa2e-4474-92c1-03acbb281e85",
+    "household_id": "14",
+    "household_code": "young-inheritance",
+    "account_id": null,
+    "text": "Estate planning session with Taylor Trust Beneficiary. Reviewed beneficiary designations and identified need to update power of attorney. Next steps: rebalancing.",
+    "author": "Emily Lee",
+    "created_at": "2024-06-10T14:45:18.730117Z",
+    "tags": [
+      "financial planning",
+      "estate planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "15562631-8471-48be-9ee0-a09b3165e537",
+    "household_id": "14",
+    "household_code": "young-inheritance",
+    "account_id": "38",
+    "text": "New account opening: 401k Rollover established for Taylor Trust Beneficiary with initial funding of $750,000. Investment policy statement created.",
+    "author": "Emily Lee",
+    "created_at": "2024-03-20T14:45:18.730117Z",
+    "tags": [
+      "account management",
+      "estate planning"
+    ],
+    "category": "account_management"
+  },
+  {
+    "id": "8ddd2ffc-6f84-4853-95f3-2459eb0dd3c6",
+    "household_id": "14",
+    "household_code": "young-inheritance",
+    "account_id": null,
+    "text": "Sector rotation recommendation: Suggested reducing energy exposure and increasing consumer staples allocation for Taylor Trust Beneficiary.",
+    "author": "Emily Lee",
+    "created_at": "2024-09-17T14:45:18.730117Z",
+    "tags": [
+      "market events",
+      "estate planning"
+    ],
+    "category": "market_events"
+  },
+  {
+    "id": "0bce4e32-651a-43a0-abff-fef7f90ad58d",
+    "household_id": "14",
+    "household_code": "young-inheritance",
+    "account_id": null,
+    "text": "Anti-money laundering review: No red flags identified for Taylor Trust Beneficiary. All transactions within normal parameters.",
+    "author": "Emily Lee",
+    "created_at": "2023-11-02T14:45:18.730117Z",
+    "tags": [
+      "compliance review",
+      "estate planning"
+    ],
+    "category": "compliance_review"
+  },
+  {
+    "id": "0a8ff8f3-2324-44a8-88cc-e7a0419b67a1",
+    "household_id": "14",
+    "household_code": "young-inheritance",
+    "account_id": null,
+    "text": "Required Minimum Distribution (RMD) calculation completed for Taylor Trust Beneficiary. 2024 RMD amount: $67,200. Distribution scheduled for 2025-09-30.",
+    "author": "Emily Lee",
+    "created_at": "2025-01-19T14:45:18.730117Z",
+    "tags": [
+      "account management",
+      "estate planning"
+    ],
+    "category": "account_management"
+  },
+  {
+    "id": "541f7705-e16b-46ed-b66a-87f8a70bb3a5",
+    "household_id": "14",
+    "household_code": "young-inheritance",
+    "account_id": "38",
+    "text": "Client referral: Taylor Trust Beneficiary referred Lisa Garcia for wealth management services. Initial meeting scheduled for 2025-10-05.",
+    "author": "Emily Lee",
+    "created_at": "2025-04-15T14:45:18.730117Z",
+    "tags": [
+      "client communication",
+      "estate planning"
+    ],
+    "category": "client_communication"
+  },
+  {
+    "id": "b058a4b2-7aaf-44bd-9683-516ab4cb3661",
+    "household_id": "14",
+    "household_code": "young-inheritance",
+    "account_id": "37",
+    "text": "Anti-money laundering review: No red flags identified for Taylor Trust Beneficiary. All transactions within normal parameters.",
+    "author": "Emily Lee",
+    "created_at": "2024-10-19T14:45:18.730117Z",
+    "tags": [
+      "compliance review",
+      "estate planning"
+    ],
+    "category": "compliance_review"
+  },
+  {
+    "id": "9ae408e6-eaa9-446a-8239-2c8557334ca8",
+    "household_id": "14",
+    "household_code": "young-inheritance",
+    "account_id": "38",
+    "text": "Fed interest rate change analysis shared with Taylor Trust Beneficiary. Discussed implications for growth stocks holdings and potential rebalancing.",
+    "author": "Emily Lee",
+    "created_at": "2023-12-11T14:45:18.730117Z",
+    "tags": [
+      "market events",
+      "estate planning"
+    ],
+    "category": "market_events"
+  },
+  {
+    "id": "6e7b9eae-1777-4517-a74d-e47b994bbee9",
+    "household_id": "15",
+    "household_code": "energy-executive",
+    "account_id": "39",
+    "text": "Email exchange with Carter Energy Holdings regarding social security optimization. Provided clarification on allocation strategy and shared relevant market research.",
+    "author": "Robert Taylor",
+    "created_at": "2025-04-05T14:45:18.913836Z",
+    "tags": [
+      "client communication"
+    ],
+    "category": "client_communication"
+  },
+  {
+    "id": "138c05ac-c275-41ee-bd6f-f93cb7f23605",
+    "household_id": "15",
+    "household_code": "energy-executive",
+    "account_id": "39",
+    "text": "Estate planning session with Carter Energy Holdings. Reviewed beneficiary designations and identified need to update insurance policies. Next steps: position reduction.",
+    "author": "Robert Taylor",
+    "created_at": "2024-07-22T14:45:18.913836Z",
+    "tags": [
+      "financial planning",
+      "estate planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "065ab6da-011c-4fb3-8997-82e1a4b6ff4d",
+    "household_id": "15",
+    "household_code": "energy-executive",
+    "account_id": "39",
+    "text": "Estate planning session with Carter Energy Holdings. Reviewed beneficiary designations and identified need to update power of attorney. Next steps: tax-loss harvesting.",
+    "author": "Robert Taylor",
+    "created_at": "2024-11-22T14:45:18.913836Z",
+    "tags": [
+      "financial planning",
+      "tax planning",
+      "estate planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "5b046f85-0520-4053-a3ad-10fc04fc2a48",
+    "household_id": "15",
+    "household_code": "energy-executive",
+    "account_id": null,
+    "text": "Email exchange with Carter Energy Holdings regarding insurance needs. Provided clarification on performance attribution and shared relevant market research.",
+    "author": "Robert Taylor",
+    "created_at": "2024-12-30T14:45:18.913836Z",
+    "tags": [
+      "client communication",
+      "performance review"
+    ],
+    "category": "client_communication"
+  },
+  {
+    "id": "ef094746-ce51-4e21-af62-c7eb00c77a24",
+    "household_id": "15",
+    "household_code": "energy-executive",
+    "account_id": "40",
+    "text": "Retirement planning meeting focused on insurance needs. Projected retirement income of $75,000 annually. Client needs to increase savings by 5%.",
+    "author": "Robert Taylor",
+    "created_at": "2025-04-18T14:45:18.913836Z",
+    "tags": [
+      "financial planning",
+      "retirement planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "a09a3a54-ba8f-49b4-85b6-4b44e19a80f4",
+    "household_id": "15",
+    "household_code": "energy-executive",
+    "account_id": "40",
+    "text": "New account opening: Roth IRA established for Carter Energy Holdings with initial funding of $250,000. Investment policy statement created.",
+    "author": "Robert Taylor",
+    "created_at": "2025-07-01T14:45:18.913836Z",
+    "tags": [
+      "account management"
+    ],
+    "category": "account_management"
+  },
+  {
+    "id": "3fabe797-4c76-41fe-9b9e-a3ae3fc5bdad",
+    "household_id": "15",
+    "household_code": "energy-executive",
+    "account_id": null,
+    "text": "KYC documentation updated for Carter Energy Holdings. Added trust and verified employment status change to retired.",
+    "author": "Robert Taylor",
+    "created_at": "2025-02-09T14:45:18.913836Z",
+    "tags": [
+      "compliance review"
+    ],
+    "category": "compliance_review"
+  },
+  {
+    "id": "2a65f5cc-c01e-4a3e-b0fa-22a95963967a",
+    "household_id": "15",
+    "household_code": "energy-executive",
+    "account_id": "39",
+    "text": "Met with Carter Energy Holdings for quarterly investment review. Discussed portfolio performance of +22.1% YTD. Client expressed excitement about current allocation in real estate.",
+    "author": "Robert Taylor",
+    "created_at": "2024-10-09T14:45:18.913836Z",
+    "tags": [
+      "investment review",
+      "performance review",
+      "estate planning"
+    ],
+    "category": "investment_review"
+  },
+  {
+    "id": "34030c83-8810-4cbe-aa7b-0193333f5f4a",
+    "household_id": "15",
+    "household_code": "energy-executive",
+    "account_id": "39",
+    "text": "Fed interest rate change analysis shared with Carter Energy Holdings. Discussed implications for international funds holdings and potential rebalancing.",
+    "author": "Robert Taylor",
+    "created_at": "2025-05-13T14:45:18.913836Z",
+    "tags": [
+      "market events"
+    ],
+    "category": "market_events"
+  },
+  {
+    "id": "65e9d8df-cc10-4e77-a975-7006d80554e4",
+    "household_id": "15",
+    "household_code": "energy-executive",
+    "account_id": "40",
+    "text": "Required Minimum Distribution (RMD) calculation completed for Carter Energy Holdings. 2024 RMD amount: $42,700. Distribution scheduled for 2025-10-06.",
+    "author": "Robert Taylor",
+    "created_at": "2024-07-29T14:45:18.913836Z",
+    "tags": [
+      "account management"
+    ],
+    "category": "account_management"
+  },
+  {
+    "id": "761f30e0-d971-4146-b399-ff754951c90c",
+    "household_id": "15",
+    "household_code": "energy-executive",
+    "account_id": null,
+    "text": "Annual compliance review for Carter Energy Holdings. All documentation current. Updated investment policy statement to reflect increased risk tolerance.",
+    "author": "Robert Taylor",
+    "created_at": "2024-02-04T14:45:18.913836Z",
+    "tags": [
+      "compliance review",
+      "risk assessment"
+    ],
+    "category": "compliance_review"
+  },
+  {
+    "id": "b56076da-ab60-42cb-b1b1-73d0825a9c99",
+    "household_id": "15",
+    "household_code": "energy-executive",
+    "account_id": null,
+    "text": "Retirement planning meeting focused on Roth conversions. Projected retirement income of $75,000 annually. Client needs to increase savings by 5%.",
+    "author": "Robert Taylor",
+    "created_at": "2024-03-28T14:45:18.913836Z",
+    "tags": [
+      "financial planning",
+      "retirement planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "e4871487-a1ae-4e25-a7ec-26f2df98d2fd",
+    "household_id": "15",
+    "household_code": "energy-executive",
+    "account_id": "40",
+    "text": "Account consolidation: Transferred $2,000,000 from previous 401k to consolidated portfolio for Carter Energy Holdings. Fees waived due to relationship status.",
+    "author": "Robert Taylor",
+    "created_at": "2025-03-13T14:45:18.913836Z",
+    "tags": [
+      "account management"
+    ],
+    "category": "account_management"
+  },
+  {
+    "id": "0c7ffd21-11de-470e-973a-cc892b107ea6",
+    "household_id": "15",
+    "household_code": "energy-executive",
+    "account_id": "41",
+    "text": "Earnings season review: Discussed individual stock performance in Carter Energy Holdings's portfolio. Weak guidance noted in technology.",
+    "author": "Robert Taylor",
+    "created_at": "2024-08-01T14:45:18.913836Z",
+    "tags": [
+      "market events",
+      "performance review"
+    ],
+    "category": "market_events"
+  },
+  {
+    "id": "2051ffc5-b03e-41a2-948b-595cf0f1844a",
+    "household_id": "15",
+    "household_code": "energy-executive",
+    "account_id": null,
+    "text": "Account consolidation: Transferred $2,000,000 from inherited IRA to consolidated portfolio for Carter Energy Holdings. Fees waived due to relationship status.",
+    "author": "Robert Taylor",
+    "created_at": "2023-10-17T14:45:18.913836Z",
+    "tags": [
+      "account management"
+    ],
+    "category": "account_management"
+  },
+  {
+    "id": "d381abde-811e-4cdd-9555-8cc7a4bc5515",
+    "household_id": "16",
+    "household_code": "healthcare-professionals",
+    "account_id": null,
+    "text": "Email exchange with Davis Medical Group regarding Roth conversions. Provided clarification on performance attribution and shared relevant market research.",
+    "author": "Lisa Wang",
+    "created_at": "2025-09-18T14:45:19.095616Z",
+    "tags": [
+      "client communication",
+      "performance review"
+    ],
+    "category": "client_communication"
+  },
+  {
+    "id": "988c9230-10a0-425f-a45c-cba1100737e6",
+    "household_id": "16",
+    "household_code": "healthcare-professionals",
+    "account_id": "44",
+    "text": "Insurance review completed. Recommended increasing umbrella coverage by $1,000,000 based on current assets and income.",
+    "author": "Lisa Wang",
+    "created_at": "2025-04-24T14:45:19.095616Z",
+    "tags": [
+      "financial planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "89313659-f3ba-4c9a-b66d-89ae074564b1",
+    "household_id": "16",
+    "household_code": "healthcare-professionals",
+    "account_id": null,
+    "text": "Met with Davis Medical Group for quarterly investment review. Discussed portfolio performance of +22.1% YTD. Client expressed optimism about current allocation in alternatives.",
+    "author": "Lisa Wang",
+    "created_at": "2024-09-17T14:45:19.095616Z",
+    "tags": [
+      "investment review",
+      "performance review"
+    ],
+    "category": "investment_review"
+  },
+  {
+    "id": "1ea11fe1-152f-4cd5-a021-9500fd6f026e",
+    "household_id": "16",
+    "household_code": "healthcare-professionals",
+    "account_id": null,
+    "text": "Education planning for Davis Medical Group's children. 529 plan contributions should increase to $1,500/month to meet goals.",
+    "author": "Lisa Wang",
+    "created_at": "2025-07-17T14:45:19.095616Z",
+    "tags": [
+      "financial planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "6b40069b-4326-4f49-b924-6c6dcec15cdf",
+    "household_id": "16",
+    "household_code": "healthcare-professionals",
+    "account_id": "43",
+    "text": "Estate planning session with Davis Medical Group. Reviewed beneficiary designations and identified need to update trust. Next steps: dollar-cost averaging.",
+    "author": "Lisa Wang",
+    "created_at": "2025-06-22T14:45:19.095616Z",
+    "tags": [
+      "financial planning",
+      "estate planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "f270ed0d-2479-4a03-a4d2-898370417ecc",
+    "household_id": "16",
+    "household_code": "healthcare-professionals",
+    "account_id": null,
+    "text": "Sector rotation recommendation: Suggested reducing energy exposure and increasing materials allocation for Davis Medical Group.",
+    "author": "Lisa Wang",
+    "created_at": "2024-10-25T14:45:19.095616Z",
+    "tags": [
+      "market events"
+    ],
+    "category": "market_events"
+  },
+  {
+    "id": "9219dab1-7b2d-4cb1-b816-74d5e8ddfcc8",
+    "household_id": "16",
+    "household_code": "healthcare-professionals",
+    "account_id": "43",
+    "text": "Follow-up call with Davis Medical Group regarding recent market volatility. Client requested increased monitoring and showed optimism about REITs positions.",
+    "author": "Lisa Wang",
+    "created_at": "2024-01-02T14:45:19.095616Z",
+    "tags": [
+      "investment review"
+    ],
+    "category": "investment_review"
+  },
+  {
+    "id": "c4e561a2-3949-4ce8-910b-56a05bbb6567",
+    "household_id": "16",
+    "household_code": "healthcare-professionals",
+    "account_id": null,
+    "text": "New account opening: Roth IRA established for Davis Medical Group with initial funding of $2,000,000. Investment policy statement created.",
+    "author": "Lisa Wang",
+    "created_at": "2024-01-27T14:45:19.095616Z",
+    "tags": [
+      "account management"
+    ],
+    "category": "account_management"
+  },
+  {
+    "id": "28d20d89-d8e3-4d7a-82ce-463037bbf60e",
+    "household_id": "16",
+    "household_code": "healthcare-professionals",
+    "account_id": "43",
+    "text": "Retirement planning meeting focused on asset allocation. Projected retirement income of $300,000 annually. Client needs to increase savings by 3%.",
+    "author": "Lisa Wang",
+    "created_at": "2025-07-02T14:45:19.095616Z",
+    "tags": [
+      "financial planning",
+      "retirement planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "0468fc97-56a7-4403-9fd6-c3effa19b467",
+    "household_id": "16",
+    "household_code": "healthcare-professionals",
+    "account_id": null,
+    "text": "Client call with Davis Medical Group - strategy discussion. Duration: 25 minutes. Follow-up required: pending client response.",
+    "author": "Lisa Wang",
+    "created_at": "2024-03-28T14:45:19.095616Z",
+    "tags": [
+      "client communication"
+    ],
+    "category": "client_communication"
+  },
+  {
+    "id": "68cd4749-4070-4a9b-bfd4-6538de44dabc",
+    "household_id": "16",
+    "household_code": "healthcare-professionals",
+    "account_id": null,
+    "text": "Account consolidation: Transferred $750,000 from inherited IRA to investment account for Davis Medical Group. Fees waived due to relationship status.",
+    "author": "Lisa Wang",
+    "created_at": "2024-02-12T14:45:19.095616Z",
+    "tags": [
+      "account management"
+    ],
+    "category": "account_management"
+  },
+  {
+    "id": "bf195a96-dc68-49c4-bcca-3d19f509e2cc",
+    "household_id": "16",
+    "household_code": "healthcare-professionals",
+    "account_id": "42",
+    "text": "Earnings season review: Discussed individual stock performance in Davis Medical Group's portfolio. Beat expectations noted in technology.",
+    "author": "Lisa Wang",
+    "created_at": "2025-09-07T14:45:19.095616Z",
+    "tags": [
+      "market events",
+      "performance review"
+    ],
+    "category": "market_events"
+  },
+  {
+    "id": "44d037de-c958-41a0-a203-62dc28742ff4",
+    "household_id": "16",
+    "household_code": "healthcare-professionals",
+    "account_id": "42",
+    "text": "Account maintenance: Updated contact information and investment objectives for Davis Medical Group. Changed risk tolerance from conservative to moderate.",
+    "author": "Lisa Wang",
+    "created_at": "2025-08-29T14:45:19.095616Z",
+    "tags": [
+      "account management",
+      "risk assessment"
+    ],
+    "category": "account_management"
+  },
+  {
+    "id": "5b61a2b2-0319-4d10-9cf4-284abd758a06",
+    "household_id": "16",
+    "household_code": "healthcare-professionals",
+    "account_id": null,
+    "text": "Email exchange with Davis Medical Group regarding insurance needs. Provided clarification on market volatility and shared relevant market research.",
+    "author": "Lisa Wang",
+    "created_at": "2023-11-24T14:45:19.095616Z",
+    "tags": [
+      "client communication"
+    ],
+    "category": "client_communication"
+  },
+  {
+    "id": "dee5757a-67f1-4f5e-995c-4c97d1833360",
+    "household_id": "16",
+    "household_code": "healthcare-professionals",
+    "account_id": null,
+    "text": "Investment committee meeting notes for Davis Medical Group: Recommended increasing allocation to alternatives by 5% based on risk tolerance and market outlook.",
+    "author": "Lisa Wang",
+    "created_at": "2025-09-15T14:45:19.095616Z",
+    "tags": [
+      "investment review",
+      "risk assessment"
+    ],
+    "category": "investment_review"
+  },
+  {
+    "id": "cefe29c9-c635-461b-9bcb-9f7a6a2ef4ee",
+    "household_id": "17",
+    "household_code": "military-retirees",
+    "account_id": "46",
+    "text": "Account consolidation: Transferred $1,000,000 from other advisor account to retirement account for Colonel Miller Family. Fees waived due to relationship status.",
+    "author": "Richard Parker",
+    "created_at": "2024-06-26T14:45:19.301174Z",
+    "tags": [
+      "account management",
+      "retirement planning"
+    ],
+    "category": "account_management"
+  },
+  {
+    "id": "13c20d1d-f777-43ca-9c37-7a5704467a68",
+    "household_id": "17",
+    "household_code": "military-retirees",
+    "account_id": "47",
+    "text": "Fed interest rate change analysis shared with Colonel Miller Family. Discussed implications for growth stocks holdings and potential rebalancing.",
+    "author": "Richard Parker",
+    "created_at": "2023-11-27T14:45:19.301174Z",
+    "tags": [
+      "market events"
+    ],
+    "category": "market_events"
+  },
+  {
+    "id": "407c93d1-d551-40c7-85a0-7d91843966f0",
+    "household_id": "17",
+    "household_code": "military-retirees",
+    "account_id": "46",
+    "text": "Tax planning discussion with Colonel Miller Family. Identified opportunities for tax-loss harvesting in alternatives. Estimated savings: $12,500.",
+    "author": "Richard Parker",
+    "created_at": "2024-06-04T14:45:19.301174Z",
+    "tags": [
+      "financial planning",
+      "tax planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "e54a0d7f-496a-46fd-bf45-2d0381a67ffc",
+    "household_id": "17",
+    "household_code": "military-retirees",
+    "account_id": null,
+    "text": "Market volatility discussion with Colonel Miller Family. Explained impact of geopolitical tensions on portfolio. Client comfortable with long-term strategy.",
+    "author": "Richard Parker",
+    "created_at": "2024-04-17T14:45:19.301174Z",
+    "tags": [
+      "market events"
+    ],
+    "category": "market_events"
+  },
+  {
+    "id": "1c66d0fd-5a39-42f1-ac2c-4091cb4268ac",
+    "household_id": "17",
+    "household_code": "military-retirees",
+    "account_id": "45",
+    "text": "Investment committee meeting notes for Colonel Miller Family: Recommended increasing allocation to real estate by 12.5% based on risk tolerance and market outlook.",
+    "author": "Richard Parker",
+    "created_at": "2024-02-01T14:45:19.301174Z",
+    "tags": [
+      "investment review",
+      "risk assessment",
+      "estate planning"
+    ],
+    "category": "investment_review"
+  },
+  {
+    "id": "825e4e5c-718a-4a7f-a2bb-12a896836852",
+    "household_id": "17",
+    "household_code": "military-retirees",
+    "account_id": "46",
+    "text": "Email exchange with Colonel Miller Family regarding Roth conversions. Provided clarification on allocation strategy and shared relevant market research.",
+    "author": "Richard Parker",
+    "created_at": "2024-05-07T14:45:19.301174Z",
+    "tags": [
+      "client communication"
+    ],
+    "category": "client_communication"
+  },
+  {
+    "id": "0a3194dc-7782-4770-ac72-87dc95701a4d",
+    "household_id": "17",
+    "household_code": "military-retirees",
+    "account_id": "46",
+    "text": "Insurance review completed. Recommended increasing life coverage by $1,000,000 based on current assets and income.",
+    "author": "Richard Parker",
+    "created_at": "2024-11-19T14:45:19.301174Z",
+    "tags": [
+      "financial planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "3bf79aed-64de-4311-bbc1-b09b11c1000b",
+    "household_id": "17",
+    "household_code": "military-retirees",
+    "account_id": null,
+    "text": "Earnings season review: Discussed individual stock performance in Colonel Miller Family's portfolio. Beat expectations noted in energy.",
+    "author": "Richard Parker",
+    "created_at": "2025-08-13T14:45:19.301174Z",
+    "tags": [
+      "market events",
+      "performance review"
+    ],
+    "category": "market_events"
+  },
+  {
+    "id": "f3312f3c-486c-4864-8ff5-170ae060593c",
+    "household_id": "17",
+    "household_code": "military-retirees",
+    "account_id": null,
+    "text": "Met with Colonel Miller Family for quarterly investment review. Discussed portfolio performance of +12.3% YTD. Client expressed disappointment about current allocation in commodities.",
+    "author": "Richard Parker",
+    "created_at": "2025-05-31T14:45:19.301174Z",
+    "tags": [
+      "investment review",
+      "performance review"
+    ],
+    "category": "investment_review"
+  },
+  {
+    "id": "f8675777-41ae-4fb1-872c-cf75611bf4fe",
+    "household_id": "17",
+    "household_code": "military-retirees",
+    "account_id": null,
+    "text": "Retirement planning meeting focused on asset allocation. Projected retirement income of $120,000 annually. Client needs to increase savings by 10%.",
+    "author": "Richard Parker",
+    "created_at": "2025-06-21T14:45:19.301174Z",
+    "tags": [
+      "financial planning",
+      "retirement planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "206b1470-5cbd-4b15-b2fb-979f270553c6",
+    "household_id": "17",
+    "household_code": "military-retirees",
+    "account_id": "46",
+    "text": "Client call with Colonel Miller Family - account inquiry. Duration: 25 minutes. Follow-up required: no.",
+    "author": "Richard Parker",
+    "created_at": "2024-04-06T14:45:19.301174Z",
+    "tags": [
+      "client communication"
+    ],
+    "category": "client_communication"
+  },
+  {
+    "id": "5ebf2384-70d8-4321-bdb5-32f86478fe2c",
+    "household_id": "17",
+    "household_code": "military-retirees",
+    "account_id": null,
+    "text": "Sector rotation recommendation: Suggested reducing technology exposure and increasing materials allocation for Colonel Miller Family.",
+    "author": "Richard Parker",
+    "created_at": "2025-05-11T14:45:19.301174Z",
+    "tags": [
+      "market events"
+    ],
+    "category": "market_events"
+  },
+  {
+    "id": "c30bf97f-6f9c-46c9-8e8b-751723077d60",
+    "household_id": "17",
+    "household_code": "military-retirees",
+    "account_id": "47",
+    "text": "Account maintenance: Updated contact information and investment objectives for Colonel Miller Family. Changed risk tolerance from moderate to moderate.",
+    "author": "Richard Parker",
+    "created_at": "2023-10-03T14:45:19.301174Z",
+    "tags": [
+      "account management",
+      "risk assessment"
+    ],
+    "category": "account_management"
+  },
+  {
+    "id": "c915d739-5a60-4fce-b9ee-796ea9c907b6",
+    "household_id": "17",
+    "household_code": "military-retirees",
+    "account_id": "47",
+    "text": "Retirement planning meeting focused on Roth conversions. Projected retirement income of $200,000 annually. Client needs to increase savings by 5%.",
+    "author": "Richard Parker",
+    "created_at": "2025-07-29T14:45:19.301174Z",
+    "tags": [
+      "financial planning",
+      "retirement planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "7d47eba2-2699-450a-8c40-46e2d4d6b046",
+    "household_id": "17",
+    "household_code": "military-retirees",
+    "account_id": "47",
+    "text": "Earnings season review: Discussed individual stock performance in Colonel Miller Family's portfolio. Missed estimates noted in healthcare.",
+    "author": "Richard Parker",
+    "created_at": "2025-06-18T14:45:19.301174Z",
+    "tags": [
+      "market events",
+      "performance review"
+    ],
+    "category": "market_events"
+  },
+  {
+    "id": "d074a4a5-1bc4-449d-b806-f763bd2be611",
+    "household_id": "18",
+    "household_code": "entertainment-industry",
+    "account_id": null,
+    "text": "Met with Rodriguez Entertainment LLC for quarterly investment review. Discussed portfolio performance of +12.3% YTD. Client expressed caution about current allocation in real estate.",
+    "author": "Sarah Martinez",
+    "created_at": "2023-12-24T14:45:19.537959Z",
+    "tags": [
+      "investment review",
+      "performance review",
+      "estate planning"
+    ],
+    "category": "investment_review"
+  },
+  {
+    "id": "c6647887-ae27-496e-9559-6b8fe50e5054",
+    "household_id": "18",
+    "household_code": "entertainment-industry",
+    "account_id": null,
+    "text": "Required Minimum Distribution (RMD) calculation completed for Rodriguez Entertainment LLC. 2024 RMD amount: $91,800. Distribution scheduled for 2025-10-19.",
+    "author": "Sarah Martinez",
+    "created_at": "2023-10-15T14:45:19.537959Z",
+    "tags": [
+      "account management"
+    ],
+    "category": "account_management"
+  },
+  {
+    "id": "788389fe-5df2-4e00-946c-b628ab2432a7",
+    "household_id": "18",
+    "household_code": "entertainment-industry",
+    "account_id": "49",
+    "text": "Met with Rodriguez Entertainment LLC for quarterly investment review. Discussed portfolio performance of -3.2% YTD. Client expressed satisfaction about current allocation in international equities.",
+    "author": "Sarah Martinez",
+    "created_at": "2024-04-03T14:45:19.537959Z",
+    "tags": [
+      "investment review",
+      "performance review"
+    ],
+    "category": "investment_review"
+  },
+  {
+    "id": "2a0956e6-f8cb-42c9-92e1-8f8ff72f0988",
+    "household_id": "18",
+    "household_code": "entertainment-industry",
+    "account_id": "48",
+    "text": "Education planning for Rodriguez Entertainment LLC's children. 529 plan contributions should increase to $1,500/month to meet goals.",
+    "author": "Sarah Martinez",
+    "created_at": "2025-09-11T14:45:19.537959Z",
+    "tags": [
+      "financial planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "a0c5d135-58d4-449b-ad63-350f4b5760e1",
+    "household_id": "18",
+    "household_code": "entertainment-industry",
+    "account_id": "49",
+    "text": "Earnings season review: Discussed individual stock performance in Rodriguez Entertainment LLC's portfolio. Beat expectations noted in energy.",
+    "author": "Sarah Martinez",
+    "created_at": "2024-09-12T14:45:19.537959Z",
+    "tags": [
+      "market events",
+      "performance review"
+    ],
+    "category": "market_events"
+  },
+  {
+    "id": "ee2dfde5-1a8b-4a76-9a9b-4954dac6afbf",
+    "household_id": "18",
+    "household_code": "entertainment-industry",
+    "account_id": null,
+    "text": "Email exchange with Rodriguez Entertainment LLC regarding tax strategies. Provided clarification on tax implications and shared relevant market research.",
+    "author": "Sarah Martinez",
+    "created_at": "2023-10-13T14:45:19.537959Z",
+    "tags": [
+      "client communication",
+      "tax planning"
+    ],
+    "category": "client_communication"
+  },
+  {
+    "id": "d8f6064d-88e7-476d-b74b-87b12164dae7",
+    "household_id": "18",
+    "household_code": "entertainment-industry",
+    "account_id": null,
+    "text": "Fed interest rate change analysis shared with Rodriguez Entertainment LLC. Discussed implications for sector ETFs holdings and potential rebalancing.",
+    "author": "Sarah Martinez",
+    "created_at": "2025-09-09T14:45:19.537959Z",
+    "tags": [
+      "market events"
+    ],
+    "category": "market_events"
+  },
+  {
+    "id": "994c776d-e4e0-4db1-9afe-13e7bfc2027f",
+    "household_id": "18",
+    "household_code": "entertainment-industry",
+    "account_id": null,
+    "text": "Suitability review completed. Rodriguez Entertainment LLC's risk profile remains appropriate for current allocation. No changes recommended.",
+    "author": "Sarah Martinez",
+    "created_at": "2025-03-01T14:45:19.537959Z",
+    "tags": [
+      "compliance review",
+      "risk assessment"
+    ],
+    "category": "compliance_review"
+  },
+  {
+    "id": "01a10ad8-0953-4bce-b6e3-559e0ad17ed3",
+    "household_id": "18",
+    "household_code": "entertainment-industry",
+    "account_id": "49",
+    "text": "Fed interest rate change analysis shared with Rodriguez Entertainment LLC. Discussed implications for bonds holdings and potential rebalancing.",
+    "author": "Sarah Martinez",
+    "created_at": "2024-11-26T14:45:19.537959Z",
+    "tags": [
+      "market events"
+    ],
+    "category": "market_events"
+  },
+  {
+    "id": "0dbea755-f5da-4d0f-8bbc-6ff0611e2bfd",
+    "household_id": "18",
+    "household_code": "entertainment-industry",
+    "account_id": "49",
+    "text": "Annual investment review completed with Rodriguez Entertainment LLC. Portfolio rebalancing recommended due to 7.1% drift in international equities. Client approved changes.",
+    "author": "Sarah Martinez",
+    "created_at": "2025-07-06T14:45:19.537959Z",
+    "tags": [
+      "investment review"
+    ],
+    "category": "investment_review"
+  },
+  {
+    "id": "6463fb0d-2263-4ba1-a715-4323716aa100",
+    "household_id": "18",
+    "household_code": "entertainment-industry",
+    "account_id": "48",
+    "text": "Fed interest rate change analysis shared with Rodriguez Entertainment LLC. Discussed implications for bonds holdings and potential rebalancing.",
+    "author": "Sarah Martinez",
+    "created_at": "2024-10-19T14:45:19.537959Z",
+    "tags": [
+      "market events"
+    ],
+    "category": "market_events"
+  },
+  {
+    "id": "d0e8422e-4db2-43c4-8592-11e5b12dcdee",
+    "household_id": "18",
+    "household_code": "entertainment-industry",
+    "account_id": "48",
+    "text": "Sent quarterly performance report to Rodriguez Entertainment LLC. Client responded with questions about tax strategies. Scheduled follow-up call for 2025-10-24.",
+    "author": "Sarah Martinez",
+    "created_at": "2024-02-29T14:45:19.538957Z",
+    "tags": [
+      "client communication",
+      "performance review",
+      "tax planning"
+    ],
+    "category": "client_communication"
+  },
+  {
+    "id": "df824f1d-8cc5-4112-a6a3-0460eda4a934",
+    "household_id": "18",
+    "household_code": "entertainment-industry",
+    "account_id": "49",
+    "text": "KYC documentation updated for Rodriguez Entertainment LLC. Added will and verified employment status change to retired.",
+    "author": "Sarah Martinez",
+    "created_at": "2025-01-14T14:45:19.538957Z",
+    "tags": [
+      "compliance review"
+    ],
+    "category": "compliance_review"
+  },
+  {
+    "id": "6d16df8d-ba8e-4fc8-a2ef-51f583370c01",
+    "household_id": "18",
+    "household_code": "entertainment-industry",
+    "account_id": null,
+    "text": "Earnings season review: Discussed individual stock performance in Rodriguez Entertainment LLC's portfolio. Beat expectations noted in energy.",
+    "author": "Sarah Martinez",
+    "created_at": "2025-07-18T14:45:19.538957Z",
+    "tags": [
+      "market events",
+      "performance review"
+    ],
+    "category": "market_events"
+  },
+  {
+    "id": "a4b31ae7-7d3b-4390-9785-7bd63880d353",
+    "household_id": "18",
+    "household_code": "entertainment-industry",
+    "account_id": "48",
+    "text": "Investment committee meeting notes for Rodriguez Entertainment LLC: Recommended increasing allocation to international equities by 12.5% based on risk tolerance and market outlook.",
+    "author": "Sarah Martinez",
+    "created_at": "2023-10-01T14:45:19.538957Z",
+    "tags": [
+      "investment review",
+      "risk assessment"
+    ],
+    "category": "investment_review"
+  },
+  {
+    "id": "ee3501cd-68d1-4db7-b872-e03533e40dab",
+    "household_id": "19",
+    "household_code": "small-business-owners",
+    "account_id": null,
+    "text": "New account opening: 401k Rollover established for Thompson & Associates with initial funding of $750,000. Investment policy statement created.",
+    "author": "David Johnson",
+    "created_at": "2025-09-11T14:45:19.713063Z",
+    "tags": [
+      "account management"
+    ],
+    "category": "account_management"
+  },
+  {
+    "id": "f0d2050d-1064-4131-819b-d5b4ed913b7e",
+    "household_id": "19",
+    "household_code": "small-business-owners",
+    "account_id": null,
+    "text": "Suitability review completed. Thompson & Associates's risk profile remains appropriate for current allocation. No changes recommended.",
+    "author": "David Johnson",
+    "created_at": "2024-07-21T14:45:19.713063Z",
+    "tags": [
+      "compliance review",
+      "risk assessment"
+    ],
+    "category": "compliance_review"
+  },
+  {
+    "id": "c3446d20-7ec9-409a-ba7f-ffcef0c34c27",
+    "household_id": "19",
+    "household_code": "small-business-owners",
+    "account_id": null,
+    "text": "KYC documentation updated for Thompson & Associates. Added beneficiary forms and verified employment status change to corporate executive.",
+    "author": "David Johnson",
+    "created_at": "2024-03-13T14:45:19.713063Z",
+    "tags": [
+      "compliance review",
+      "estate planning"
+    ],
+    "category": "compliance_review"
+  },
+  {
+    "id": "a633e469-a32c-4d85-a684-6a215904acc0",
+    "household_id": "19",
+    "household_code": "small-business-owners",
+    "account_id": null,
+    "text": "New account opening: Traditional IRA established for Thompson & Associates with initial funding of $2,000,000. Investment policy statement created.",
+    "author": "David Johnson",
+    "created_at": "2023-10-25T14:45:19.713063Z",
+    "tags": [
+      "account management"
+    ],
+    "category": "account_management"
+  },
+  {
+    "id": "e91524a4-618f-40a1-bd76-ff0c51f2b5f7",
+    "household_id": "19",
+    "household_code": "small-business-owners",
+    "account_id": "52",
+    "text": "Client call with Thompson & Associates - referral discussion. Duration: 90 minutes. Follow-up required: pending client response.",
+    "author": "David Johnson",
+    "created_at": "2025-04-18T14:45:19.713063Z",
+    "tags": [
+      "client communication"
+    ],
+    "category": "client_communication"
+  },
+  {
+    "id": "17978bc8-ae71-427b-8d6d-9b9cc3192d14",
+    "household_id": "19",
+    "household_code": "small-business-owners",
+    "account_id": "51",
+    "text": "Client call with Thompson & Associates - strategy discussion. Duration: 25 minutes. Follow-up required: yes.",
+    "author": "David Johnson",
+    "created_at": "2024-02-12T14:45:19.713063Z",
+    "tags": [
+      "client communication"
+    ],
+    "category": "client_communication"
+  },
+  {
+    "id": "442c52ae-e3c7-43b2-ae2f-3f035f3d4dd7",
+    "household_id": "19",
+    "household_code": "small-business-owners",
+    "account_id": "51",
+    "text": "Account consolidation: Transferred $500,000 from inherited IRA to trust account for Thompson & Associates. Fees waived due to relationship status.",
+    "author": "David Johnson",
+    "created_at": "2025-02-20T14:45:19.713063Z",
+    "tags": [
+      "account management"
+    ],
+    "category": "account_management"
+  },
+  {
+    "id": "2e8d1d76-a739-4e05-823b-95d29d8ffccc",
+    "household_id": "19",
+    "household_code": "small-business-owners",
+    "account_id": null,
+    "text": "Account maintenance: Updated contact information and investment objectives for Thompson & Associates. Changed risk tolerance from aggressive to aggressive.",
+    "author": "David Johnson",
+    "created_at": "2024-10-05T14:45:19.713063Z",
+    "tags": [
+      "account management",
+      "risk assessment"
+    ],
+    "category": "account_management"
+  },
+  {
+    "id": "4afb1805-c07c-4d96-9295-cad1240b472d",
+    "household_id": "19",
+    "household_code": "small-business-owners",
+    "account_id": "50",
+    "text": "Sent quarterly performance report to Thompson & Associates. Client responded with questions about tax strategies. Scheduled follow-up call for 2025-10-28.",
+    "author": "David Johnson",
+    "created_at": "2025-03-17T14:45:19.713063Z",
+    "tags": [
+      "client communication",
+      "performance review",
+      "tax planning"
+    ],
+    "category": "client_communication"
+  },
+  {
+    "id": "de82dd64-b340-4881-8bcf-b3e376b1fddc",
+    "household_id": "19",
+    "household_code": "small-business-owners",
+    "account_id": "52",
+    "text": "Annual investment review completed with Thompson & Associates. Portfolio rebalancing recommended due to 2.9% drift in fixed income. Client approved changes.",
+    "author": "David Johnson",
+    "created_at": "2024-10-14T14:45:19.713063Z",
+    "tags": [
+      "investment review"
+    ],
+    "category": "investment_review"
+  },
+  {
+    "id": "ce5ab0af-5ed8-4a65-bdc6-0d79c591d738",
+    "household_id": "19",
+    "household_code": "small-business-owners",
+    "account_id": null,
+    "text": "Education planning for Thompson & Associates's children. 529 plan contributions should increase to $500/month to meet goals.",
+    "author": "David Johnson",
+    "created_at": "2025-04-10T14:45:19.713063Z",
+    "tags": [
+      "financial planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "3cafadfe-3e95-445d-a1e2-495b57d88999",
+    "household_id": "19",
+    "household_code": "small-business-owners",
+    "account_id": "50",
+    "text": "Investment committee meeting notes for Thompson & Associates: Recommended increasing allocation to real estate by 12.5% based on risk tolerance and market outlook.",
+    "author": "David Johnson",
+    "created_at": "2025-03-05T14:45:19.713063Z",
+    "tags": [
+      "investment review",
+      "risk assessment",
+      "estate planning"
+    ],
+    "category": "investment_review"
+  },
+  {
+    "id": "71200d63-cbec-4a34-a9b2-aa37b34cfd41",
+    "household_id": "19",
+    "household_code": "small-business-owners",
+    "account_id": "51",
+    "text": "Required Minimum Distribution (RMD) calculation completed for Thompson & Associates. 2024 RMD amount: $67,200. Distribution scheduled for 2025-10-23.",
+    "author": "David Johnson",
+    "created_at": "2025-07-21T14:45:19.713063Z",
+    "tags": [
+      "account management"
+    ],
+    "category": "account_management"
+  },
+  {
+    "id": "d587cf87-886a-43b0-ae95-506f77aac351",
+    "household_id": "19",
+    "household_code": "small-business-owners",
+    "account_id": "51",
+    "text": "Suitability review completed. Thompson & Associates's risk profile remains appropriate for current allocation. No changes recommended.",
+    "author": "David Johnson",
+    "created_at": "2025-07-07T14:45:19.713063Z",
+    "tags": [
+      "compliance review",
+      "risk assessment"
+    ],
+    "category": "compliance_review"
+  },
+  {
+    "id": "dd3eae52-dccb-472f-b3e2-cb73c016a102",
+    "household_id": "19",
+    "household_code": "small-business-owners",
+    "account_id": null,
+    "text": "Annual compliance review for Thompson & Associates. All documentation current. Updated investment policy statement to reflect new investment objectives.",
+    "author": "David Johnson",
+    "created_at": "2024-06-06T14:45:19.713063Z",
+    "tags": [
+      "compliance review"
+    ],
+    "category": "compliance_review"
+  },
+  {
+    "id": "33f0e7e1-7fc0-4fca-9b82-56ec7c81b375",
+    "household_id": "20",
+    "household_code": "legal-professionals",
+    "account_id": null,
+    "text": "Retirement planning meeting focused on Roth conversions. Projected retirement income of $120,000 annually. Client needs to increase savings by 12.5%.",
+    "author": "Lisa Wang",
+    "created_at": "2024-09-10T14:45:19.895629Z",
+    "tags": [
+      "financial planning",
+      "retirement planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "5728a0fb-fb7f-49d7-a44b-3d4bf5075d17",
+    "household_id": "20",
+    "household_code": "legal-professionals",
+    "account_id": null,
+    "text": "Investment committee meeting notes for Williams Law Firm: Recommended increasing allocation to real estate by 15% based on risk tolerance and market outlook.",
+    "author": "Lisa Wang",
+    "created_at": "2024-11-08T14:45:19.895629Z",
+    "tags": [
+      "investment review",
+      "risk assessment",
+      "estate planning"
+    ],
+    "category": "investment_review"
+  },
+  {
+    "id": "b819dd17-3004-4b25-b014-1c29eeaaedad",
+    "household_id": "20",
+    "household_code": "legal-professionals",
+    "account_id": null,
+    "text": "Client referral: Williams Law Firm referred Lisa Garcia for wealth management services. Initial meeting scheduled for 2025-10-06.",
+    "author": "Lisa Wang",
+    "created_at": "2025-03-03T14:45:19.895629Z",
+    "tags": [
+      "client communication"
+    ],
+    "category": "client_communication"
+  },
+  {
+    "id": "89559409-cdb2-43df-92aa-d6ea4791d45f",
+    "household_id": "20",
+    "household_code": "legal-professionals",
+    "account_id": "55",
+    "text": "Account maintenance: Updated contact information and investment objectives for Williams Law Firm. Changed risk tolerance from aggressive to moderate.",
+    "author": "Lisa Wang",
+    "created_at": "2024-04-01T14:45:19.895629Z",
+    "tags": [
+      "account management",
+      "risk assessment"
+    ],
+    "category": "account_management"
+  },
+  {
+    "id": "7d54aa62-7aa2-4430-95d6-1c5decece613",
+    "household_id": "20",
+    "household_code": "legal-professionals",
+    "account_id": null,
+    "text": "Market volatility discussion with Williams Law Firm. Explained impact of geopolitical tensions on portfolio. Client comfortable with long-term strategy.",
+    "author": "Lisa Wang",
+    "created_at": "2024-06-29T14:45:19.895629Z",
+    "tags": [
+      "market events"
+    ],
+    "category": "market_events"
+  },
+  {
+    "id": "0fdf8367-4c59-44b3-8060-b8ebc85c1b08",
+    "household_id": "20",
+    "household_code": "legal-professionals",
+    "account_id": "53",
+    "text": "Investment committee meeting notes for Williams Law Firm: Recommended increasing allocation to fixed income by 15% based on risk tolerance and market outlook.",
+    "author": "Lisa Wang",
+    "created_at": "2024-09-18T14:45:19.895629Z",
+    "tags": [
+      "investment review",
+      "risk assessment"
+    ],
+    "category": "investment_review"
+  },
+  {
+    "id": "59401708-2906-4839-8502-35fabfed1740",
+    "household_id": "20",
+    "household_code": "legal-professionals",
+    "account_id": "55",
+    "text": "Client referral: Williams Law Firm referred Robert Chen for wealth management services. Initial meeting scheduled for 2025-10-14.",
+    "author": "Lisa Wang",
+    "created_at": "2024-01-16T14:45:19.895629Z",
+    "tags": [
+      "client communication"
+    ],
+    "category": "client_communication"
+  },
+  {
+    "id": "87fa1a9d-7005-4127-baa4-e846b9c4bbd1",
+    "household_id": "20",
+    "household_code": "legal-professionals",
+    "account_id": "54",
+    "text": "Client referral: Williams Law Firm referred Mary Johnson for wealth management services. Initial meeting scheduled for 2025-10-25.",
+    "author": "Lisa Wang",
+    "created_at": "2023-12-02T14:45:19.895629Z",
+    "tags": [
+      "client communication"
+    ],
+    "category": "client_communication"
+  },
+  {
+    "id": "5535f7e7-9f6c-4ab6-9cbf-ff11c890ebf0",
+    "household_id": "20",
+    "household_code": "legal-professionals",
+    "account_id": null,
+    "text": "Sent quarterly performance report to Williams Law Firm. Client responded with questions about tax strategies. Scheduled follow-up call for 2025-10-22.",
+    "author": "Lisa Wang",
+    "created_at": "2025-07-29T14:45:19.895629Z",
+    "tags": [
+      "client communication",
+      "performance review",
+      "tax planning"
+    ],
+    "category": "client_communication"
+  },
+  {
+    "id": "aade80dd-6aa9-45df-8f29-4a2cfe49e61e",
+    "household_id": "20",
+    "household_code": "legal-professionals",
+    "account_id": "53",
+    "text": "Suitability review completed. Williams Law Firm's risk profile remains appropriate for current allocation. No changes recommended.",
+    "author": "Lisa Wang",
+    "created_at": "2025-02-03T14:45:19.895629Z",
+    "tags": [
+      "compliance review",
+      "risk assessment"
+    ],
+    "category": "compliance_review"
+  },
+  {
+    "id": "5fd9469e-0465-4c94-9468-4608492358f9",
+    "household_id": "20",
+    "household_code": "legal-professionals",
+    "account_id": null,
+    "text": "Anti-money laundering review: No red flags identified for Williams Law Firm. All transactions within normal parameters.",
+    "author": "Lisa Wang",
+    "created_at": "2023-12-03T14:45:19.895629Z",
+    "tags": [
+      "compliance review"
+    ],
+    "category": "compliance_review"
+  },
+  {
+    "id": "6135bac0-33c1-44de-b2a8-5511f101e2de",
+    "household_id": "20",
+    "household_code": "legal-professionals",
+    "account_id": "54",
+    "text": "Required Minimum Distribution (RMD) calculation completed for Williams Law Firm. 2024 RMD amount: $15,500. Distribution scheduled for 2025-10-27.",
+    "author": "Lisa Wang",
+    "created_at": "2024-04-15T14:45:19.895629Z",
+    "tags": [
+      "account management"
+    ],
+    "category": "account_management"
+  },
+  {
+    "id": "518b2f22-f0d8-4b76-9417-fa7aa3dbb3f1",
+    "household_id": "20",
+    "household_code": "legal-professionals",
+    "account_id": "55",
+    "text": "Annual investment review completed with Williams Law Firm. Portfolio rebalancing recommended due to 5.8% drift in fixed income. Client approved changes.",
+    "author": "Lisa Wang",
+    "created_at": "2025-04-20T14:45:19.895629Z",
+    "tags": [
+      "investment review"
+    ],
+    "category": "investment_review"
+  },
+  {
+    "id": "b617c6e5-36e0-4ce6-a526-3419571b84e4",
+    "household_id": "20",
+    "household_code": "legal-professionals",
+    "account_id": "55",
+    "text": "Sector rotation recommendation: Suggested reducing healthcare exposure and increasing telecommunications allocation for Williams Law Firm.",
+    "author": "Lisa Wang",
+    "created_at": "2025-07-15T14:45:19.895629Z",
+    "tags": [
+      "market events"
+    ],
+    "category": "market_events"
+  },
+  {
+    "id": "4d6956e1-3a78-420c-b532-30c68c6fa7ad",
+    "household_id": "20",
+    "household_code": "legal-professionals",
+    "account_id": null,
+    "text": "Investment committee meeting notes for Williams Law Firm: Recommended increasing allocation to real estate by 10% based on risk tolerance and market outlook.",
+    "author": "Lisa Wang",
+    "created_at": "2024-12-26T14:45:19.895629Z",
+    "tags": [
+      "investment review",
+      "risk assessment",
+      "estate planning"
+    ],
+    "category": "investment_review"
+  },
+  {
+    "id": "e2df02ff-3a31-43a9-90fe-523b16cfd9d7",
+    "household_id": "21",
+    "household_code": "pharmaceutical-executives",
+    "account_id": "57",
+    "text": "Education planning for Kumar Pharma Holdings's children. 529 plan contributions should increase to $2,000/month to meet goals.",
+    "author": "Robert Taylor",
+    "created_at": "2025-02-01T14:45:20.129066Z",
+    "tags": [
+      "financial planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "bb206c3d-c2cb-47e3-a734-873098e091cc",
+    "household_id": "21",
+    "household_code": "pharmaceutical-executives",
+    "account_id": "58",
+    "text": "Tax planning discussion with Kumar Pharma Holdings. Identified opportunities for tax-loss harvesting in real estate. Estimated savings: $22,100.",
+    "author": "Robert Taylor",
+    "created_at": "2025-03-29T14:45:20.129066Z",
+    "tags": [
+      "financial planning",
+      "tax planning",
+      "estate planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "b93990ff-8ffa-4585-9822-ae84dec4b640",
+    "household_id": "21",
+    "household_code": "pharmaceutical-executives",
+    "account_id": "58",
+    "text": "Sector rotation recommendation: Suggested reducing financials exposure and increasing materials allocation for Kumar Pharma Holdings.",
+    "author": "Robert Taylor",
+    "created_at": "2024-02-27T14:45:20.129066Z",
+    "tags": [
+      "market events"
+    ],
+    "category": "market_events"
+  },
+  {
+    "id": "374f80ad-bef7-4358-b25a-7a1b35337cb0",
+    "household_id": "21",
+    "household_code": "pharmaceutical-executives",
+    "account_id": null,
+    "text": "Account maintenance: Updated contact information and investment objectives for Kumar Pharma Holdings. Changed risk tolerance from aggressive to conservative.",
+    "author": "Robert Taylor",
+    "created_at": "2025-09-13T14:45:20.129066Z",
+    "tags": [
+      "account management",
+      "risk assessment"
+    ],
+    "category": "account_management"
+  },
+  {
+    "id": "05ccab2f-e839-4d37-a2c8-702a1d2100f5",
+    "household_id": "21",
+    "household_code": "pharmaceutical-executives",
+    "account_id": "56",
+    "text": "Required Minimum Distribution (RMD) calculation completed for Kumar Pharma Holdings. 2024 RMD amount: $91,800. Distribution scheduled for 2025-10-18.",
+    "author": "Robert Taylor",
+    "created_at": "2024-03-14T14:45:20.130087Z",
+    "tags": [
+      "account management"
+    ],
+    "category": "account_management"
+  },
+  {
+    "id": "ca8c6b01-4877-4adf-9b91-331a42c344cd",
+    "household_id": "21",
+    "household_code": "pharmaceutical-executives",
+    "account_id": null,
+    "text": "Account maintenance: Updated contact information and investment objectives for Kumar Pharma Holdings. Changed risk tolerance from aggressive to moderate.",
+    "author": "Robert Taylor",
+    "created_at": "2025-09-13T14:45:20.130087Z",
+    "tags": [
+      "account management",
+      "risk assessment"
+    ],
+    "category": "account_management"
+  },
+  {
+    "id": "29c29008-75bf-438d-9719-c77fc81b2936",
+    "household_id": "21",
+    "household_code": "pharmaceutical-executives",
+    "account_id": "58",
+    "text": "Insurance review completed. Recommended increasing long-term care coverage by $750,000 based on current assets and income.",
+    "author": "Robert Taylor",
+    "created_at": "2025-04-28T14:45:20.130087Z",
+    "tags": [
+      "financial planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "da5ba2bf-9240-4fab-88a8-1dd6e48d14c5",
+    "household_id": "21",
+    "household_code": "pharmaceutical-executives",
+    "account_id": null,
+    "text": "KYC documentation updated for Kumar Pharma Holdings. Added will and verified employment status change to retired.",
+    "author": "Robert Taylor",
+    "created_at": "2024-07-10T14:45:20.130087Z",
+    "tags": [
+      "compliance review"
+    ],
+    "category": "compliance_review"
+  },
+  {
+    "id": "b3bf0b09-2a63-4b83-a467-ef701537526b",
+    "household_id": "21",
+    "household_code": "pharmaceutical-executives",
+    "account_id": "56",
+    "text": "Earnings season review: Discussed individual stock performance in Kumar Pharma Holdings's portfolio. Weak guidance noted in technology.",
+    "author": "Robert Taylor",
+    "created_at": "2024-02-05T14:45:20.130087Z",
+    "tags": [
+      "market events",
+      "performance review"
+    ],
+    "category": "market_events"
+  },
+  {
+    "id": "0e49e50f-b5a1-4221-9300-032c4ec477ee",
+    "household_id": "21",
+    "household_code": "pharmaceutical-executives",
+    "account_id": null,
+    "text": "New account opening: 401k Rollover established for Kumar Pharma Holdings with initial funding of $2,000,000. Investment policy statement created.",
+    "author": "Robert Taylor",
+    "created_at": "2025-07-03T14:45:20.130087Z",
+    "tags": [
+      "account management"
+    ],
+    "category": "account_management"
+  },
+  {
+    "id": "5474a982-4aa9-4283-8cf1-00fe019f3f71",
+    "household_id": "21",
+    "household_code": "pharmaceutical-executives",
+    "account_id": "57",
+    "text": "Insurance review completed. Recommended increasing umbrella coverage by $2,000,000 based on current assets and income.",
+    "author": "Robert Taylor",
+    "created_at": "2025-08-28T14:45:20.130087Z",
+    "tags": [
+      "financial planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "89cbeeae-7173-443c-853e-d1874843ceab",
+    "household_id": "21",
+    "household_code": "pharmaceutical-executives",
+    "account_id": "56",
+    "text": "Account maintenance: Updated contact information and investment objectives for Kumar Pharma Holdings. Changed risk tolerance from conservative to conservative.",
+    "author": "Robert Taylor",
+    "created_at": "2025-02-20T14:45:20.130087Z",
+    "tags": [
+      "account management",
+      "risk assessment"
+    ],
+    "category": "account_management"
+  },
+  {
+    "id": "2cf04e70-d6c4-44bc-8a2b-27b259f91f95",
+    "household_id": "21",
+    "household_code": "pharmaceutical-executives",
+    "account_id": null,
+    "text": "Earnings season review: Discussed individual stock performance in Kumar Pharma Holdings's portfolio. Strong earnings noted in financials.",
+    "author": "Robert Taylor",
+    "created_at": "2023-11-17T14:45:20.130087Z",
+    "tags": [
+      "market events",
+      "performance review"
+    ],
+    "category": "market_events"
+  },
+  {
+    "id": "d8b1f291-241e-4e20-b490-23603489e984",
+    "household_id": "21",
+    "household_code": "pharmaceutical-executives",
+    "account_id": null,
+    "text": "Education planning for Kumar Pharma Holdings's children. 529 plan contributions should increase to $1,500/month to meet goals.",
+    "author": "Robert Taylor",
+    "created_at": "2024-01-05T14:45:20.130087Z",
+    "tags": [
+      "financial planning"
+    ],
+    "category": "financial_planning"
+  },
+  {
+    "id": "98e6b395-c3f0-49a7-8cc3-a3a1acf94f55",
+    "household_id": "21",
+    "household_code": "pharmaceutical-executives",
+    "account_id": null,
+    "text": "Retirement planning meeting focused on tax strategies. Projected retirement income of $150,000 annually. Client needs to increase savings by 15%.",
+    "author": "Robert Taylor",
+    "created_at": "2024-11-22T14:45:20.130087Z",
+    "tags": [
+      "financial planning",
+      "tax planning",
+      "retirement planning"
+    ],
+    "category": "financial_planning"
+  }
+]

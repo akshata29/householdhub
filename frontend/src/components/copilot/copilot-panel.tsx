@@ -224,13 +224,35 @@ const getQuickActions = (householdId?: string) => [
   { 
     id: 'crm-insights', 
     icon: FileText, 
-    label: 'Recent CRM Notes', 
+    label: 'CRM Summary', 
     query: householdId
-      ? 'What are the recent CRM notes and interactions for this household?'
-      : 'What are the recent points of interest from CRM notes?',
+      ? 'Provide an executive summary based on recent CRM notes and activities for this household, including key insights, action items, and opportunities.'
+      : 'What are the recent points of interest from CRM notes across all households?',
     description: householdId
-      ? 'Get insights from this household\'s interactions'
+      ? 'AI-powered summary of CRM interactions'
       : 'Get insights from all interactions'
+  },
+  { 
+    id: 'crm-action-items', 
+    icon: AlertCircle, 
+    label: 'Action Items', 
+    query: householdId
+      ? 'Based on CRM notes, what are the key action items and follow-ups needed for this household?'
+      : 'What are the urgent action items across all households?',
+    description: householdId
+      ? 'Review pending tasks from CRM'
+      : 'Review all pending tasks'
+  },
+  { 
+    id: 'crm-opportunities', 
+    icon: TrendingUp, 
+    label: 'Opportunities', 
+    query: householdId
+      ? 'What planning opportunities have been identified in recent CRM conversations for this household?'
+      : 'What are the key opportunities identified across all households?',
+    description: householdId
+      ? 'Find planning opportunities from CRM'
+      : 'Find all planning opportunities'
   },
   { 
     id: 'allocation-drift', 
@@ -356,12 +378,33 @@ export function CopilotPanel({ householdId }: CopilotPanelProps) {
     setMessages(prev => [...prev, streamingMessage]);
 
     try {
+      // Fetch CRM context if household ID is available
+      let crmContext = null;
+      if (householdId) {
+        try {
+          const VECTOR_AGENT_URL = process.env.NEXT_PUBLIC_VECTOR_AGENT_URL || 'http://localhost:9002';
+          
+          // Fetch recent CRM notes for context
+          const crmResponse = await fetch(`${VECTOR_AGENT_URL}/household/${householdId}/crm/simple?limit=5`);
+          if (crmResponse.ok) {
+            const crmData = await crmResponse.json();
+            crmContext = {
+              recent_crm_notes: crmData.results || [],
+              crm_available: crmData.results?.length > 0
+            };
+          }
+        } catch (crmError) {
+          console.warn('Failed to fetch CRM context:', crmError);
+        }
+      }
+
       const request: QueryRequest = {
         query,
         household_id: householdId || 'general',
         user_context: {
           timestamp: new Date().toISOString(),
-          session_id: `session_${Date.now()}`
+          session_id: `session_${Date.now()}`,
+          crm_context: crmContext
         }
       };
 

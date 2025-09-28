@@ -6,6 +6,7 @@ import { PortfolioTab } from "@/features/portfolio/portfolio-tab";
 import { CashTab } from "@/features/cash/cash-tab";
 import { PlanningTab } from "@/features/planning/planning-tab";
 import { ReportsTab } from "@/features/reports/reports-tab";
+import { CrmTab } from "@/features/crm/crm-tab";
 import { CopilotPanel } from "@/components/copilot/copilot-panel";
 import { DataSourceBadge } from "@/components/data-source-indicator";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -32,6 +33,8 @@ export function Dashboard({ householdId }: DashboardProps) {
         return <CashTab householdId={householdId} />;
       case "planning":
         return <PlanningTab householdId={householdId} />;
+      case "crm":
+        return <CrmTab householdId={householdId} />;
       case "reports":
         return <ReportsTab householdId={householdId} />;
       default:
@@ -103,6 +106,12 @@ export function Dashboard({ householdId }: DashboardProps) {
               onClick={() => setActiveTab('planning')}
             >
               Planning
+            </button>
+            <button 
+              className={`tab-button ${activeTab === 'crm' ? 'active' : ''}`}
+              onClick={() => setActiveTab('crm')}
+            >
+              CRM
             </button>
             <button 
               className={`tab-button ${activeTab === 'reports' ? 'active' : ''}`}
